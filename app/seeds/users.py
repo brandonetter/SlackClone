@@ -7,11 +7,11 @@ from sqlalchemy.sql import text
 def seed_users():
     current_date = datetime.datetime.now()
     demo = User(
-        firstname="Demo", lastname="demo", username='Demo', email='demo@aa.io', password='password',createdat=current_date,updatedat=current_date)
+        firstname="Demo", lastname="demo", username='Demo', email='demo@aa.io', password='password')
     marnie = User(
-        firstname="Demo", lastname="demo",username='marnie', email='marnie@aa.io', password='password',createdat=current_date,updatedat=current_date)
+        firstname="Demo", lastname="demo",username='marnie', email='marnie@aa.io', password='password')
     bobbie = User(
-        firstname="Demo", lastname="demo",username='bobbie', email='bobbie@aa.io', password='password',createdat=current_date,updatedat=current_date)
+        firstname="Demo", lastname="demo",username='bobbie', email='bobbie@aa.io', password='password')
 
     db.session.add(demo)
     db.session.add(marnie)
