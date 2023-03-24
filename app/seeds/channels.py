@@ -11,7 +11,7 @@ def seed_channels():
     user2 = User.query.filter(User.username == "marnie").first()
 
     # select the channel type from the database
-    channel = Type.query.filter(Type.type == "CHANNEL").first()
+    channel = Type.query.filter(Type.name == "CHANNEL").first()
     # create a room
     room = Room(
         name="Demo Room", createdby=user.id,type=channel.id)

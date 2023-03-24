@@ -20,7 +20,7 @@ class Room(db.Model):
 
     @property
     def roomtype(self):
-        return Type.query.filter(Type.id == self.type).first().type
+        return Type.query.filter(Type.id == self.type).first().name
 
 
     @property

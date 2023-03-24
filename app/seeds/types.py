@@ -7,11 +7,11 @@ from sqlalchemy.sql import text
 def seed_types():
     current_date = datetime.datetime.now()
     DM = Type(
-        type="DM")
+        name="DM")
     GROUP_DM = Type(
-        type="GROUP_DM")
+        name="GROUP_DM")
     CHANNEL = Type(
-        type="CHANNEL")
+        name="CHANNEL")
 
     db.session.add(DM)
     db.session.add(GROUP_DM)
