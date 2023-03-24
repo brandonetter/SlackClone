@@ -2,6 +2,7 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
+from sqlalchemy.sql import func
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -18,8 +19,10 @@ class User(db.Model, UserMixin):
     about = db.Column(db.Text)
     profileicon = db.Column(db.String(255))
     status = db.Column(db.String(255))
-    createdat = db.Column(db.DateTime, nullable=False)
-    updatedat = db.Column(db.DateTime, nullable=False)
+    createdat = db.Column(db.DateTime, server_default=func.now())
+    updatedat = db.Column(db.DateTime, onupdate=func.now())
+    roommemberships = db.relationship('Room_Member', backref='user', lazy=True)
+    messages = db.relationship('Message', backref='user', lazy=True)
 
     @property
     def password(self):
