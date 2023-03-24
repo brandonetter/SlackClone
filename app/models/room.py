@@ -22,3 +22,10 @@ class Room(db.Model):
     def roomtype(self):
         return Type.query.filter(Type.id == self.type).first().type
 
+
+    @property
+    def member_list(self):
+        return [roommember.user for roommember in self.members]
+
+
+
