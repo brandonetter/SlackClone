@@ -27,7 +27,12 @@ def seed_types():
 # it will reset the primary keys for you as well.
 def undo_types():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.types RESTART IDENTITY CASCADE;")
+        db.session.execute(f'''
+        IF EXISTS (SELECT 1 FROM {SCHEMA}.TABLES WHERE TABLE_NAME = 'types')
+        BEGIN
+        TRUNCATE table {SCHEMA}.types RESTART IDENTITY CASCADE;
+        END
+        ''')
     else:
         db.session.execute(text("DELETE FROM types"))
 
