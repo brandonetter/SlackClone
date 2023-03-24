@@ -36,22 +36,26 @@ def undo():
     undo_types()
     undo_channels()
 
-    # Add other undo functions here
+
+
+
 @seed_commands.command('test')
 def test():
     # get all users
     users = User.query.all()
-    print(users)
-    # get each user's rooms
+    print("All users: ",[user.username for user in users])
+    # get each user's channels
     for user in users:
         print(user.username,"'s channels:", user.channels)
+        # user.channels is a list of channel objects
+        # user.dms, and user.group_dms also exist and reflect the DM and Group DM channels the user is in
 
     # get all rooms
     rooms = Room.query.all()
-    print(rooms)
+    print("All rooms: ",[room.name for room in rooms])
     # get each room's members
     for room in rooms:
-        print(room.name,"'s members:")
-        for member in room.member_list:
-            print(member.username)
+        print(room.name,"'s members:",[member.username for member in room.member_list])
+        # room.member_list is a list of user objects that are members of the room
+
 
