@@ -13,7 +13,7 @@ class Message(db.Model):
     userid = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     message = db.Column(db.Text, nullable=False)
     date = db.Column(db.DateTime, nullable=False)
-    createdat = db.Column(db.DateTime, server_default=func.now())
-    updatedat = db.Column(db.DateTime, onupdate=func.now())
+    createdat = db.Column(db.DateTime, server_default=func.now(),default=func.now())
+    updatedat = db.Column(db.DateTime, onupdate=func.now(),default=func.now())
 
 

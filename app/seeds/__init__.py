@@ -44,13 +44,4 @@ def test():
     print(users)
     # get each user's rooms
     for user in users:
-        print(user.roommemberships)
-        # get the room name for each room
-        for room in user.roommemberships:
-            print("START")
-            print(room.room.name)
-            # get the room type for each room
-            print(room.room.type)
-            # get the room members for each room
-            print(room.room.members)
-            print("END")
+        print(user.username,"'s channels:", user.channels)
