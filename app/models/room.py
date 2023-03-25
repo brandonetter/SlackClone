@@ -15,8 +15,10 @@ class Room(db.Model):
     type = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('types.id')), nullable=False)
     createdat = db.Column(db.DateTime, server_default=func.now(),default=func.now())
     updatedat = db.Column(db.DateTime, onupdate=func.now(),default=func.now())
-    members = db.relationship('Room_Member', backref='room', lazy=True)
 
+    #relationships
+    members = db.relationship('Room_Member', backref='room', lazy=True)
+    messages = db.relationship('Message', backref='room', lazy=True)
 
     @property
     def roomtype(self):
@@ -28,4 +30,6 @@ class Room(db.Model):
         return [roommember.user for roommember in self.members]
 
 
-
+    @property
+    def message_list(self):
+        return [message for message in self.messages]
