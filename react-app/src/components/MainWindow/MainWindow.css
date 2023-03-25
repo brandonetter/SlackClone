@@ -1,0 +1,7 @@
+.main-window {
+  display: flex;
+  flex-direction: row;
+  height: 60vh;
+  width: 100%;
+  background-color: #f5f5f5;
+}
