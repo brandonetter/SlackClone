@@ -19,10 +19,28 @@ class User(db.Model, UserMixin):
     about = db.Column(db.Text)
     profileicon = db.Column(db.String(255))
     status = db.Column(db.String(255))
-    createdat = db.Column(db.DateTime, server_default=func.now())
-    updatedat = db.Column(db.DateTime, onupdate=func.now())
+    createdat = db.Column(db.DateTime, server_default=func.now(),default=func.now())
+    updatedat = db.Column(db.DateTime, onupdate=func.now(),default=func.now())
+
+    #relationships
     roommemberships = db.relationship('Room_Member', backref='user', lazy=True)
     messages = db.relationship('Message', backref='user', lazy=True)
+
+    @property
+    def rooms(self):
+        return [roommember.room for roommember in self.roommemberships]
+
+    @property
+    def channels(self):
+        return [room for room in self.rooms if room.roomtype == 'CHANNEL']
+
+    @property
+    def dms(self):
+        return [room for room in self.rooms if room.roomtype =='DM']
+
+    @property
+    def group_dms(self):
+        return [room for room in self.rooms if room.roomtype == 'GROUP_DM']
 
     @property
     def password(self):
