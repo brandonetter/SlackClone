@@ -6,16 +6,56 @@
     height: fit-content;
     padding: 5px;
 }
-.main-chat-input-icons{
-    height:35px;
+.RichEditor-controls{
+    margin-bottom:auto;cursor: text;
+    width:100%;
+}
+.RichEditor-styleButton:hover{
+    background-color: #414141;
+    color: #D1D2D3;
+
+}
+.RichEditor-styleButton{
+    display: inline-block;
+    padding: 2px 0px;
+    margin-right: 16px;
+    font-size: 14px;
+    cursor: pointer;
+
+    border-radius: 5px;
+    background-color: #222529;
+    width: 20px;
+    text-align: center;
+    justify-content: center;
+    color: #D1D2D3;
+}
+.RichEditor-activeButton{
+    background-color: #414141;
+    color: #D1D2D3;
+}
+.main-chat-input-controls{
+    height:25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #414141;
 }
 
 .main-chat-input-buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: end;
     height:35px;
 }
 .main-chat-input-text{
+    margin-top: 10px;
+    padding-left: 2px;
     font-size: 13px;
     max-height: 50vh;
+    min-height: 100px;
+
     overflow-y: auto;
 }
 /*set the scroll bar color*/
