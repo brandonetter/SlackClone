@@ -15,7 +15,7 @@ function Navigation({ isLoaded }) {
       <div className="navLogoName">
         <img className="logo" src={Logo} alt="Slick Logo" />
         <NavLink exact to="/">
-          slick
+          SlackClone
         </NavLink>
       </div>
 

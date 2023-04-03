@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { joinDefaultRoom } from "../../store/channel";
 import { useSelector } from "react-redux";
+import MainChatInput from "../MainChatInput";
 import "./MainChat.css";
 // disconnect socket on unmount
 
@@ -28,11 +29,11 @@ function MainChat() {
 
   return (
     <div className="main-chat-container">
-      <div className="main-chat"></div>
+      <div className="main-chat">{currentChannel && <h3>{currentChannel.name}</h3>}</div>
       <div className="main-chat-text-box">
-        <input type="text" placeholder="Type a message" />
-        <button>Send</button>
-        {currentChannel && <h3>{currentChannel.name}</h3>}
+
+
+        <MainChatInput />
       </div>
     </div>
   );

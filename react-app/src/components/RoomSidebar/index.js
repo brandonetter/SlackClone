@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { joinDefaultRoom } from "../../store/channel";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-
+import "./RoomSidebar.css";
 function RoomSidebar() {
   const dispatch = useDispatch();
   const currentChannel = useSelector((state) => state.channel.room);

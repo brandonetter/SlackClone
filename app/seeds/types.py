@@ -3,9 +3,7 @@ from app.models import db, Type, environment, SCHEMA
 from sqlalchemy.sql import text
 
 
-# Adds a demo user, you can add other users here if you want
 def seed_types():
-    current_date = datetime.datetime.now()
     DM = Type(
         name="DM")
     GROUP_DM = Type(
