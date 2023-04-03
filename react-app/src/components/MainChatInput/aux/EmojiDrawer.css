@@ -1,0 +1,74 @@
+.emoji-drawer__container{
+    position: absolute;
+    z-index: 1;
+    top:-15px;
+    left:20px;
+    width: 400px;
+    height: 40px;
+    padding:10px;
+    border: 1px solid #414141;
+    border-radius: 10px 10px 0px 0px;
+    background-color: #1A1D21;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    overflow: hidden;
+    animation: unrollOpen 0.4s ease 0s 1;
+}
+.emoji-blocker{
+    background-color: #1A1D21;
+    width:400px;
+    border-top: 1px solid #414141;
+    top:24px;
+    height:40px;
+    position: absolute;
+    left:20px;
+    z-index: 3;
+}
+.emoji-button{
+    cursor: pointer;
+}
+.emoji-button:hover{
+    animation: roll 1s ease 0.2s 1;
+}
+/* make animation keyframes named unrollOpen that widens the emoji drawer */
+@keyframes unrollOpen {
+    0%{
+        opacity: 0;
+        top:30px;
+    }
+
+    100%{
+        opacity: 1;
+        top:-15px;
+    }
+
+}
+@keyframes roll {
+    0%{
+
+        transform: rotate(0deg);
+    }
+    50%{
+        color: #ffffff;
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
+
+
+.emoji-drawer__container__emoji{
+    user-select: none;
+    z-index: 1;
+    cursor: pointer;
+    margin-bottom: 200px;
+}
+.emoji-drawer{
+    z-index: 1;
+    position:relative;
+
+}
