@@ -15,6 +15,18 @@
 }
 .main-chat-input-text{
     font-size: 13px;
+    max-height: 50vh;
+    overflow-y: auto;
+}
+/*set the scroll bar color*/
+.main-chat-input-text::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 10px;
+    background-color: #1A1D21;
+}
+.main-chat-input-text::-webkit-scrollbar-thumb {
+    background-color: #414141;
+    border-radius: 10px;
 }
 .main-chat-input-text:focus{
     outline: none;
