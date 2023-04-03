@@ -1,0 +1,17 @@
+.main-window {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  /* background-color: #1A1D21; */
+}
+.main-window-container{
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background-color: #1A1D21;
+  color: #D1D2D3;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}

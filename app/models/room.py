@@ -33,3 +33,14 @@ class Room(db.Model):
     @property
     def message_list(self):
         return [message for message in self.messages]
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'createdby': self.createdby,
+            'type': self.type,
+            'createdat': self.createdat,
+            'updatedat': self.updatedat,
+            'roomtype': self.roomtype,
+        }

@@ -1,0 +1,23 @@
+.main-chat-input{
+    width:100%;
+    border: 2px solid #414141;
+    border-radius: 10px;
+    background-color: #222529;
+    height: fit-content;
+    padding: 5px;
+}
+.main-chat-input-icons{
+    height:35px;
+}
+
+.main-chat-input-buttons{
+    height:35px;
+}
+.main-chat-input-text{
+    font-size: 13px;
+}
+.main-chat-input-text:focus{
+    outline: none;
+}
+
+

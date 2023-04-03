@@ -5,3 +5,34 @@
 .hidden {
   display: none;
 }
+.nav-container {
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 0;
+  background-color: #400d40;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 150px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90px;
+  width: 90px;
+  margin-right: 10px;
+}
+.navLogoName {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 3.5rem;
+  font-family: "Roboto", sans-serif;
+  color: #fff;
+}
+.navLogoName a {
+  text-decoration: none;
+  color: #fff;
+}

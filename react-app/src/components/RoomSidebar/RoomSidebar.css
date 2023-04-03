@@ -1,0 +1,18 @@
+.room-sidebar{
+    /*
+    slack colors
+    */
+    background-color: #19171D;
+    color: #828184;
+    height: 100%;
+    width: 260px;
+    /* position: fixed; */
+    top: 0;
+    left: 0;
+    z-index: 1;
+    overflow-x: hidden;
+    padding-top: 60px;
+    padding-left: 14px;
+    transition: 0.5s;
+    border-right: 2px solid #262626e0;
+}

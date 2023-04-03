@@ -7,13 +7,16 @@ from flask_login import LoginManager
 from .models import db, User
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
-
+from .api.room_routes import room_routes
 from .seeds import seed_commands
 from .config import Config
 from flask_socketio import SocketIO, emit
 
+# set socketIO to async_mode
+
+
 app = Flask(__name__, static_folder='../react-app/build', static_url_path='/')
-socketio = SocketIO(app,cors_allowed_origins="*")
+socketio = SocketIO(app,async_mode='eventlet',cors_allowed_origins="*")
 # Setup login manager
 login = LoginManager(app)
 login.login_view = 'auth.unauthorized'
@@ -30,6 +33,7 @@ app.cli.add_command(seed_commands)
 app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
+app.register_blueprint(room_routes, url_prefix='/api/room')
 
 from .sockets import socketBluePrint
 app.register_blueprint(socketBluePrint)

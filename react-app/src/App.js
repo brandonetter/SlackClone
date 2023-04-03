@@ -5,9 +5,11 @@ import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
-import { io } from "socket.io-client";
+import configureStore from "./store";
+import MainChat from "./components/MainChat";
+import RoomSidebar from "./components/RoomSidebar";
+import MainWindow from "./components/MainWindow";
 
-const socket = io();
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -17,14 +19,20 @@ function App() {
 
   return (
     <>
-      <Navigation isLoaded={isLoaded} />
+
       {isLoaded && (
         <Switch>
+          <Route path="/" exact>
+            <Navigation isLoaded={isLoaded} />
+            </Route>
           <Route path="/login">
+            <Navigation isLoaded={isLoaded} />
             <LoginFormPage />
           </Route>
-          <Route path="/signup">
-            <SignupFormPage />
+
+          <Route path="/signup"></Route>
+          <Route path="/chat">
+            <MainWindow />
           </Route>
         </Switch>
       )}
