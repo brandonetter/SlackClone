@@ -1,7 +1,7 @@
 
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from sqlalchemy.sql import func
-
+from .user import User
 class Message(db.Model):
     __tablename__ = 'messages'
 
@@ -17,3 +17,22 @@ class Message(db.Model):
     updatedat = db.Column(db.DateTime, onupdate=func.now(),default=func.now())
 
 
+    def to_dict(self):
+        # convert datetime to string
+        self.date = self.date.strftime("%m/%d/%Y, %H:%M:%S")
+        
+        # include the username
+        self.username = User.query.get(self.userid).username
+      
+        # include the user profileIcon
+        self.profileIcon = User.query.get(self.userid).profileicon
+
+        return {
+            "id": self.id,
+            "roomid": self.roomid,
+            "userid": self.userid,
+            "message": self.message,
+            "profileIcon": self.profileIcon,
+            "username": self.username,
+            "date": self.date,
+        }

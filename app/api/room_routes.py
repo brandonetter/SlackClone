@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify,session
 from flask_login import login_required, current_user
 from app.models import User
 
@@ -13,8 +13,10 @@ def init():
     """
     rooms = current_user.rooms
     if(len(rooms) == 0):
+        session['room'] = None
         return {'null'}
     else:
+        session['room'] = rooms[0].id
         return rooms[0].to_dict()
 
 @room_routes.route('/all')
