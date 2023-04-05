@@ -19,7 +19,7 @@ class Message(db.Model):
 
     def to_dict(self):
         # convert datetime to string
-        self.date = self.date.strftime("%m/%d/%Y, %H:%M:%S")
+        date = self.date.strftime("%m/%d/%Y, %H:%M:%S")
         
         # include the username
         self.username = User.query.get(self.userid).username
@@ -34,5 +34,5 @@ class Message(db.Model):
             "message": self.message,
             "profileIcon": self.profileIcon,
             "username": self.username,
-            "date": self.date,
+            "date": date,
         }
