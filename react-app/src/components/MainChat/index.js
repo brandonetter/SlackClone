@@ -14,6 +14,7 @@ function MainChat() {
   const [socket, setSocket] = useState(null);
   const [messages, setMessages] = useState([]);
   const [timeout, setTime] = useState(null);
+  const [scrollLock, setScrollLock] = useState(true);
   useEffect(() => {
     if (!socket) {
       setSocket(io());
@@ -55,6 +56,34 @@ function MainChat() {
   }, [timeout]);
 
 
+  // Handle locking the scroll
+  // of the chat to the bottom
+  // unless the user moves the scroll to the bottom
+  useEffect(() => {
+    let element = document.querySelector(".main-chat");
+
+    function lockScroll() {
+      if (element.scrollHeight - element.scrollTop === element.clientHeight) {
+        setScrollLock(true);
+      } else {
+        setScrollLock(false);
+      }
+    }
+    element.addEventListener('scroll', lockScroll);
+
+    function updateScroll(element) {
+      element.scrollTop = element.scrollHeight;
+    }
+    let id = setInterval(() => {
+      if (scrollLock) {
+        updateScroll(element);
+      }
+    }, 100);
+    return () => {
+      clearInterval(id);
+      element.removeEventListener('scroll', lockScroll);
+    }
+  });
   return (
     <div className="main-chat-container">
       <div className="main-chat">
