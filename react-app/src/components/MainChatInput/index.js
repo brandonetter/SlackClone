@@ -8,8 +8,14 @@ import 'draft-js/dist/Draft.css';
 import StyleButton from './aux/StyleButton';
 import EmojiDrawer from './aux/EmojiDrawer';
 import { BLOCK_TYPES, styleMap } from './aux/blockTypes';
-function MainChatInput() {
+import draftToMarkdown from 'draftjs-to-markdown';
+import { convertToRaw } from 'draft-js';
 
+function MainChatInput(props) {
+    let socket = props.socket;
+
+
+    const [shift, setShift] = useState(false);
     function BlockStyleControls(props) {
 
         const selection = editorState.getSelection();
@@ -71,8 +77,23 @@ function MainChatInput() {
         }
     }
     function mapKeyToEditorCommand(e) {
-        if (e.key === "Enter") {
-            console.log(editorState.getCurrentContent().getPlainText('\u0001'));
+
+        if (e.key === "Enter" && !e.shiftKey) {
+
+            // Convert to markdown and send to server
+            const rawContentState = convertToRaw(editorState.getCurrentContent());
+            const markup = draftToMarkdown(rawContentState);
+            console.log(markup);
+            socket.emit("chat-message", markup);
+            // Clear the editor
+            const newState = EditorState.createEmpty()
+            setEditorState(
+                EditorState.moveFocusToEnd(newState)
+            )
+
+
+            return;
+
         }
 
         if (e.keyCode === 9 /* TAB */) {

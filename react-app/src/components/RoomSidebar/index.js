@@ -8,7 +8,7 @@ function RoomSidebar() {
   const currentChannel = useSelector((state) => state.channel.room);
   useEffect(() => {
     if (!currentChannel) dispatch(joinDefaultRoom());
-  }, []);
+  });
 
   return (
     <div className="room-sidebar">

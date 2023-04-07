@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
-import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
-import configureStore from "./store";
-import MainChat from "./components/MainChat";
-import RoomSidebar from "./components/RoomSidebar";
 import MainWindow from "./components/MainWindow";
 
 function App() {
@@ -24,7 +20,7 @@ function App() {
         <Switch>
           <Route path="/" exact>
             <Navigation isLoaded={isLoaded} />
-            </Route>
+          </Route>
           <Route path="/login">
             <Navigation isLoaded={isLoaded} />
             <LoginFormPage />
