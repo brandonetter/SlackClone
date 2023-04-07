@@ -1,20 +1,26 @@
 import { io } from "socket.io-client";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { joinDefaultRoom } from "../../store/channel";
+import { joinDefaultRoom, getUsersInRoom } from "../../store/channel";
 import { useSelector } from "react-redux";
 import MainChatInput from "../MainChatInput";
-import "./MainChat.css";
 import defaultIcon from "../../assets/defaultIcon.png";
+import "./MainChat.css";
+// import marked
+
+import ChatMessage from "./component/ChatMessage";
 // disconnect socket on unmount
 
 function MainChat() {
   const dispatch = useDispatch();
   const currentChannel = useSelector((state) => state.channel.room);
+  const currentUsers = useSelector((state) => state.channel.users);
   const [socket, setSocket] = useState(null);
   const [messages, setMessages] = useState([]);
+  const [formattedMessages, setFormattedMessages] = useState([]);
   const [timeout, setTime] = useState(null);
   const [scrollLock, setScrollLock] = useState(true);
+  const [users, setUsers] = useState([]);
   useEffect(() => {
     if (!socket) {
       setSocket(io());
@@ -42,10 +48,17 @@ function MainChat() {
     });
     if (socket && currentChannel) {
       socket.emit("get-room-messages");
+      dispatch(getUsersInRoom(currentChannel.id));
 
     }
 
+
   }, [socket, currentChannel]);
+
+  useEffect(() => {
+    if (!currentUsers) return;
+    setUsers(currentUsers);
+  }, [currentUsers]);
 
   useEffect(() => {
     if (!socket) return;
@@ -55,57 +68,73 @@ function MainChat() {
 
   }, [timeout]);
 
-
-  // Handle locking the scroll
-  // of the chat to the bottom
-  // unless the user moves the scroll to the bottom
   useEffect(() => {
-    let element = document.querySelector(".main-chat");
-
-    function lockScroll() {
-      if (element.scrollHeight - element.scrollTop === element.clientHeight) {
-        setScrollLock(true);
-      } else {
-        setScrollLock(false);
+    // add an empty message between messages when the day changes
+    let newMessages = [];
+    let lastDate = null;
+    messages.forEach((message) => {
+      let date = new Date(message.date);
+      let day = date.getDate();
+      let month = date.getMonth();
+      let year = date.getFullYear();
+      let newDate = `${month}/${day}/${year}`;
+      if (lastDate !== newDate) {
+        newMessages.push({ isDate: true, date: newDate, id: newDate });
       }
-    }
-    element.addEventListener('scroll', lockScroll);
+      newMessages.push(message);
+      lastDate = newDate;
+    });
 
-    function updateScroll(element) {
+    // check if the user is at the bottom of the chat
+    let element = document.querySelector(".main-chat");
+    if (element.scrollHeight - element.scrollTop - 1 <= element.clientHeight) {
+      setScrollLock(true);
+    } else {
+      setScrollLock(false);
+    }
+
+    setFormattedMessages(newMessages);
+
+  }, [messages]);
+  useEffect(() => {
+    // scroll to bottom of chat once the formatted messages are updated
+    // if the user is at the bottom of the chat already
+    let element = document.querySelector(".main-chat");
+    if (scrollLock) {
       element.scrollTop = element.scrollHeight;
     }
-    let id = setInterval(() => {
-      if (scrollLock) {
-        updateScroll(element);
-      }
-    }, 100);
-    return () => {
-      clearInterval(id);
-      element.removeEventListener('scroll', lockScroll);
-    }
-  });
+  }, [formattedMessages]);
+
   return (
     <div className="main-chat-container">
+
       <div className="main-chat">
-        {currentChannel && <h3 className='chat-room-name'>{currentChannel.name}</h3>}
-        {messages.map((message) => (
-          <div key={message.id} className="chat-message">
-            <div className="chat-message-icon">
-              {message.profileicon ? <img src={message.profileicon} alt="profile icon" /> : <img src={defaultIcon} alt="profile icon" />}
-            </div>
-            <div className="chat-message-content">
-              <h4>{message.username}</h4>
-              <p>{message.message}</p>
-            </div>
+        <div className="main-chat-header">
+          {currentChannel && <h1 className='chat-room-name'>{currentChannel.name}</h1>}
+          <div className='main-chat-user-list'>
+            <img className='main-chat-user-list-icon' src={defaultIcon} alt='user icon' />
+            {currentUsers && currentUsers.length}
+            {currentUsers && currentUsers.map((user) => (
+
+              <div className='main-chat-user' key={user.id}>{user.username}</div>
+
+            ))}
           </div>
-        ))}
+        </div>
+        <div className='main-chat-messages'>
+          {formattedMessages.map((message) => (
+            <ChatMessage message={message} key={message.id} />
+          ))}
+        </div>
       </div>
+      <br />
       <div className="main-chat-text-box">
 
 
         <MainChatInput socket={socket} />
       </div>
-    </div>
+      {/* {scrollLock && 'lol'} */}
+    </div >
   );
 }
 export default MainChat;

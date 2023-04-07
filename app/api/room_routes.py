@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify,session
 from flask_login import login_required, current_user
-from app.models import User
+from app.models import User,Room
 
 room_routes = Blueprint('room', __name__)
 
@@ -30,3 +30,14 @@ def all():
         return {'null'}
     else:
         return [room.to_dict() for room in rooms]
+
+
+@room_routes.route('/<id>/users')
+@login_required
+def users(id):
+    """
+    Query for all users and returns them in a list of user dictionaries
+    """
+    # return {'null'}
+    room = Room.query.get(id)
+    return [user.to_dict() for user in room.member_list]

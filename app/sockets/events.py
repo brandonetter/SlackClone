@@ -38,8 +38,14 @@ def get_room_messages():
         # Get the current room
         room = session.get('room')
         # ddprint(room)
+
         # Get the messages for the current room
-        messages = Message.query.filter(Message.roomid == room).all()
-        print(messages)
+        #messages = Message.query.filter(Message.roomid == room).all()
+
+        # Get the last 25 messages for the current room
+        messages = Message.query.filter(Message.roomid == room).order_by(Message.id.desc()).limit(25).all()
+        messages.reverse()
+
+        #print(messages)
        # emit the messages to the user that requested them
         emit('room-messages', [message.to_dict() for message in messages])
