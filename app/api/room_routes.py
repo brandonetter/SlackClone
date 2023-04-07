@@ -25,6 +25,7 @@ def all():
     """
     Query for all users and returns them in a list of user dictionaries
     """
+    
     rooms = current_user.rooms
     if(len(rooms) == 0):
         return {'null'}

@@ -5,6 +5,7 @@ import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import MainWindow from "./components/MainWindow";
+import ChannelBrowser from "./components/ChannelList/ChannelList";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,6 +31,11 @@ function App() {
           <Route path="/chat">
             <MainWindow />
           </Route>
+
+          {/* <Route exact path="/channel">
+            <ChannelBrowser/>
+          </Route> */}
+
         </Switch>
       )}
     </>
