@@ -84,8 +84,10 @@ function MainChat() {
   useEffect(() => {
     if (!socket) return;
     setInterval(() => {
+
       socket.emit("get-room-messages", "latest");
     }, 5000);
+
 
   }, [timeout]);
 

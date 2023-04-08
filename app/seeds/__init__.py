@@ -4,6 +4,7 @@ from .types import seed_types, undo_types
 from .channels import seed_channels, undo_channels
 from app.models.db import db, environment, SCHEMA
 
+
 from app.models import db, User,Room, environment, SCHEMA
 # Creates a seed group to hold our commands
 # So we can type `flask seed --help`
@@ -57,5 +58,3 @@ def test():
     for room in rooms:
         print(room.name,"'s members:",[member.username for member in room.member_list])
         # room.member_list is a list of user objects that are members of the room
-
-
