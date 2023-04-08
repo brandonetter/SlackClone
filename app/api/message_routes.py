@@ -12,6 +12,10 @@ message_routes = Blueprint('messages', __name__)
 def delete(id):
     if current_user.is_authenticated:
         message = Message.query.get(id)
+        # check if the message belongs to the current user
+        if message.userid != current_user.id:
+            return {'errors': ['Unauthorized']}
+
         # set the contents of the message to "deleted" so that it is not
         # displayed in the chat
         message.message = "*message deleted*"
@@ -30,6 +34,9 @@ def edit(id):
 
     if current_user.is_authenticated:
         message = Message.query.get(id)
+        if message.userid != current_user.id:
+            return {'errors': ['Unauthorized']}
+
         # set the contents of the message to "deleted" so that it is not
         # displayed in the chat
         message.message = message_content['message']
