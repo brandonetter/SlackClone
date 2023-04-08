@@ -9,7 +9,7 @@ room_routes = Blueprint('room', __name__)
 @login_required
 def init():
     """
-    Query for all users and returns them in a list of user dictionaries
+    Query for all rooms and puts the first room in the session
     """
     rooms = current_user.rooms
     if(len(rooms) == 0):
@@ -23,7 +23,7 @@ def init():
 @login_required
 def all():
     """
-    Query for all users and returns them in a list of user dictionaries
+    Query for all rooms and returns them in a list of room dictionaries
     """
     rooms = current_user.rooms
     if(len(rooms) == 0):

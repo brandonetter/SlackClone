@@ -6,10 +6,9 @@ import { useSelector } from "react-redux";
 import MainChatInput from "../MainChatInput";
 import defaultIcon from "../../assets/defaultIcon.png";
 import "./MainChat.css";
-// import marked
 
 import ChatMessage from "./component/ChatMessage";
-// disconnect socket on unmount
+
 
 function MainChat() {
   const dispatch = useDispatch();
@@ -21,6 +20,7 @@ function MainChat() {
   const [timeout, setTime] = useState(null);
   const [scrollLock, setScrollLock] = useState(true);
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     if (!socket) {
       setSocket(io());
@@ -37,8 +37,7 @@ function MainChat() {
       console.log("disconnected");
     });
     socket.on("message-incoming", (message) => {
-      console.log('aaa');
-      socket.emit("get-room-messages");
+      socket.emit("get-room-messages", "latest");
     });
     socket.on("room-messages", (messages) => {
       if (!timeout) {
@@ -46,8 +45,15 @@ function MainChat() {
       }
       setMessages(messages);
     });
+    socket.on("room-messages-append", (message) => {
+      setLoading(false);
+      console.log(message);
+      if (message[0]?.noMessage) return;
+      setMessages((messages) => [...message, ...messages].filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i));
+    });
+
     if (socket && currentChannel) {
-      socket.emit("get-room-messages");
+      socket.emit("get-room-messages", "latest");
       dispatch(getUsersInRoom(currentChannel.id));
 
     }
@@ -63,8 +69,8 @@ function MainChat() {
   useEffect(() => {
     if (!socket) return;
     setInterval(() => {
-      socket.emit("get-room-messages");
-    }, 5000);
+      socket.emit("get-room-messages", "latest");
+    }, 50000);
 
   }, [timeout]);
 
@@ -105,23 +111,32 @@ function MainChat() {
     }
   }, [formattedMessages]);
 
+  function checkScroll(e) {
+    // check if the user is at the top of the chat
+    let element = e.target;
+    if (element.scrollTop === 0) {
+      console.log("top");
+      // get the id of the first message in the chat
+      let firstMessageId = formattedMessages[1].id;
+      socket.emit("get-room-messages", firstMessageId);
+      setLoading(true);
+    }
+  }
+
   return (
     <div className="main-chat-container">
 
-      <div className="main-chat">
+      <div className="main-chat" onScroll={checkScroll}>
         <div className="main-chat-header">
           {currentChannel && <h1 className='chat-room-name'>{currentChannel.name}</h1>}
           <div className='main-chat-user-list'>
             <img className='main-chat-user-list-icon' src={defaultIcon} alt='user icon' />
-            {currentUsers && currentUsers.length}
-            {currentUsers && currentUsers.map((user) => (
+            {currentUsers && currentUsers.length} Users
 
-              <div className='main-chat-user' key={user.id}>{user.username}</div>
-
-            ))}
           </div>
         </div>
         <div className='main-chat-messages'>
+          {loading && 'Loading Messages...'}
           {formattedMessages.map((message) => (
             <ChatMessage message={message} key={message.id} />
           ))}
@@ -133,7 +148,6 @@ function MainChat() {
 
         <MainChatInput socket={socket} />
       </div>
-      {/* {scrollLock && 'lol'} */}
     </div >
   );
 }
