@@ -1,12 +1,18 @@
 import defaultIcon from "../../../assets/defaultIcon.png";
 import { marked } from "marked";
+import { useState, useEffect } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
+
 // marked.setOptions({
 //     breaks: true,
 //     gfm: true,
 // });
 
 
-function ChatMessage({ message }) {
+function ChatMessage({ message, user, deleteMessage }) {
+    const [isHovering, setIsHovering] = useState(false);
+    const [dropDown, setDropDown] = useState(false);
     function getTimeFromDate(date) {
         let time = new Date(date);
         let hours = time.getHours();
@@ -73,15 +79,37 @@ function ChatMessage({ message }) {
 
     }
 
+    function showDelete() {
+        if (message.userid === user.id && isHovering) {
+            return true;
+        }
+        return false;
+    }
+    function showDropDown() {
+        setDropDown(!dropDown);
+    }
     return (
 
-        <div className="chat-message">
+        <div className="chat-message" onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>
             <div className="chat-message-icon">
                 {message.profileicon ? <img src={message.profileicon} alt="profile icon" /> : <img src={defaultIcon} alt="profile icon" className={convertToTint(message.firstname)} />}
             </div>
             <div className="chat-message-content">
-                <h4>{message.firstname} {message.lastname} <span className='chat-message-date'>{getTimeFromDate(message.date)}</span></h4>
+                <div className="chat-message-content-header">
+                    <h4>{message.firstname} {message.lastname} <span className='chat-message-date'>{getTimeFromDate(message.date)}</span></h4>
+
+                    {showDelete() && <div className="chat-message-edit-delete">
+                        <div className="chat-message-edit-dropdown-button" onClick={showDropDown}>
+                            <FontAwesomeIcon icon={faEllipsis} />
+                        </div>
+                        {dropDown && <div className="chat-message-edit-dropdown">
+                            <div className="chat-message-edit-dropdown-item">Edit</div>
+                            <div className="chat-message-edit-dropdown-item" onClick={() => deleteMessage(message.id)}>Delete</div>
+                        </div>}
+                    </div>}
+                </div>
                 <p dangerouslySetInnerHTML={{ __html: message.message }}></p>
+
             </div>
         </div>
 

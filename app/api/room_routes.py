@@ -11,7 +11,9 @@ def init():
     """
     Query for all rooms and puts the first room in the session
     """
+
     rooms = current_user.rooms
+    print(rooms)
     if(len(rooms) == 0):
         session['room'] = None
         return {'null'}

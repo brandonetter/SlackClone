@@ -1,7 +1,8 @@
 import { io } from "socket.io-client";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Redirect } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { joinDefaultRoom, getUsersInRoom } from "../../store/channel";
+import { joinDefaultRoom, getUsersInRoom, deleteMessage } from "../../store/channel";
 import { useSelector } from "react-redux";
 import MainChatInput from "../MainChatInput";
 import defaultIcon from "../../assets/defaultIcon.png";
@@ -14,6 +15,8 @@ function MainChat() {
   const dispatch = useDispatch();
   const currentChannel = useSelector((state) => state.channel.room);
   const currentUsers = useSelector((state) => state.channel.users);
+  const sessionUser = useSelector((state) => state.session.user);
+
   const [socket, setSocket] = useState(null);
   const [messages, setMessages] = useState([]);
   const [formattedMessages, setFormattedMessages] = useState([]);
@@ -21,10 +24,12 @@ function MainChat() {
   const [scrollLock, setScrollLock] = useState(true);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState("Loading...");
+  const [redirect, setRedirect] = useState(null);
   useEffect(() => {
     if (!socket) {
       setSocket(io());
-      // dispatch(joinDefaultRoom());
+      //dispatch(joinDefaultRoom());
     }
   }, []);
   useEffect(() => {
@@ -39,17 +44,27 @@ function MainChat() {
     socket.on("message-incoming", (message) => {
       socket.emit("get-room-messages", "latest");
     });
-    socket.on("room-messages", (messages) => {
+    socket.on("room-messages", (message) => {
+      if (message.length === 0) {
+        // force a rerender
+        setRedirect(<Redirect to="/chat-session-reload" />);
+      }
       if (!timeout) {
         setTime(true);
       }
-      setMessages(messages);
+      setMessages((messages) => [...messages, ...message].filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i));
+
     });
     socket.on("room-messages-append", (message) => {
-      setLoading(false);
-      console.log(message);
-      if (message[0]?.noMessage) return;
-      setMessages((messages) => [...message, ...messages].filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i));
+
+      if (message[0]?.noMessage) {
+        setLoadingMessage("No more messages");
+        return;
+      }
+      setTimeout(() => {
+        setLoading(false);
+        setMessages((messages) => [...message, ...messages].filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i));
+      }, 300);
     });
 
     if (socket && currentChannel) {
@@ -70,7 +85,7 @@ function MainChat() {
     if (!socket) return;
     setInterval(() => {
       socket.emit("get-room-messages", "latest");
-    }, 50000);
+    }, 5000);
 
   }, [timeout]);
 
@@ -122,10 +137,25 @@ function MainChat() {
       setLoading(true);
     }
   }
+  async function tryDeleteMessage(messageId) {
+
+    let res = await dispatch(deleteMessage(messageId));
+    if (res.message === 'Message deleted') {
+      // delete a message from the chat locally
+      let message = messages.find((message) => message.id === messageId);
+      if (!message) return;
+      message.message = "*message deleted*";
+      setMessages((messages) => messages.map((message) => message.id === messageId ? message : message));
+    } else {
+      // failure, handle toast popup or whatever
+      // maybe later
+    }
+
+  }
 
   return (
     <div className="main-chat-container">
-
+      {redirect}
       <div className="main-chat" onScroll={checkScroll}>
         <div className="main-chat-header">
           {currentChannel && <h1 className='chat-room-name'>{currentChannel.name}</h1>}
@@ -136,9 +166,9 @@ function MainChat() {
           </div>
         </div>
         <div className='main-chat-messages'>
-          {loading && 'Loading Messages...'}
+          {loading && <span className='chat-loading-message'>{loadingMessage}</span>}
           {formattedMessages.map((message) => (
-            <ChatMessage message={message} key={message.id} />
+            <ChatMessage message={message} deleteMessage={tryDeleteMessage} user={sessionUser} key={message.id} />
           ))}
         </div>
       </div>
