@@ -1,30 +1,35 @@
 import { io } from "socket.io-client";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Redirect } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { joinDefaultRoom, getUsersInRoom } from "../../store/channel";
+import { joinDefaultRoom, getUsersInRoom, deleteMessage, updateMessage } from "../../store/channel";
 import { useSelector } from "react-redux";
 import MainChatInput from "../MainChatInput";
 import defaultIcon from "../../assets/defaultIcon.png";
 import "./MainChat.css";
-// import marked
 
 import ChatMessage from "./component/ChatMessage";
-// disconnect socket on unmount
+
 
 function MainChat() {
   const dispatch = useDispatch();
   const currentChannel = useSelector((state) => state.channel.room);
   const currentUsers = useSelector((state) => state.channel.users);
+  const sessionUser = useSelector((state) => state.session.user);
+
   const [socket, setSocket] = useState(null);
   const [messages, setMessages] = useState([]);
   const [formattedMessages, setFormattedMessages] = useState([]);
   const [timeout, setTime] = useState(null);
   const [scrollLock, setScrollLock] = useState(true);
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState("Loading...");
+  const [redirect, setRedirect] = useState(null);
   useEffect(() => {
     if (!socket) {
       setSocket(io());
-      // dispatch(joinDefaultRoom());
+      //dispatch(joinDefaultRoom());
     }
   }, []);
   useEffect(() => {
@@ -37,17 +42,33 @@ function MainChat() {
       console.log("disconnected");
     });
     socket.on("message-incoming", (message) => {
-      console.log('aaa');
-      socket.emit("get-room-messages");
+      socket.emit("get-room-messages", "latest");
     });
-    socket.on("room-messages", (messages) => {
+    socket.on("room-messages", (message) => {
+      if (message.length === 0) {
+        // force a rerender
+        setRedirect(<Redirect to="/chat-session-reload" />);
+      }
       if (!timeout) {
         setTime(true);
       }
-      setMessages(messages);
+      setMessages((messages) => [...messages, ...message].filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i));
+
     });
+    socket.on("room-messages-append", (message) => {
+
+      if (message[0]?.noMessage) {
+        setLoadingMessage("No more messages");
+        return;
+      }
+      setTimeout(() => {
+        setLoading(false);
+        setMessages((messages) => [...message, ...messages].filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i));
+      }, 300);
+    });
+
     if (socket && currentChannel) {
-      socket.emit("get-room-messages");
+      socket.emit("get-room-messages", "latest");
       dispatch(getUsersInRoom(currentChannel.id));
 
     }
@@ -63,8 +84,10 @@ function MainChat() {
   useEffect(() => {
     if (!socket) return;
     setInterval(() => {
-      socket.emit("get-room-messages");
-    }, 5005);
+
+      socket.emit("get-room-messages", "latest");
+    }, 5000);
+
 
   }, [timeout]);
 
@@ -105,26 +128,64 @@ function MainChat() {
     }
   }, [formattedMessages]);
 
+  function checkScroll(e) {
+    // check if the user is at the top of the chat
+    let element = e.target;
+    if (element.scrollTop === 0) {
+      console.log("top");
+      // get the id of the first message in the chat
+      let firstMessageId = formattedMessages[1].id;
+      socket.emit("get-room-messages", firstMessageId);
+      setLoading(true);
+    }
+  }
+  async function tryEditMessage(messageId, content) {
+    let res = await dispatch(updateMessage(messageId, content));
+    if (res.message === 'Message edited') {
+      // edit message locally
+      let message = messages.find((message) => message.id === messageId);
+      if (!message) return;
+      message.message = content;
+      setMessages((messages) => messages.map((message) => message.id === messageId ? message : message));
+    } else {
+      // failure, handle toast popup or whatever
+      // maybe later
+    }
+  }
+  async function tryDeleteMessage(messageId) {
+
+    let res = await dispatch(deleteMessage(messageId));
+    if (res.message === 'Message deleted') {
+      // delete a message from the chat locally
+      let message = messages.find((message) => message.id === messageId);
+      if (!message) return;
+      message.message = "*message deleted*";
+      setMessages((messages) => messages.map((message) => message.id === messageId ? message : message));
+    } else {
+      // failure, handle toast popup or whatever
+      // maybe later
+    }
+
+  }
+
   return (
     <div className="main-chat-container">
-
-      <div className="main-chat">
+      {redirect}
+      <div className="main-chat" onScroll={checkScroll}>
         <div className="main-chat-header">
           {currentChannel && <h1 className='chat-room-name'>{currentChannel.name}</h1>}
           <div className='main-chat-user-list'>
             <img className='main-chat-user-list-icon' src={defaultIcon} alt='user icon' />
-            {currentUsers && currentUsers.length}
-            {currentUsers && currentUsers.map((user) => (
+            {currentUsers && currentUsers.length} Users
 
-              <div className='main-chat-user' key={user.id}>{user.username}</div>
-
-            ))}
           </div>
         </div>
         <div className='main-chat-messages'>
+          {loading && <span className='chat-loading-message'>{loadingMessage}</span>}
           {formattedMessages.map((message) => (
-            <ChatMessage message={message} key={message.id} />
+            <ChatMessage message={message} socket={socket} editMessage={tryEditMessage} deleteMessage={tryDeleteMessage} user={sessionUser} key={message.id} />
           ))}
+
         </div>
       </div>
       <br />
@@ -133,7 +194,6 @@ function MainChat() {
 
         <MainChatInput socket={socket} />
       </div>
-      {/* {scrollLock && 'lol'} */}
     </div >
   );
 }
