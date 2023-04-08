@@ -1,7 +1,9 @@
 from flask import Blueprint, jsonify,session, request
 from flask_login import login_required, current_user
+
 from app.models import User, Room, db
 from app.forms import ChannelForm
+
 
 
 room_routes = Blueprint('room', __name__)
@@ -44,6 +46,7 @@ def all():
         return [room.to_dict() for room in rooms]
 
 
+
 @room_routes.route('/all', methods = ['POST'])
 def CreateChannel():
     form = ChannelForm()
@@ -60,3 +63,14 @@ def CreateChannel():
         return channel.to_dict()
     print(validation_errors_to_error_messages(form.errors))
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+@room_routes.route('/<id>/users')
+@login_required
+def users(id):
+    """
+    Query for all users and returns them in a list of user dictionaries
+    """
+    # return {'null'}
+    room = Room.query.get(id)
+    return [user.to_dict() for user in room.member_list]
+
