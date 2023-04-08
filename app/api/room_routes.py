@@ -47,15 +47,15 @@ def all():
 @room_routes.route('/all', methods = ['POST'])
 def CreateChannel():
     form = ChannelForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
-        channel = Room(
-            name=form.data['name'],
-            type=form.data['type'],
-            createdby=current_user.id
-        )
-        db.session.add(channel)
-        db.session.commit()
+    # form['csrf_token'].data = request.cookies['csrf_token']
+    # if form.validate_on_submit():
+    #     channel = Room(
+    #         name=form.data['name'],
+    #         type=form.data['type'],
+    #         createdby=current_user.id
+    #     )
+    #     db.session.add(channel)
+    #     db.session.commit()
 
-        return channel.to_dict()
+    #     return channel.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
