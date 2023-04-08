@@ -51,7 +51,7 @@ function MainChat() {
     if (!socket) return;
     setInterval(() => {
       socket.emit("get-room-messages");
-    }, 5000);
+    }, 5005);
 
   }, [timeout]);
 

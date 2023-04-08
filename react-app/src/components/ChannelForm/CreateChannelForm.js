@@ -2,7 +2,7 @@ import './CreateChannelForm.css'
 
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createChannel } from '../../store/channel';
+import { createChannel } from '../../store/channels';
 
 
 const CreateChannelForm = () => {
@@ -21,7 +21,8 @@ const CreateChannelForm = () => {
 
     const payload = {
         name,
-        type
+        type,
+
     };
 
     dispatch(createChannel(payload))

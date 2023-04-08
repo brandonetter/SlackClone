@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Link, Route, useParams, useHistory } from 'react-router-dom';
-import { getChannel } from '../../store/channel';
+import { getChannel, loadChannel } from '../../store/channels';
 import './ChannelList.css'
 import { deleteChannel } from '../../store/channel';
 
@@ -10,14 +10,14 @@ const ChannelBrowser = () => {
     const dispatch = useDispatch()
     // const sessionUser = useSelector(state => state.session.user)
 
-    const channelobj = useSelector(state => state.channel)
-    const channelArr = Object.values(channelobj)
+    const channelsobj = useSelector(state => state.channels)
+    const channelsArr = Object.values(channelsobj)
 
     // const deleteHandler = () => {
     //     dispatch(deleteChannel(channel.id))
     // }
 
-    // console.log("CHANNEL", channelobj.room)
+    console.log("CHANNEL", channelsobj)
 
     useEffect(() => {
         dispatch(getChannel())
@@ -25,10 +25,10 @@ const ChannelBrowser = () => {
 
     return (
         <>
-      {channelobj.room &&
+      {channelsobj &&
         <main className='ChannelListContainer'>
         <div className= ' eachChannel'>
-            {channelArr.map((channel)=> {
+            {channelsArr.map((channel)=> {
                 return channel.name
             })}
 

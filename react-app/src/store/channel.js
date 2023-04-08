@@ -1,18 +1,17 @@
 // constants
-
-
 const SET_ROOM = "channel/SET_ROOM";
-const ADD_CHANNEL = 'channels/addChannel'
-const LOAD_CHANNELS = 'channels/loadChannels'
-const REMOVE_CHANNEL = '/channels/deleteChannel'
-
-
+const SET_USERS = "channel/SET_USERS";
 const setRoom = (room) => ({
   type: SET_ROOM,
   payload: room,
 });
+const setUsers = (users) => ({
+  type: SET_USERS,
+  payload: users,
+});
 
-const initialState = { room: null };
+
+const initialState = { room: null, users: null };
 
 export const joinDefaultRoom = () => async (dispatch) => {
   const response = await fetch("/api/room/init", {
@@ -22,8 +21,6 @@ export const joinDefaultRoom = () => async (dispatch) => {
   });
   if (response.ok) {
     const data = await response.json();
-
-    // console.log(data)
     if (data.errors) {
       return;
     }
@@ -32,106 +29,29 @@ export const joinDefaultRoom = () => async (dispatch) => {
   }
 };
 
-
-export const addChannel = (channel) => ({
-  type: ADD_CHANNEL,
-  channel
-})
-
-export const loadChannel = (channel) => {
-  return {
-    type: LOAD_CHANNELS,
-    channel
-  }
-}
-
-export const removeChannel = (channelId) => {
-  return {
-    type: REMOVE_CHANNEL,
-    channelId
-  }
-
-}
-
-export const getChannel = () => async (dispatch) => {
-  const response = await fetch('/api/room/all')
-
-
-  if(response.ok) {
-    const channels = await response.json()
-    // console.log(channels)
-    return dispatch(loadChannel(channels.name))
-  }
-}
-
-export const createChannel = (name, type) => async (dispatch) => {
-  const response = await fetch('/api/room/all',{
-    method: "POST",
-    headers: { "Content-Type": "application/json"},
-    body: JSON.stringify({
-        name,
-        type
-      })
-  })
-
-  if(response.ok) {
-    const channel = await response.json();
-    dispatch(addChannel(channel));
-    return channel
-  }
-  return response
-}
-
-export const editChannel = (payload) => async (dispatch) => {
-  const response = await fetch(`/api/room/${payload.channelId}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json"},
-    body: JSON.stringify(payload)
-  })
-
+export const getUsersInRoom = (roomId) => async (dispatch) => {
+  const response = await fetch(`/api/room/${roomId}/users`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
   if (response.ok) {
-    const channel = await response.json();
-    dispatch(addChannel(channel));
-    return channel
+    const data = await response.json();
+    if (data.errors) {
+      return;
+    }
+    dispatch(setUsers(data));
   }
-}
-
-export const deleteChannel = (channelId) => async (dispatch) => {
-  const response = await fetch(`/api/channels/${channelId}`, {
-    method: "DELETE"
-  })
-
-  if(response.ok) {
-    dispatch(removeChannel(channelId))
-  }
-}
-
-
-
-const channelsReducer = (state= initialState, action) => {
-  let newState = {...state};
-  switch(action.type) {
-    case SET_ROOM:
-      return { room: action.payload };
-
-    case LOAD_CHANNELS:
-      action.channels.forEach((channel)=>{
-        newState[channel.id] = channel
-      })
-
-    case ADD_CHANNEL:
-      newState = {...state}
-      newState[action.channel.id] = action.channel
-      return newState
-
-    case REMOVE_CHANNEL:
-      newState = {...state}
-      delete newState[action.channelId];
-      return newState
-
-    default:
-      return state
-  };
 };
 
-export default channelsReducer
+
+export default function reducer(state = initialState, action) {
+  switch (action.type) {
+    case SET_ROOM:
+      return { ...state, room: action.payload };
+    case SET_USERS:
+      return { ...state, users: action.payload };
+    default:
+      return state;
+  }
+}
