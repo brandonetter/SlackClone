@@ -29,13 +29,15 @@ function App() {
           </Route>
 
           <Route path="/signup"></Route>
+
+          <Route exact path="/chat/:channelId">
+            <MainWindow/>
+          </Route>
+
           <Route path="/chat">
             <MainWindow />
           </Route>
 
-          <Route exact path="/channel">
-            <CreateChannelForm/>
-          </Route>
 
         </Switch>
       )}

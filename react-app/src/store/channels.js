@@ -33,7 +33,7 @@ export const getChannel = () => async (dispatch) => {
 
   if(response.ok) {
     const channels = await response.json()
-    console.log("getChannel", channels)
+    // console.log("getChannel", channels)
     return dispatch(loadChannel(channels))
   }
 }
@@ -88,7 +88,7 @@ const channelsReducer = (state= initialState, action) => {
   let newState = {...state};
   switch(action.type) {
     case LOAD_CHANNELS:
-      console.log("ACTION.CHANNELS" , action.channels)
+    //   console.log("ACTION.CHANNELS" , action.channels)
       action.channels.forEach((channel)=>{
         newState[channel.id] = channel
       })
