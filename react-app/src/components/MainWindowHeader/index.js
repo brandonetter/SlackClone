@@ -1,6 +1,14 @@
 import './MainWindowHeader.css';
-function MainWindowHeader(){
+import SearchBar from './aux/SearchBar';
+import { useSelector } from 'react-redux';
+import ProfileIcon from './aux/ProfileIcon';
+function MainWindowHeader() {
+    const user = useSelector(state => state.session.user);
+
     return <div className="main-window-header">
-        </div>
+        <div />
+        <SearchBar />
+        <ProfileIcon user={user} />
+    </div>
 }
 export default MainWindowHeader;
