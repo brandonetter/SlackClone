@@ -22,7 +22,10 @@ class Message(db.Model):
         date = self.date.strftime("%m/%d/%Y, %H:%M:%S")
         
         # include the username
-        self.username = User.query.get(self.userid).username
+        user = User.query.get(self.userid)
+        username = user.username
+        firstname = user.firstname
+        lastname = user.lastname
       
         # include the user profileIcon
         self.profileIcon = User.query.get(self.userid).profileicon
@@ -33,6 +36,8 @@ class Message(db.Model):
             "userid": self.userid,
             "message": self.message,
             "profileIcon": self.profileIcon,
-            "username": self.username,
+            "username": username,
+            "firstname": firstname,
+            "lastname": lastname,
             "date": date,
         }

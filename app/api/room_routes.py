@@ -1,7 +1,9 @@
 from flask import Blueprint, jsonify,session, request
 from flask_login import login_required, current_user
+
 from app.models import User, Room, db
 from app.forms import ChannelForm
+
 
 
 room_routes = Blueprint('room', __name__)
@@ -20,9 +22,11 @@ def validation_errors_to_error_messages(validation_errors):
 @login_required
 def init():
     """
-    Query for all users and returns them in a list of user dictionaries
+    Query for all rooms and puts the first room in the session
     """
+
     rooms = current_user.rooms
+    print(rooms)
     if(len(rooms) == 0):
         session['room'] = None
         return {'null'}
@@ -34,7 +38,7 @@ def init():
 @login_required
 def all():
     """
-    Query for all users and returns them in a list of user dictionaries
+    Query for all rooms and returns them in a list of room dictionaries
     """
 
     rooms = current_user.rooms
@@ -42,6 +46,7 @@ def all():
         return {'null'}
     else:
         return [room.to_dict() for room in rooms]
+
 
 
 @room_routes.route('/all', methods = ['POST'])
@@ -60,3 +65,14 @@ def CreateChannel():
         return channel.to_dict()
     print(validation_errors_to_error_messages(form.errors))
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+@room_routes.route('/<id>/users')
+@login_required
+def users(id):
+    """
+    Query for all users and returns them in a list of user dictionaries
+    """
+    # return {'null'}
+    room = Room.query.get(id)
+    return [user.to_dict() for user in room.member_list]
+
