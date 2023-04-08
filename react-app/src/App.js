@@ -6,6 +6,7 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import MainWindow from "./components/MainWindow";
 import ChannelBrowser from "./components/ChannelList/ChannelList";
+import CreateChannelForm from "./components/ChannelForm/CreateChannelForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,9 +33,9 @@ function App() {
             <MainWindow />
           </Route>
 
-          {/* <Route exact path="/channel">
-            <ChannelBrowser/>
-          </Route> */}
+          <Route exact path="/channel">
+            <CreateChannelForm/>
+          </Route>
 
         </Switch>
       )}

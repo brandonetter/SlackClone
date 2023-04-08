@@ -64,11 +64,14 @@ export const getChannel = () => async (dispatch) => {
   }
 }
 
-export const createChannel = (payload) => async (dispatch) => {
+export const createChannel = (name, type) => async (dispatch) => {
   const response = await fetch('/api/room/all',{
     method: "POST",
     headers: { "Content-Type": "application/json"},
-    body: JSON.stringify(payload)
+    body: JSON.stringify({
+        name,
+        type
+      })
   })
 
   if(response.ok) {
