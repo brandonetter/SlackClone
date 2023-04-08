@@ -65,7 +65,7 @@ export const getChannel = () => async (dispatch) => {
 }
 
 export const createChannel = (payload) => async (dispatch) => {
-  const response = await fetch('/api/songs',{
+  const response = await fetch('/api/room/all',{
     method: "POST",
     headers: { "Content-Type": "application/json"},
     body: JSON.stringify(payload)
@@ -80,7 +80,7 @@ export const createChannel = (payload) => async (dispatch) => {
 }
 
 export const editChannel = (payload) => async (dispatch) => {
-  const response = await fetch(`/api/songs/${payload.channelId}`, {
+  const response = await fetch(`/api/room/${payload.channelId}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json"},
     body: JSON.stringify(payload)
