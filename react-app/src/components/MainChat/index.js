@@ -2,7 +2,7 @@ import { io } from "socket.io-client";
 import React, { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { joinDefaultRoom, getUsersInRoom, deleteMessage } from "../../store/channel";
+import { joinDefaultRoom, getUsersInRoom, deleteMessage, updateMessage } from "../../store/channel";
 import { useSelector } from "react-redux";
 import MainChatInput from "../MainChatInput";
 import defaultIcon from "../../assets/defaultIcon.png";
@@ -137,6 +137,19 @@ function MainChat() {
       setLoading(true);
     }
   }
+  async function tryEditMessage(messageId, content) {
+    let res = await dispatch(updateMessage(messageId, content));
+    if (res.message === 'Message edited') {
+      // edit message locally
+      let message = messages.find((message) => message.id === messageId);
+      if (!message) return;
+      message.message = content;
+      setMessages((messages) => messages.map((message) => message.id === messageId ? message : message));
+    } else {
+      // failure, handle toast popup or whatever
+      // maybe later
+    }
+  }
   async function tryDeleteMessage(messageId) {
 
     let res = await dispatch(deleteMessage(messageId));
@@ -168,8 +181,9 @@ function MainChat() {
         <div className='main-chat-messages'>
           {loading && <span className='chat-loading-message'>{loadingMessage}</span>}
           {formattedMessages.map((message) => (
-            <ChatMessage message={message} deleteMessage={tryDeleteMessage} user={sessionUser} key={message.id} />
+            <ChatMessage message={message} socket={socket} editMessage={tryEditMessage} deleteMessage={tryDeleteMessage} user={sessionUser} key={message.id} />
           ))}
+
         </div>
       </div>
       <br />

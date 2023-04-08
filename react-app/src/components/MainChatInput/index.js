@@ -12,6 +12,7 @@ import EmojiDrawer from './aux/EmojiDrawer';
 import { BLOCK_TYPES, styleMap } from './aux/blockTypes';
 import draftToMarkdown from 'draftjs-to-markdown';
 import { convertToRaw } from 'draft-js';
+import htmlToDraft from 'html-to-draftjs';
 function MainChatInput(props) {
     const [users, setUsers] = useState([]);
     const [mention, setMention] = useState({ state: undefined });
@@ -26,8 +27,17 @@ function MainChatInput(props) {
     useEffect(() => {
         // the editor must be reset when users change to update the decorator
         // using push
-        const editorStates = EditorState.push(editorState, ContentState.createFromText(''));
-        setEditorState(editorStates);
+        if (props.editMessageText) {
+            const blocksFromHtml = htmlToDraft(props.editMessageText);
+            const { contentBlocks, entityMap } = blocksFromHtml;
+            const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
+            const editorStates = EditorState.push(editorState, contentState);
+            setEditorState(editorStates);
+            return;
+        } else {
+            const editorStates = EditorState.push(editorState, ContentState.createFromText(''));
+            setEditorState(editorStates);
+        }
     }, [users]);
     let socket = props.socket;
 
@@ -162,9 +172,13 @@ function MainChatInput(props) {
     }
     function handleReturn(e) {
         if (!e.shiftKey) {
+
             const rawContentState = convertToRaw(editorState.getCurrentContent());
             const markup = draftToMarkdown(rawContentState);
-            console.log(markup);
+            if (props.editMessageText) {
+                props.onSend(markup);
+                return;
+            }
             socket.emit("chat-message", markup);
             setEditorState(EditorState.createEmpty(decorator));
 

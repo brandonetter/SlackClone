@@ -3,16 +3,18 @@ import { marked } from "marked";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
-
+import MainChatInput from "../../MainChatInput";
 // marked.setOptions({
 //     breaks: true,
 //     gfm: true,
 // });
 
 
-function ChatMessage({ message, user, deleteMessage }) {
+function ChatMessage({ message, user, deleteMessage, editMessage, socket }) {
     const [isHovering, setIsHovering] = useState(false);
     const [dropDown, setDropDown] = useState(false);
+    const [edit, setEdit] = useState(false);
+    const [editMessageText, setEditMessageText] = useState("");
     function getTimeFromDate(date) {
         let time = new Date(date);
         let hours = time.getHours();
@@ -88,6 +90,17 @@ function ChatMessage({ message, user, deleteMessage }) {
     function showDropDown() {
         setDropDown(!dropDown);
     }
+    function trySetEdit(content) {
+        setEdit(!edit);
+        setEditMessageText(content);
+        setDropDown(false);
+    }
+    function sendEditedMessage(content) {
+        console.log("sendEditedMessage", content, message.id);
+        //editMessage(message.id, editMessageText);
+        editMessage(message.id, content);
+        setEdit(false);
+    }
     return (
 
         <div className="chat-message" onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>
@@ -103,12 +116,14 @@ function ChatMessage({ message, user, deleteMessage }) {
                             <FontAwesomeIcon icon={faEllipsis} />
                         </div>
                         {dropDown && <div className="chat-message-edit-dropdown">
-                            <div className="chat-message-edit-dropdown-item">Edit</div>
+                            <div className="chat-message-edit-dropdown-item" onClick={() => trySetEdit(message.message)}>Edit</div>
                             <div className="chat-message-edit-dropdown-item" onClick={() => deleteMessage(message.id)}>Delete</div>
                         </div>}
                     </div>}
                 </div>
-                <p dangerouslySetInnerHTML={{ __html: message.message }}></p>
+
+                {edit ? <MainChatInput socket={socket} editMessageText={editMessageText} onSend={sendEditedMessage} /> :
+                    <p dangerouslySetInnerHTML={{ __html: message.message }}></p>}
 
             </div>
         </div>

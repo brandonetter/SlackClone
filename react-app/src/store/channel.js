@@ -32,6 +32,23 @@ export const joinDefaultRoom = () => async (dispatch) => {
   }
 };
 
+export const updateMessage = (messageId, message) => async (dispatch) => {
+  const response = await fetch(`/api/messages/${messageId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ message: message }),
+  });
+  if (response.ok) {
+    const data = await response.json();
+    if (data.errors) {
+      return data;
+    }
+    return data;
+  }
+};
+
 export const deleteMessage = (messageId) => async (dispatch) => {
   const response = await fetch(`/api/messages/${messageId}`, {
     method: "DELETE",
