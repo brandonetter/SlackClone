@@ -37,11 +37,13 @@ const ChannelBrowser = () => {
 
               <Link className= 'channelLink' key={channel.id} to={`/chat/${channel.id}`}>
                 {channel.name}
+
+                <button className='deleteChannelbtn' onClick={deleteHandler}>delete</button>
               </Link>
                 // return channel.name
             ))}
 
-            {/* <button className='deleteChannelbtn' onClick={deleteHandler}>delete</button> */}
+
         </div>
         </main>
       }

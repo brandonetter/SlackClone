@@ -6,7 +6,7 @@ import EditChannelForm from '../ChannelForm/EditChannelForm';
 function MainWindowHeader(){
     return <div className="main-window-header">
      <ChannelDetail />
-     <EditChannelForm/>
+     {/* <EditChannelForm/> */}
         </div>
 }
 export default MainWindowHeader;

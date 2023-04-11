@@ -1,73 +1,79 @@
-import './EditChannelForm.js'
-import { editChannel } from '../../store/channels.js'
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams, useHistory } from 'react-router-dom';
+// import './EditChannelForm.js'
+// import { editChannel } from '../../store/channels.js'
+// import { useEffect, useState } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { Link, useParams, useHistory } from 'react-router-dom';
 
 
 
-const EditChannelForm = () => {
+// const EditChannelForm = () => {
 
-    const dispatch = useDispatch();
-    const {id} = useParams()
+//     const dispatch = useDispatch();
+//     const {id} = useParams()
 
-    console.log("ID", id)
-    const parsedId = parseInt(id)
-
-
-    const channels = useSelector(state => state.channels)
+//     console.log("ID", id)
+//     const parsedId = parseInt(id)
 
 
-    if (Object.keys(channels).length){
-
-        console.log("channelName", channels[1])
-
-        // const ChannelName = channels[parseInt(id)]
+//     const channels = useSelector(state => state.channels)
+//     console.log("CHANNELS", channels)
 
 
+//     if (Object.keys(channels).length){
+
+//         console.log("channelName", channels[1])
+
+//         // const ChannelName = channels[parseInt(id)]
 
 
-        // const ChannelType = channels[parseInt(id)]
 
 
-        // const [name, setName] = useState(ChannelName)
-        // const [type, setType] = useState(ChannelType)
-    }
-
-    // const ChannelType = useSelector(state => state.channels[parseInt(id)].type)
+//         // const ChannelType = channels[parseInt(id)]
 
 
-    const updateChannelName = (e) => setName(e.target.value)
-    const updateChannelType = (e) => setType(e.target.value)
+//         // const [name, setName] = useState(ChannelName)
+//         // const [type, setType] = useState(ChannelType)
+//     }
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+//     // const ChannelType = useSelector(state => state.channels[parseInt(id)].type)
 
-        dispatch(editChannel({name, type}))
-    }
 
-    return (
-        <form className = "EditChannel" onSubmit={handleSubmit}>
+//     const updateChannelName = (e) => setName(e.target.value)
+//     const updateChannelType = (e) => setType(e.target.value)
 
-        <input className='EditChannelName'
-        type='text'
-        placeholder='Channel Name'
-        // value ={name}
-        onChange={updateChannelName}
-        />
+//     const handleSubmit = async (e) => {
+//         e.preventDefault();
 
-        <input className='EditChannelType'
-        type='text'
-        placeholder='Channel Type'
-        // value ={type}
-        onChange={updateChannelType}
-        />
+//         const payload = {
+//             name,
+//             type
+//         }
 
-    <button className= 'UpdateChannelBttn' type="submit">Update Channel</button>
+//         dispatch(editChannel(payload))
+//     }
 
-    </form>
+//     return (
+//         <form className = "EditChannel" onSubmit={handleSubmit}>
 
-    )
-}
+//         <input className='EditChannelName'
+//         type='text'
+//         placeholder='Channel Name'
+//         // value ={name}
+//         onChange={updateChannelName}
+//         />
 
-export default EditChannelForm
+//         <input className='EditChannelType'
+//         type='text'
+//         placeholder='Channel Type'
+//         // value ={type}
+//         onChange={updateChannelType}
+//         />
+
+//     <button className= 'UpdateChannelBttn' type="submit">Update Channel</button>
+
+//     </form>
+
+//     )
+// }
+
+// export default EditChannelForm

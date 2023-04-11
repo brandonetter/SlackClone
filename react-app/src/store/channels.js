@@ -33,7 +33,7 @@ export const getChannel = () => async (dispatch) => {
 
   if(response.ok) {
     const channels = await response.json()
-    // console.log("getChannel", channels)
+    console.log("getChannel", channels)
     return dispatch(loadChannel(channels))
   }
 }
@@ -98,6 +98,7 @@ const channelsReducer = (state= initialState, action) => {
       // console.log("ACTION.CHANNEL" , action.channel)
       newState = {...state}
       newState[action.channel.id] = action.channel
+      console.log(action)
       return newState
 
     case REMOVE_CHANNEL:
