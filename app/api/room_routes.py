@@ -66,6 +66,28 @@ def CreateChannel():
     print(validation_errors_to_error_messages(form.errors))
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
+@room_routes.route('/all/<id>', methods = ['PUT'])
+def UpdateChannel():
+    formContent = request.get_json()
+    updateChannel = Room.query.get(id)
+
+    updateChannel.name = formContent.name
+    updateChannel.type = formContent.type
+    db.session.add(updateChannel)
+    db.session.commit()
+
+    return "successfully updated"
+
+
+
+@room_routes.route('/all/<id>', methods = ['DELETE'])
+def ChannelDelete(id):
+    channel = Room.query.get(id)
+
+    db.session.delete(channel)
+    db.session.commit()
+    return 'Successfully Deleted', 201
+
 @room_routes.route('/<id>/users')
 @login_required
 def users(id):
@@ -75,4 +97,3 @@ def users(id):
     # return {'null'}
     room = Room.query.get(id)
     return [user.to_dict() for user in room.member_list]
-

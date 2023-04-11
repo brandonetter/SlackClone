@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Link, Route, useParams, useHistory } from 'react-router-dom';
 import { getChannel, loadChannel } from '../../store/channels';
 import './ChannelList.css'
-import { deleteChannel } from '../../store/channel';
+import { deleteChannel } from '../../store/channels';
 
 
 const ChannelBrowser = () => {
@@ -13,9 +13,14 @@ const ChannelBrowser = () => {
     const channelsobj = useSelector(state => state.channels)
     const channelsArr = Object.values(channelsobj)
 
-    // const deleteHandler = () => {
-    //     dispatch(deleteChannel(channel.id))
-    // }
+
+    const deleteHandler = () => {
+         channelsArr.map((channel)=> (
+            dispatch(deleteChannel(channel.id))
+            ))
+    }
+
+          // return channel.name
 
     // console.log("CHANNEL", channelsobj)
 
@@ -33,10 +38,10 @@ const ChannelBrowser = () => {
               <Link className= 'channelLink' key={channel.id} to={`/chat/${channel.id}`}>
                 {channel.name}
               </Link>
-
                 // return channel.name
             ))}
 
+            {/* <button className='deleteChannelbtn' onClick={deleteHandler}>delete</button> */}
         </div>
         </main>
       }

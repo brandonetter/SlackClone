@@ -30,7 +30,7 @@ function App() {
 
           <Route path="/signup"></Route>
 
-          <Route exact path="/chat/:channelId">
+          <Route path="/chat/:channelId">
             <MainWindow/>
           </Route>
 

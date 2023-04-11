@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import "./RoomSidebar.css";
 import ChannelBrowser from "../ChannelList/ChannelList";
 import CreateChannelForm from "../ChannelForm/CreateChannelForm";
+import EditChannelForm from "../ChannelForm/EditChannelForm";
 import { getChannel } from "../../store/channels";
 // import ChannelList "../ChannelList"
 
@@ -14,14 +15,21 @@ function RoomSidebar() {
   useEffect(() => {
     dispatch(getChannel());
     if (!currentChannel) dispatch(joinDefaultRoom());
-  });
+  },[]);
 
+  const channels = useSelector((state) => state.channels)
   return (
     <div className="room-sidebar">
       <div className="room-sidebar-header">
         <h2>Current Channel:</h2>
         <ChannelBrowser/>
-        <CreateChannelForm/>
+        { (channels) &&
+        <div>
+        {/* <CreateChannelForm/> */}
+        {/* <EditChannelForm/> */}
+        </div>
+        }
+
         {currentChannel && <h3>{currentChannel.name}</h3>}
       </div>
     </div>

@@ -59,7 +59,7 @@ export const createChannel = ({name, type}) => async (dispatch) => {
 }
 
 export const editChannel = (payload) => async (dispatch) => {
-  const response = await fetch(`/api/room/${payload.channelId}`, {
+  const response = await fetch(`/api/room/all/${payload.channelId}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json"},
     body: JSON.stringify(payload)
