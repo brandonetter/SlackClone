@@ -5,8 +5,8 @@
     background-color: #19171D;
     color: #828184;
     height: 100%;
-    min-width: 260px;
-    max-width: 260px;
+    min-width: 235px !important;
+    max-width: 235px !important;
     /* position: fixed; */
     top: 0;
     left: 0;

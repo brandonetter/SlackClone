@@ -25,17 +25,17 @@ const ChannelBrowser = () => {
 
     return (
         <>
-      {channelsobj &&
-        <main className='ChannelListContainer'>
-        <div className= ' eachChannel'>
-            {channelsArr.map((channel)=> {
-                return channel.name
-            })}
+            {channelsobj &&
+                <main className='ChannelListContainer'>
+                    <div className=' eachChannel'>
+                        {channelsArr.map((channel) => {
+                            return channel.name
+                        })}
 
-        </div>
-        </main>
-      }
-     </>
+                    </div>
+                </main>
+            }
+        </>
     )
 
 }
