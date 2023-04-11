@@ -25,8 +25,7 @@ function RoomSidebar() {
         <ChannelBrowser/>
         { (channels) &&
         <div>
-        {/* <CreateChannelForm/> */}
-        {/* <EditChannelForm/> */}
+        <CreateChannelForm/>
         </div>
         }
 
