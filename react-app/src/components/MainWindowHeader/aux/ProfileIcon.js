@@ -1,11 +1,30 @@
 
 import defaultIcon from '../../../assets/defaultIcon.png';
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { toggleProfile } from '../../../store/modals';
 function ProfileIcon({ user }) {
+    let status = useSelector(state => state.session.status);
+
+
+    // status shenanigans
+    if (status == null) status = user.status;
+    const statusType = status ? status.split(']')[0].slice(1) : 'Active';
+    let userStatus = status ? status.split(']')[1] : user.status;
+    if (userStatus === '') userStatus = statusType;
+    let statusColor = '';
+    if (statusType === 'Active') statusColor = ' status-green';
+    if (statusType === 'Do not disturb') statusColor = ' status-red';
+    if (statusType === 'Be right back') statusColor = ' status-yellow';
+    if (statusType === 'Away') statusColor = ' status-dim-green';
+    if (statusType === 'Offline') statusColor = ' status-gray';
+
+    const dispatch = useDispatch();
     const icon = user.profileicon ? user.profileicon : defaultIcon;
     const [openModal, setOpenModal] = useState(false);
     function convertToTint(name) {
-        if (icon === defaultIcon) return;
+        if (icon !== defaultIcon) return;
         let firstLetter = name[0].toUpperCase();
         let tint = 'A';
         if (firstLetter >= 'F' && firstLetter <= 'J') {
@@ -24,9 +43,9 @@ function ProfileIcon({ user }) {
 
     }
     return <>
-        <div className='main-window-header-user' onClick={() => setOpenModal(!openModal)}>
+        <div className='main-window-header-user' onClick={() => dispatch(toggleProfile())}>
             <img src={icon} alt="profile icon" className={convertToTint(user.firstname)} />
-            <div className='main-window-header-user-status'>
+            <div className={'main-window-header-user-status' + statusColor}>
             </div>
             {openModal && <div className='main-window-header-user-modal'>
                 adasd
