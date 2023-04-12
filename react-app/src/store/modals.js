@@ -40,7 +40,7 @@ export const closeAll = () => async (dispatch) => {
 
 
 
-const initialState = { search: false, profile: false };
+const initialState = { search: false, profile: false, status: false };
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
