@@ -1,5 +1,5 @@
 import datetime
-from app.models import db, Room, User,Type,Room_Member, environment, SCHEMA
+from app.models import db, Room, User,Type,Room_Member, environment, SCHEMA, Message
 from sqlalchemy.sql import text
 
 
@@ -23,9 +23,14 @@ def seed_channels():
     room_member2 = Room_Member(
         user=user2,room=room)
 
+    # get current date
+    current_date = datetime.datetime.now()
+    message = Message(
+        message="Hello World", userid=user.id, room=room,date=current_date)
     db.session.add(room)
     db.session.add(room_member)
     db.session.add(room_member2)
+    db.session.add(message)
     db.session.commit()
 
 
