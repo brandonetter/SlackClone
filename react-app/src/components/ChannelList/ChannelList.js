@@ -14,15 +14,9 @@ const ChannelBrowser = () => {
     const channelsArr = Object.values(channelsobj)
 
 
-    const deleteHandler = () => {
-         channelsArr.map((channel)=> (
-            dispatch(deleteChannel(channel.id))
-            ))
+    const deleteHandler = (id) => {
+            dispatch(deleteChannel(parseInt(id)))
     }
-
-          // return channel.name
-
-    // console.log("CHANNEL", channelsobj)
 
     useEffect(() => {
         dispatch(getChannel())
@@ -38,7 +32,7 @@ const ChannelBrowser = () => {
               <Link className= 'channelLink' key={channel.id} to={`/chat/${channel.id}`}>
                 {channel.name}
 
-                <button className='deleteChannelbtn' onClick={deleteHandler}>delete</button>
+                <button className='deleteChannelbtn' id={channel.id} onClick={(e)=> deleteHandler(e.target.id)}>delete</button>
               </Link>
                 // return channel.name
             ))}

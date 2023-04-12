@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify,session, request
 from flask_login import login_required, current_user
 
-from app.models import User, Room, db
+from app.models import User, Room, db, Room_Member
 from app.forms import ChannelForm
 
 
@@ -59,7 +59,13 @@ def CreateChannel():
             type=form.data['type'],
             createdby=current_user.id
         )
+
+        channelMember = Room_Member(
+            room = channel,
+            userid = current_user.id
+        )
         db.session.add(channel)
+        db.session.add(channelMember)
         db.session.commit()
 
         return channel.to_dict()
@@ -82,8 +88,8 @@ def UpdateChannel():
 
 @room_routes.route('/all/<id>', methods = ['DELETE'])
 def ChannelDelete(id):
+    print("HEY")
     channel = Room.query.get(id)
-
     db.session.delete(channel)
     db.session.commit()
     return 'Successfully Deleted', 201

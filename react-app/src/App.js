@@ -5,8 +5,8 @@ import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import MainWindow from "./components/MainWindow";
-import ChannelBrowser from "./components/ChannelList/ChannelList";
-import CreateChannelForm from "./components/ChannelForm/CreateChannelForm";
+import EditChannelForm from "./components/ChannelForm/EditChannelForm";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -41,6 +41,11 @@ function App() {
           <Route path="/chat-session-reload">
             <Redirect to="/chat" />
           </Route>
+
+          <Route path="/chat/:channelId/edit">
+            <EditChannelForm/>
+          </Route>
+
 
         </Switch>
       )}

@@ -24,7 +24,6 @@ export const removeChannel = (channelId) => {
     type: REMOVE_CHANNEL,
     channelId
   }
-
 }
 
 export const getChannel = () => async (dispatch) => {
@@ -72,17 +71,15 @@ export const editChannel = (payload) => async (dispatch) => {
   }
 }
 
-export const deleteChannel = (channelId) => async (dispatch) => {
-  const response = await fetch(`/api/channels/${channelId}`, {
+export const deleteChannel = (id) => async (dispatch) => {
+  const response = await fetch(`/api/room/all/${id}`, {
     method: "DELETE"
   })
 
   if(response.ok) {
-    dispatch(removeChannel(channelId))
+    dispatch(removeChannel(id))
   }
 }
-
-
 
 const channelsReducer = (state= initialState, action) => {
   let newState = {...state};
@@ -98,7 +95,6 @@ const channelsReducer = (state= initialState, action) => {
       // console.log("ACTION.CHANNEL" , action.channel)
       newState = {...state}
       newState[action.channel.id] = action.channel
-      console.log(action)
       return newState
 
     case REMOVE_CHANNEL:
