@@ -24,7 +24,6 @@ export const removeChannel = (channelId) => {
     type: REMOVE_CHANNEL,
     channelId
   }
-
 }
 
 export const getChannel = () => async (dispatch) => {
@@ -59,7 +58,7 @@ export const createChannel = ({name, type}) => async (dispatch) => {
 }
 
 export const editChannel = (payload) => async (dispatch) => {
-  const response = await fetch(`/api/room/${payload.channelId}`, {
+  const response = await fetch(`/api/room/all/${payload.channelId}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json"},
     body: JSON.stringify(payload)
@@ -72,23 +71,21 @@ export const editChannel = (payload) => async (dispatch) => {
   }
 }
 
-export const deleteChannel = (channelId) => async (dispatch) => {
-  const response = await fetch(`/api/channels/${channelId}`, {
+export const deleteChannel = (id) => async (dispatch) => {
+  const response = await fetch(`/api/room/all/${id}`, {
     method: "DELETE"
   })
 
   if(response.ok) {
-    dispatch(removeChannel(channelId))
+    dispatch(removeChannel(id))
   }
 }
-
-
 
 const channelsReducer = (state= initialState, action) => {
   let newState = {...state};
   switch(action.type) {
     case LOAD_CHANNELS:
-      console.log("ACTION.CHANNELS" , action.channels)
+    //   console.log("ACTION.CHANNELS" , action.channels)
       action.channels.forEach((channel)=>{
         newState[channel.id] = channel
       })

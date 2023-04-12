@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Link, Route, useParams, useHistory } from 'react-router-dom';
 import { getChannel, loadChannel } from '../../store/channels';
 import './ChannelList.css'
-import { deleteChannel } from '../../store/channel';
+import { deleteChannel } from '../../store/channels';
 
 
 const ChannelBrowser = () => {
@@ -13,11 +13,10 @@ const ChannelBrowser = () => {
     const channelsobj = useSelector(state => state.channels)
     const channelsArr = Object.values(channelsobj)
 
-    // const deleteHandler = () => {
-    //     dispatch(deleteChannel(channel.id))
-    // }
 
-    console.log("CHANNEL", channelsobj)
+    const deleteHandler = (id) => {
+            dispatch(deleteChannel(parseInt(id)))
+    }
 
     useEffect(() => {
         dispatch(getChannel())
@@ -27,10 +26,17 @@ const ChannelBrowser = () => {
         <>
       {channelsobj &&
         <main className='ChannelListContainer'>
-        <div className= ' eachChannel'>
-            {channelsArr.map((channel)=> {
-                return channel.name
-            })}
+        <div className= 'eachChannel'>
+            {channelsArr.map((channel)=> (
+
+              <Link className= 'channelLink' key={channel.id} to={`/chat/${channel.id}`}>
+                {channel.name}
+
+                <button className='deleteChannelbtn' id={channel.id} onClick={(e)=> deleteHandler(e.target.id)}>delete</button>
+              </Link>
+                // return channel.name
+            ))}
+
 
         </div>
         </main>

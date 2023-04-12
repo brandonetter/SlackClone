@@ -17,8 +17,8 @@ class Room(db.Model):
     updatedat = db.Column(db.DateTime, onupdate=func.now(),default=func.now())
 
     #relationships
-    members = db.relationship('Room_Member', backref='room', lazy=True)
-    messages = db.relationship('Message', backref='room', lazy=True)
+    members = db.relationship('Room_Member', backref='room', lazy=True, cascade="all, delete")
+    messages = db.relationship('Message', backref='room', lazy=True, cascade="all, delete")
 
     @property
     def roomtype(self):
