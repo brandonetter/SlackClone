@@ -6,6 +6,7 @@
     color: #828184;
     height: 100%;
     min-width: 260px;
+    max-width: 260px;
     /* position: fixed; */
     top: 0;
     left: 0;
