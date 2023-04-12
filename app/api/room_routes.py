@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify,session, request
 from flask_login import login_required, current_user
 
-from app.models import User, Room, db
+from app.models import User, Room, db, Room_Member
 from app.forms import ChannelForm
 
 
@@ -59,12 +59,40 @@ def CreateChannel():
             type=form.data['type'],
             createdby=current_user.id
         )
+
+        channelMember = Room_Member(
+            room = channel,
+            userid = current_user.id
+        )
         db.session.add(channel)
+        db.session.add(channelMember)
         db.session.commit()
 
         return channel.to_dict()
     print(validation_errors_to_error_messages(form.errors))
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+@room_routes.route('/all/<id>', methods = ['PUT'])
+def UpdateChannel():
+    formContent = request.get_json()
+    updateChannel = Room.query.get(id)
+
+    updateChannel.name = formContent.name
+    updateChannel.type = formContent.type
+    db.session.add(updateChannel)
+    db.session.commit()
+
+    return "successfully updated"
+
+
+
+@room_routes.route('/all/<id>', methods = ['DELETE'])
+def ChannelDelete(id):
+    print("HEY")
+    channel = Room.query.get(id)
+    db.session.delete(channel)
+    db.session.commit()
+    return 'Successfully Deleted', 201
 
 @room_routes.route('/<id>/users')
 @login_required
@@ -75,4 +103,3 @@ def users(id):
     # return {'null'}
     room = Room.query.get(id)
     return [user.to_dict() for user in room.member_list]
-
