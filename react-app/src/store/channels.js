@@ -32,7 +32,7 @@ export const getChannel = () => async (dispatch) => {
 
   if(response.ok) {
     const channels = await response.json()
-    console.log("getChannel", channels)
+    // console.log("getChannel", channels)
     return dispatch(loadChannel(channels))
   }
 }

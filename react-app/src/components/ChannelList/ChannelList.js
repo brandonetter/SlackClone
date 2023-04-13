@@ -14,13 +14,25 @@ const ChannelBrowser = () => {
     const channelsArr = Object.values(channelsobj)
 
 
+    channelsArr.map((channels) => {
+      if(channels.roomtype == "CHANNEL"){
+
+        //display channel
+
+      }else {
+        
+        //error message: must be channel to be displayed
+      }
+    })
+
+
     const deleteHandler = (id) => {
             dispatch(deleteChannel(parseInt(id)))
     }
 
-    useEffect(() => {
-        dispatch(getChannel())
-    }, [dispatch])
+    // useEffect(() => {
+    //     dispatch(getChannel())
+    // }, [dispatch])
 
     const [show, setShow] = useState(false);
 
@@ -45,18 +57,13 @@ const ChannelBrowser = () => {
 
               </Link>
 
-
             ))}
-
-
 
         </div>
         </main>
       }
      </div>
     )
-
 }
-
 
 export default ChannelBrowser
