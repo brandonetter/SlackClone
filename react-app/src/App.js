@@ -33,6 +33,10 @@ function App() {
 
           <Route path="/signup"></Route>
 
+          <Route path="/chat/:channelId/edit">
+            <EditChannelForm/>
+          </Route>
+
           <Route path="/chat/:channelId">
             <MainWindow />
           </Route>
@@ -48,6 +52,7 @@ function App() {
           <Route path="/chat/:channelId/edit">
             {/* <EditChannelForm /> */}
           </Route>
+
 
 
         </Switch>
