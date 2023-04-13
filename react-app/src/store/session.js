@@ -1,6 +1,7 @@
 // constants
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
+const SET_USER_STATUS = "session/SET_USER_STATUS";
 
 const setUser = (user) => ({
 	type: SET_USER,
@@ -11,7 +12,39 @@ const removeUser = () => ({
 	type: REMOVE_USER,
 });
 
-const initialState = { user: null };
+const setUserStatus = (status) => ({
+	type: SET_USER_STATUS,
+	payload: status,
+});
+
+
+const initialState = { user: null, status: null };
+
+
+export const assignStatus = (status) => async (dispatch) => {
+	const response = await fetch("/api/users/status", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({
+			status,
+		}),
+
+	});
+	if (response.ok) {
+		const data = await response.json();
+		if (data.errors) {
+			return;
+		}
+		console.log(data);
+		if (data.status === "Status updated") {
+			dispatch(setUserStatus(status));
+		}
+		return data;
+	}
+};
+
 
 export const authenticate = () => async (dispatch) => {
 	const response = await fetch("/api/auth/", {
@@ -67,7 +100,7 @@ export const logout = () => async (dispatch) => {
 	}
 };
 
-export const signUp = (username, email, password) => async (dispatch) => {
+export const signUp = (username, email, password, firstName, lastName) => async (dispatch) => {
 	const response = await fetch("/api/auth/signup", {
 		method: "POST",
 		headers: {
@@ -77,6 +110,8 @@ export const signUp = (username, email, password) => async (dispatch) => {
 			username,
 			email,
 			password,
+			firstName: firstName,
+			lastName,
 		}),
 	});
 
@@ -100,6 +135,9 @@ export default function reducer(state = initialState, action) {
 			return { user: action.payload };
 		case REMOVE_USER:
 			return { user: null };
+		case SET_USER_STATUS:
+			return { ...state, status: action.payload };
+
 		default:
 			return state;
 	}

@@ -1,4 +1,42 @@
 
+.main-window-header-user{
+    position: relative;
+    right:8px;
+    display: flex;
+    cursor: pointer;
+    z-index: 1;
+
+}
+.main-window-header-user-modal{
+    position: absolute;
+    top:30px;
+    opacity: 1;
+}
+.main-window-header-user-status{
+    position: absolute;
+    z-index: 10;
+    bottom: -2px;
+    right: 8px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #00FF00;
+    border: 3px solid #121016;
+}
+.main-window-header-user img{
+    width: 28px;
+    height: 28px;
+    border-radius: 10%;
+    margin-right: 10px;
+
+}
+.main-window-header-user-icon{
+    width: 28px;
+    height: 28px;
+    border-radius: 10%;
+    margin-right: 10px;
+}
+
 .main-window-header{
     display: flex;
     flex-direction: row;

@@ -7,42 +7,42 @@ import { deleteChannel } from '../../store/channels';
 
 
 const ChannelBrowser = () => {
-    const dispatch = useDispatch()
-    // const sessionUser = useSelector(state => state.session.user)
+  const dispatch = useDispatch()
+  // const sessionUser = useSelector(state => state.session.user)
 
-    const channelsobj = useSelector(state => state.channels)
-    const channelsArr = Object.values(channelsobj)
+  const channelsobj = useSelector(state => state.channels)
+  const channelsArr = Object.values(channelsobj)
 
 
-    const deleteHandler = (id) => {
-            dispatch(deleteChannel(parseInt(id)))
-    }
+  const deleteHandler = (id) => {
+    dispatch(deleteChannel(parseInt(id)))
+  }
 
-    useEffect(() => {
-        dispatch(getChannel())
-    }, [dispatch])
+  useEffect(() => {
+    dispatch(getChannel())
+  }, [dispatch])
 
-    return (
-        <>
+  return (
+    <>
       {channelsobj &&
         <main className='ChannelListContainer'>
-        <div className= 'eachChannel'>
-            {channelsArr.map((channel)=> (
+          <div className='eachChannel'>
+            {channelsArr.map((channel) => (
 
-              <Link className= 'channelLink' key={channel.id} to={`/chat/${channel.id}`}>
+              <Link className='channelLink' key={channel.id} to={`/chat/${channel.id}`} >
                 {channel.name}
 
-                <button className='deleteChannelbtn' id={channel.id} onClick={(e)=> deleteHandler(e.target.id)}>delete</button>
+                <button className='deleteChannelbtn' id={channel.id} onClick={(e) => deleteHandler(e.target.id)}>delete</button>
               </Link>
-                // return channel.name
+              // return channel.name
             ))}
 
 
-        </div>
+          </div>
         </main>
       }
-     </>
-    )
+    </>
+  )
 
 }
 

@@ -98,9 +98,9 @@ border-radius: 4px;
   align-items: center;
   margin-bottom: 20px;
   padding: 10px 15px;
-  opacity: 0.5;
   font-size: 12px;
   height: 1px;
+  opacity:0.25;
   border-bottom: 1px solid #d1d2d3;
 }
 .chat-message-date-breaker div{
@@ -218,6 +218,10 @@ code{
 
 .main-chat-messages{
   margin-top:50px;
+  min-height: calc(100vh - 340px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .main-chat-user-list-icon{
