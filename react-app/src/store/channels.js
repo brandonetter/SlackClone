@@ -44,7 +44,7 @@ export const createChannel = ({name, type}) => async (dispatch) => {
     body: JSON.stringify({
         name,
         type,
-        createdby: 'demo@aa.io'
+        createdby: "demo@aa.io"
       })
   })
 
