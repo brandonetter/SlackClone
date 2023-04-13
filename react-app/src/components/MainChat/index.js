@@ -172,6 +172,8 @@ function MainChat() {
 
   return (
     <div className="main-chat-container">
+
+  <div className="ChannelDetailsHide"> <ChannelDetail/></div>
       {redirect}
       <div className="main-chat" onScroll={checkScroll}>
         <div className="main-chat-header">
@@ -180,7 +182,7 @@ function MainChat() {
 
           {currentChannel && <button className='chat-room-name'>{currentChannel.name}</button>}
 
-          <div className="ChannelDetailsHide"> <ChannelDetail/></div>
+
 
 
           <div className='main-chat-user-list'>

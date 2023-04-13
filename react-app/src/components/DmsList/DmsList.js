@@ -10,6 +10,16 @@ const DmsBrowser = () => {
     const dmsobj = useSelector(state => state.dms)
     const dmsArr = Object.values(dmsobj)
 
+    const RoomtypeDms = []
+
+    dmsArr.map((dms)=> {
+      if(dms.roomtype != "CHANNEL"){
+        RoomtypeDms.push(dms)
+      }
+
+    })
+
+
     useEffect(() => {
         dispatch(getDms())
     }, [dispatch])
@@ -21,7 +31,7 @@ const DmsBrowser = () => {
       {dmsobj &&
         <main className='DmsListContainer'>
         <div className= 'eachDms'>
-            {dmsArr.map((dms)=> (
+            {RoomtypeDms.map((dms)=> (
 
               <Link className= 'dmsLink' key={dms.id} to={`/chat/${dms.id}`}>
                 {dms.name}

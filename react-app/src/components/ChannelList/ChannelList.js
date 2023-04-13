@@ -13,17 +13,27 @@ const ChannelBrowser = () => {
     const channelsobj = useSelector(state => state.channels)
     const channelsArr = Object.values(channelsobj)
 
+     const RoomtypeChannel = []
 
-    channelsArr.map((channels) => {
-      if(channels.roomtype == "CHANNEL"){
+
+    channelsArr.map((channel) => {
+      if(channel.roomtype == "CHANNEL"){
 
         //display channel
+       RoomtypeChannel.push(channel)
 
       }else {
-        
+
         //error message: must be channel to be displayed
       }
     })
+
+
+  //  function ChannelFilter(arr, query){
+  //   return arr.filter((el) => el.toLowerCase().includes(query.toLowerCase()));
+  //  }
+
+  // console.log("channel", RoomtypeChannel)
 
 
     const deleteHandler = (id) => {
@@ -41,7 +51,7 @@ const ChannelBrowser = () => {
       {channelsobj &&
         <main className='ChannelListContainer'>
         <div className= 'eachChannel'>
-            {channelsArr.map((channel)=> (
+            {RoomtypeChannel.map((channel)=> (
 
               <Link className= 'channelLink' key={channel.id} to={`/chat/${channel.id}`}>
                 # {channel.name}
