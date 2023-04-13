@@ -218,6 +218,10 @@ code{
 
 .main-chat-messages{
   margin-top:50px;
+  min-height: calc(100vh - 340px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .main-chat-user-list-icon{
