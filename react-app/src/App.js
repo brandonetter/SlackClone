@@ -6,7 +6,7 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import MainWindow from "./components/MainWindow";
 import EditChannelForm from "./components/ChannelForm/EditChannelForm";
-
+import Landing from "./components/Landing";
 
 function App() {
   const dispatch = useDispatch();
@@ -21,7 +21,10 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route path="/" exact>
-            <Navigation isLoaded={isLoaded} />
+            <>
+              <Navigation isLoaded={isLoaded} />
+              <Landing />
+            </>
           </Route>
           <Route path="/login">
             <Navigation isLoaded={isLoaded} />
@@ -35,7 +38,7 @@ function App() {
           </Route>
 
           <Route path="/chat/:channelId">
-            <MainWindow/>
+            <MainWindow />
           </Route>
 
           <Route path="/chat">
@@ -45,7 +48,6 @@ function App() {
           <Route path="/chat-session-reload">
             <Redirect to="/chat" />
           </Route>
-
 
 
 

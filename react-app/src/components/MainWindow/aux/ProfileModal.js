@@ -4,10 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceSmile, faFaceSmileWink } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { closeAll, toggleStatus } from '../../../store/modals';
+import { logout } from "../../../store/session";
+
 function ProfileModal() {
     const dispatch = useDispatch();
     const [smile, setSmile] = useState(<FontAwesomeIcon icon={faFaceSmile} className='faceicon' />);
+    const [redirect, setRedirect] = useState(false);
     const user = useSelector(state => state.session.user);
     let status = useSelector(state => state.session.status);
 
@@ -25,6 +29,12 @@ function ProfileModal() {
 
 
     const icon = user.profileicon ? user.profileicon : defaultIcon;
+
+    function logoutAndRedirect() {
+        setRedirect(true);
+        dispatch(logout());
+
+    }
     function convertToTint(name) {
         if (icon !== defaultIcon) return;
         let firstLetter = name[0].toUpperCase();
@@ -52,6 +62,7 @@ function ProfileModal() {
     return (
 
         <div className='profile-modal-container'>
+            {redirect && <Redirect to='/' />}
             <div className='profile-modal-name'>
                 <img src={icon} alt="profile icon" className={convertToTint(user.firstname) + " main-window-header-user-icon"} />
                 <div>
@@ -68,6 +79,7 @@ function ProfileModal() {
                 <div className="profile-modal-smile">{smile}</div>
                 Update Your Status
             </div>
+            <div className='profile-modal-logout-button' onClick={logoutAndRedirect}>Log Out</div>
         </div>
     )
 }

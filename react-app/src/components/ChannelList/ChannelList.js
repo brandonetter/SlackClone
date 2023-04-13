@@ -7,11 +7,11 @@ import { deleteChannel } from '../../store/channels';
 
 
 const ChannelBrowser = () => {
-    const dispatch = useDispatch()
-    // const sessionUser = useSelector(state => state.session.user)
+  const dispatch = useDispatch()
+  // const sessionUser = useSelector(state => state.session.user)
 
-    const channelsobj = useSelector(state => state.channels)
-    const channelsArr = Object.values(channelsobj)
+  const channelsobj = useSelector(state => state.channels)
+  const channelsArr = Object.values(channelsobj)
 
      const RoomtypeChannel = []
 
@@ -36,9 +36,10 @@ const ChannelBrowser = () => {
   // console.log("channel", RoomtypeChannel)
 
 
-    const deleteHandler = (id) => {
-            dispatch(deleteChannel(parseInt(id)))
-    }
+  const deleteHandler = (id) => {
+    dispatch(deleteChannel(parseInt(id)))
+  }
+
 
     // useEffect(() => {
     //     dispatch(getChannel())
@@ -67,13 +68,16 @@ const ChannelBrowser = () => {
 
               </Link>
 
+
             ))}
 
-        </div>
+          </div>
         </main>
       }
+
      </div>
     )
+
 }
 
 export default ChannelBrowser

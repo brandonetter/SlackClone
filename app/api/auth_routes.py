@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import User, db
+from app.models import User, db,Room,Room_Member
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
@@ -65,9 +65,20 @@ def sign_up():
         user = User(
             username=form.data['username'],
             email=form.data['email'],
-            password=form.data['password']
+            password=form.data['password'],
+            firstname=form.data['firstName'],
+            lastname=form.data['lastName'],
         )
         db.session.add(user)
+
+        # Get first room
+        room = Room.query.filter(Room.id == 1).first()
+        # Add user to room
+        room_member = Room_Member(
+            user=user,
+            room=room
+        )
+        db.session.add(room_member)
         db.session.commit()
         login_user(user)
         return user.to_dict()

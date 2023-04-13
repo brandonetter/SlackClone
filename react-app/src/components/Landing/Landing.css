@@ -1,0 +1,72 @@
+.landing-demo-room-container{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5vh;
+    justify-content: flex-start;
+    height: 30vh;
+    width: 100vw;
+    background-color: #f5f5f5;
+}
+.landing-demo-room{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding:20px;
+    height: 100%;
+    width: 70%;
+    gap: 20px;
+    border-radius: 10px;
+    border: 4px solid #400d40;
+    background-color: #ffffff;
+}
+.landing-demo-room-enter-button{
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 140px;
+    border-radius: 5px;
+    background-color: #400d40;
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    user-select: none;
+}
+.landing-demo-room-enter-button:hover{
+    background-color: #511151;
+    border: 1px solid #400d40;
+    color: #ffffff;
+}
+
+.landing-demo-room-title{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    height: 10%;
+    width: 100%;
+    font-size: 2rem;
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    color: #400d40;
+}
+.landing-demo-room-description{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    height: 10%;
+    width: 100%;
+    font-size: 1.5rem;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    color: #2e2e2e;
+}
