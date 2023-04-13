@@ -18,7 +18,7 @@ class User(db.Model, UserMixin):
     hash = db.Column(db.String(255), nullable=False)
     about = db.Column(db.Text)
     profileicon = db.Column(db.String(255))
-    status = db.Column(db.String(255))
+    status = db.Column(db.String(255),default='[Active] Active')
     createdat = db.Column(db.DateTime, server_default=func.now(),default=func.now())
     updatedat = db.Column(db.DateTime, onupdate=func.now(),default=func.now())
 
