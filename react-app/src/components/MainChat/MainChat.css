@@ -111,9 +111,9 @@ border-radius: 4px;
   align-items: center;
   margin-bottom: 20px;
   padding: 10px 15px;
-  opacity: 0.5;
   font-size: 12px;
   height: 1px;
+  opacity:0.25;
   border-bottom: 1px solid #d1d2d3;
 }
 .chat-message-date-breaker div{
