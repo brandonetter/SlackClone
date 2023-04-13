@@ -32,7 +32,7 @@ export const getChannel = () => async (dispatch) => {
 
   if(response.ok) {
     const channels = await response.json()
-    console.log("getChannel", channels)
+    // console.log("getChannel", channels)
     return dispatch(loadChannel(channels))
   }
 }
@@ -44,7 +44,7 @@ export const createChannel = ({name, type}) => async (dispatch) => {
     body: JSON.stringify({
         name,
         type,
-        createdby: 'demo@aa.io'
+        createdby: "demo@aa.io"
       })
   })
 
@@ -58,7 +58,10 @@ export const createChannel = ({name, type}) => async (dispatch) => {
 }
 
 export const editChannel = (payload) => async (dispatch) => {
-  const response = await fetch(`/api/room/all/${payload.channelId}`, {
+
+
+    console.log("payload", payload.channelId)
+  const response = await fetch(`/api/room/all/${payload.channelId}/edit`, {
     method: "PUT",
     headers: { "Content-Type": "application/json"},
     body: JSON.stringify(payload)

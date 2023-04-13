@@ -1,0 +1,39 @@
+.ChannelListContainer{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 200px;
+}
+
+.eachChannel{
+    width: 200px;
+}
+
+.channelLink{
+    background-color: #19171D;
+    display: flex;
+    text-decoration: none;
+    padding: 5px;
+    color: #828184;
+}
+
+
+.deleteChannelbtn{
+    color: rgb(128, 0, 0);
+}
+
+.channelLinkexpandBtn{
+    background-color: #261f12;
+    color: #828184;
+    border: none;
+    margin: 5px;
+}
+
+.deleteChannelbtn{
+
+    background-color: #261f12;
+    color: #828184;
+    border: none;
+    margin: 5px;
+}
