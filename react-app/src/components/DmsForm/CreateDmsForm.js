@@ -29,7 +29,18 @@ const CreateDmsForm = () => {
 
 }
 
+const [show, setShow] = useState(false);
+
 return (
+<>
+
+<div>
+    <button className="ExpandDmsBtn" onClick={() => setShow(!show)}>
+    {show ? 'Direct Messages' : 'Direct Messages'}
+    </button>
+    {show && <hr />}
+    {show &&
+
     <form className = "createDms" onSubmit={handleSubmit}>
 
         <input className='createDmsName'
@@ -39,7 +50,7 @@ return (
         onChange={createName}
         />
 
-        <input className='createChannelType'
+        <input className='createDmsType'
         type='text'
         placeholder='Dms Type'
         value ={type}
@@ -49,6 +60,13 @@ return (
     <button className= 'CreateDmsBtn' type="submit">Open a direct Message</button>
 
     </form>
+
+}
+
+</div>
+
+    </>
+
 )
 
 }

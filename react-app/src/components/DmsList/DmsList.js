@@ -14,6 +14,8 @@ const DmsBrowser = () => {
         dispatch(getDms())
     }, [dispatch])
 
+    const [show, setShow] = useState(false);
+
     return (
         <>
       {dmsobj &&

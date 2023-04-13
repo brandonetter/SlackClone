@@ -1,0 +1,45 @@
+
+
+
+.ExpandChannelsBtn{
+    padding: 7x;
+    width: 100px;
+    background-color: #261f12;
+    color: #828184;
+    border: none;
+    padding: 10px;
+}
+
+.ExpandChannelsBtn:hover{
+    background-color: #252425;
+}
+
+
+.CreateChannelBttn{
+    padding: 7x;
+    width: 100px;
+    background-color: #261f12;
+    color: #828184;
+    border: none;
+    padding: 10px;
+}
+
+.CreateChannelBttn:hover{
+    background-color: #252425;
+}
+
+.createChannelName{
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    margin: 5px;
+    padding: 5px;
+}
+
+.createChannelType{
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    margin: 5px;
+    padding: 5px;
+}

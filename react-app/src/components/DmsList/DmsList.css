@@ -1,0 +1,22 @@
+
+
+
+.DmsListContainer{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 200px;
+}
+
+.eachDms{
+    width: 200px;
+}
+
+.dmsLink{
+    background-color: #19171D;
+    display: flex;
+    text-decoration: none;
+    padding: 5px;
+    color: #828184;
+}

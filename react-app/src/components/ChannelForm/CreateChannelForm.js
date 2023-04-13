@@ -29,7 +29,17 @@ const CreateChannelForm = () => {
 
 }
 
+const [show, setShow] = useState(false);
+
 return (
+<>
+    <div>
+    <button className="ExpandChannelsBtn" onClick={() => setShow(!show)}>
+    {show ? 'Channels' : 'Channels'}
+    </button>
+    {show && <hr />}
+    {show &&
+
     <form className = "createChannel" onSubmit={handleSubmit}>
 
         <input className='createChannelName'
@@ -45,10 +55,15 @@ return (
         value ={type}
         onChange={createType}
         />
-
-    <button className= 'CreateChannelBttn' type="submit">Add Channel</button>
+    <button className= 'CreateChannelBttn' type="submit">Create New Channel</button>
 
     </form>
+
+
+    }
+
+    </div>
+    </>
 )
 
 }

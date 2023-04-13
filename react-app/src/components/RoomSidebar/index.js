@@ -26,19 +26,21 @@ function RoomSidebar() {
         <h2>Current Channel:</h2>
         {currentChannel && <h3>{currentChannel.name}</h3>}
 
-        <ChannelBrowser/>
         { (channels) &&
         <div>
         <CreateChannelForm/>
         </div>
         }
+        <ChannelBrowser/>
 
 
         <h2>Direct Messages:</h2>
-        <DmsBrowser/>
         <div>
         <CreateDmsForm/>
         </div>
+
+        <DmsBrowser/>
+
       </div>
     </div>
   );
