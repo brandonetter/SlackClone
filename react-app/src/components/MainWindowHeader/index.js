@@ -1,11 +1,14 @@
 import './MainWindowHeader.css';
-import ChannelDetail from '../ChannelDetail/ChannelDetail';
-import EditChannelForm from '../ChannelForm/EditChannelForm';
+import SearchBar from './aux/SearchBar';
+import { useSelector } from 'react-redux';
+import ProfileIcon from './aux/ProfileIcon';
+function MainWindowHeader() {
+    const user = useSelector(state => state.session.user);
 
-
-function MainWindowHeader(){
     return <div className="main-window-header">
-     <ChannelDetail />
-        </div>
+        <div />
+        <SearchBar />
+        <ProfileIcon user={user} />
+    </div>
 }
 export default MainWindowHeader;
