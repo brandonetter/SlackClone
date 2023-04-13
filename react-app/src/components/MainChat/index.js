@@ -170,18 +170,29 @@ function MainChat() {
   }
 
 
+  const [IsHovering, setIsHovering] = useState(false)
+
+  const handleMouseOver = () => {
+    setIsHovering(true);
+  }
+
+  const handleMouseOut = () => {
+    setIsHovering(false)
+  }
+
+
   return (
     <div className="main-chat-container">
 
   <div className="ChannelDetailsHide"> <ChannelDetail/></div>
       {redirect}
       <div className="main-chat" onScroll={checkScroll}>
-        <div className="main-chat-header">
 
+        <div className="main-chat-header"
+        onMouseOver={handleMouseOut}
+        onMouseOut={handleMouseOut}>
 
-
-          {currentChannel && <button className='chat-room-name'>{currentChannel.name}</button>}
-
+          {currentChannel && <h1 className='chat-room-name'>{currentChannel.name}</h1>}
 
 
 
@@ -190,7 +201,9 @@ function MainChat() {
             {currentUsers && currentUsers.length} Users
           </div>
 
-
+          {IsHovering && (
+            <div> <ChannelDetail/></div>
+          )}
 
 
         </div>
