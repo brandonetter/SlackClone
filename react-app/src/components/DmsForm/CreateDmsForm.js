@@ -1,11 +1,11 @@
-import './CreateChannelForm.css'
+import './CreateDmsForm.css'
 
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createChannel } from '../../store/channels';
+import { createDms } from '../../store/dms';
 
 
-const CreateChannelForm = () => {
+const CreateDmsForm = () => {
 
     const dispatch = useDispatch();
 
@@ -25,7 +25,7 @@ const CreateChannelForm = () => {
 
     };
 
-    dispatch(createChannel(payload))
+    dispatch(createDms(payload))
 
 }
 
@@ -33,39 +33,42 @@ const [show, setShow] = useState(false);
 
 return (
 <>
-    <div>
-    <button className="ExpandChannelsBtn" onClick={() => setShow(!show)}>
-    {show ? 'Channels' : 'Channels'}
+
+<div>
+    <button className="ExpandDmsBtn" onClick={() => setShow(!show)}>
+    {show ? 'Direct Messages' : 'Direct Messages'}
     </button>
     {show && <hr />}
     {show &&
 
-    <form className = "createChannel" onSubmit={handleSubmit}>
+    <form className = "createDms" onSubmit={handleSubmit}>
 
-        <input className='createChannelName'
+        <input className='createDmsName'
         type='text'
-        placeholder='Channel Name'
+        placeholder='Dms Name'
         value ={name}
         onChange={createName}
         />
 
-        <input className='createChannelType'
+        <input className='createDmsType'
         type='text'
-        placeholder='Channel Type'
+        placeholder='Dms Type'
         value ={type}
         onChange={createType}
         />
-    <button className= 'CreateChannelBttn' type="submit">Create New Channel</button>
+
+    <button className= 'CreateDmsBtn' type="submit">Open a direct Message</button>
 
     </form>
 
+}
 
-    }
+</div>
 
-    </div>
     </>
+
 )
 
 }
 
-export default CreateChannelForm
+export default CreateDmsForm

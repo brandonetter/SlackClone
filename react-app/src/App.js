@@ -49,9 +49,6 @@ function App() {
             <Redirect to="/chat" />
           </Route>
 
-          <Route path="/chat/:channelId/edit">
-            {/* <EditChannelForm /> */}
-          </Route>
 
 
 
