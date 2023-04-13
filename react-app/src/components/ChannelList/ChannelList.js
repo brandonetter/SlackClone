@@ -4,6 +4,7 @@ import { NavLink, Link, Route, useParams, useHistory } from 'react-router-dom';
 import { getChannel, loadChannel } from '../../store/channels';
 import './ChannelList.css'
 import { deleteChannel } from '../../store/channels';
+import { changeRoom } from '../../store/channel';
 
 
 const ChannelBrowser = () => {
@@ -21,7 +22,9 @@ const ChannelBrowser = () => {
   useEffect(() => {
     dispatch(getChannel())
   }, [dispatch])
-
+  function changeRoomHandler(room) {
+    dispatch(changeRoom(room))
+  }
   return (
     <>
       {channelsobj &&
@@ -29,7 +32,8 @@ const ChannelBrowser = () => {
           <div className='eachChannel'>
             {channelsArr.map((channel) => (
 
-              <Link className='channelLink' key={channel.id} to={`/chat/${channel.id}`} >
+              <Link className='channelLink' key={channel.id} to={`/chat/${channel.id}`}
+                onClick={() => changeRoomHandler(channel)} >
                 {channel.name}
 
                 <button className='deleteChannelbtn' id={channel.id} onClick={(e) => deleteHandler(e.target.id)}>delete</button>

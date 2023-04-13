@@ -1,9 +1,9 @@
 from flask import Blueprint, jsonify,session, request
 from flask_login import login_required, current_user
 
-from app.models import User, Room, db, Room_Member
+from app.models import User, Room, db, Room_Member, Message
 from app.forms import ChannelForm
-
+from datetime import datetime
 
 
 room_routes = Blueprint('room', __name__)
@@ -64,6 +64,13 @@ def CreateChannel():
             room = channel,
             userid = current_user.id
         )
+        message = Message(
+            userid=current_user.id,
+            message=f"{current_user.username} created the channel",
+            room=channel,
+            date=datetime.now()
+        )
+        db.session.add(message)
         db.session.add(channel)
         db.session.add(channelMember)
         db.session.commit()

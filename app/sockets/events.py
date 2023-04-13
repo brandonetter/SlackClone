@@ -14,7 +14,8 @@ def connect():
 def chat_message(data):
     if current_user.is_authenticated:
         # Get the current room
-        room = session.get('room')
+        room = data['channelId']
+        chatMessage = data['message']
         print(room)
         # Get the current dateTime
         date = datetime.now()
@@ -22,7 +23,7 @@ def chat_message(data):
         # Save message to database
         message = Message(
             userid=current_user.id,
-            message=data,
+            message=chatMessage,
             roomid=room,
             date=date
 
@@ -38,7 +39,8 @@ def get_room_messages(last_message_id):
     if current_user.is_authenticated:
 
         # Get the current room
-        room = session.get('room')
+        room = last_message_id['channelId']
+        last_message_id = last_message_id['message']
         print(room)
         message_pull_count = 15
         # Get the messages for the current room
