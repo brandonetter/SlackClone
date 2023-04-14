@@ -4,6 +4,7 @@ import { NavLink, Link, Route, useParams, useHistory } from 'react-router-dom';
 import { getChannel, loadChannel } from '../../store/channels';
 import './ChannelList.css'
 import { deleteChannel } from '../../store/channels';
+import { changeRoom } from '../../store/channel';
 
 
 const ChannelBrowser = () => {
@@ -22,15 +23,36 @@ const ChannelBrowser = () => {
     dispatch(getChannel())
   }, [dispatch])
 
+
+  // useEffect(() => {
+    //     dispatch(getChannel())
+    // }, [dispatch])
+  function changeRoomHandler(room) {
+    dispatch(changeRoom(room))
+  } 
+  const [show, setShow] = useState(false);
+
   return (
     <>
       {channelsobj &&
         <main className='ChannelListContainer'>
-          <div className='eachChannel'>
-            {channelsArr.map((channel) => (
 
-              <Link className='channelLink' key={channel.id} to={`/chat/${channel.id}`} >
-                {channel.name}
+        <div className= 'eachChannel'>
+            {RoomtypeChannel.map((channel)=> (
+
+              <Link className= 'channelLink' key={channel.id} to={`/chat/${channel.id}`} onClick={() => changeRoomHandler(channel)}>
+                # {channel.name}
+
+
+                <button className="channelLinkexpandBtn" onClick={() => setShow(!show)}>
+                  {show ? '...' : '...'}
+                </button>
+                  {show && <hr />}
+                  {show &&
+                   <button className='deleteChannelbtn' id={channel.id} onClick={(e)=> deleteHandler(e.target.id)}>Leave</button>}
+
+                {/* <button className='deleteChannelbtn' id={channel.id} onClick={(e)=> deleteHandler(e.target.id)}>delete</button> */}
+
 
                 <button className='deleteChannelbtn' id={channel.id} onClick={(e) => deleteHandler(e.target.id)}>delete</button>
               </Link>
