@@ -7,7 +7,6 @@ import channels from "./channels"
 import dms from "./dms"
 import modals from "./modals";
 
-
 const rootReducer = combineReducers({
   session,
   channel,
