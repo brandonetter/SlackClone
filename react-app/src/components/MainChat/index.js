@@ -183,8 +183,6 @@ function MainChat() {
 
   return (
     <div className="main-chat-container">
-
-  <div className="ChannelDetailsHide"> <ChannelDetail/></div>
       {redirect}
       <div className="main-chat" onScroll={checkScroll}>
 
