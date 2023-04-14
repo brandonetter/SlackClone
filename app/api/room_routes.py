@@ -72,16 +72,19 @@ def CreateChannel():
     print(validation_errors_to_error_messages(form.errors))
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
-@room_routes.route('/all/<id>/edit', methods = ['PUT'])
-def UpdateChannel(id):
+@room_routes.route('/all/<id>', methods = ['PUT'])
+def UpdateChannel():
     formContent = request.get_json()
     updateChannel = Room.query.get(id)
 
-    updateChannel.name = formContent['name']
-    updateChannel.type = formContent['type']
+    updateChannel.name = formContent.name
+    updateChannel.type = formContent.type
     db.session.add(updateChannel)
     db.session.commit()
+
     return "successfully updated"
+
+
 
 @room_routes.route('/all/<id>', methods = ['DELETE'])
 def ChannelDelete(id):
