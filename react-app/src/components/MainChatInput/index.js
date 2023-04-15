@@ -17,6 +17,7 @@ function MainChatInput(props) {
     const [users, setUsers] = useState([]);
     const [mention, setMention] = useState({ state: undefined });
     const currentUsers = useSelector((state) => state.channel.users);
+    const currentChannel = useSelector((state) => state.channel.room);
     useEffect(() => {
         if (!currentUsers) return;
         setUsers(currentUsers);
@@ -179,7 +180,7 @@ function MainChatInput(props) {
                 props.onSend(markup);
                 return;
             }
-            socket.emit("chat-message", markup);
+            socket.emit("chat-message", { channelId: currentChannel.id, 'message': markup });
             setEditorState(EditorState.createEmpty(decorator));
 
             return 'handled';

@@ -5,6 +5,8 @@ import MainWindowHeader from "../MainWindowHeader";
 import "./MainWindow.css";
 import ProfileModal from "./aux/ProfileModal";
 import StatusModal from "./aux/StatusModal";
+import SearchModal from "./aux/SearchModal";
+import ProfilePictureModal from "./aux/ProfilePictureModal";
 import { useSelector } from "react-redux";
 function MainWindow() {
   const modals = useSelector((state) => state.modals);
@@ -29,11 +31,17 @@ function MainWindow() {
           <StatusModal />
         </div>}
         {modals.search && <div className="main-window-modal-search">
+          <SearchModal />
         </div>}
         {modals.profile &&
           <div className="main-window-modal-profile">
             <ProfileModal />
           </div>}
+        {modals.profilepicture &&
+          <div className="main-window-modal-status">
+            <ProfilePictureModal />
+          </div>
+        }
       </div>
     </>
   );

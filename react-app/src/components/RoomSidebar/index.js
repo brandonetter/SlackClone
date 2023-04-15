@@ -9,6 +9,8 @@ import EditChannelForm from "../ChannelForm/EditChannelForm";
 import { getChannel } from "../../store/channels";
 import DmsBrowser from "../DmsList/DmsList";
 import CreateDmsForm from "../DmsForm/CreateDmsForm";
+import ChannelDetail from '../ChannelDetail/ChannelDetail';
+import Modal from "../ChannelModal/ChannelModal";
 // import ChannelList "../ChannelList"
 
 function RoomSidebar() {
@@ -17,8 +19,8 @@ function RoomSidebar() {
   useEffect(() => {
     dispatch(getChannel());
     if (!currentChannel) dispatch(joinDefaultRoom());
-  },[]);
-
+  }, []);
+  const [modalOpen, setModalOpen] = useState(false);
   const channels = useSelector((state) => state.channels)
   return (
     <div className="room-sidebar">
@@ -26,21 +28,33 @@ function RoomSidebar() {
         <h2>Current Channel:</h2>
         {/* {currentChannel && <h3>{currentChannel.name}</h3>} */}
 
-        { (channels) &&
-        <div>
-        <CreateChannelForm/>
-        </div>
+        {(channels) &&
+          <div>
+            <CreateChannelForm />
+          </div>
         }
-        <ChannelBrowser/>
+        <ChannelBrowser />
 
 
         <h2>Direct Messages:</h2>
         <div>
-        <CreateDmsForm/>
+          <CreateDmsForm />
         </div>
 
-        <DmsBrowser/>
+        <DmsBrowser />
+        <div className="App">
+          <p>View Channel Details</p>
+          <button
+            className="openModalBtn"
+            onClick={() => {
+              setModalOpen(true);
+            }}
+          >
+            Channel Details
+          </button>
 
+          {modalOpen && <Modal setOpenModal={setModalOpen} />}
+        </div>
       </div>
     </div>
   );

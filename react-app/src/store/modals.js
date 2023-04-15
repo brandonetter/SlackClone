@@ -2,8 +2,9 @@
 const SET_SEARCH = "modals/SET_SEARCH";
 const SET_PROFILE = "modals/SET_PROFILE";
 const SET_STATUS = "modals/SET_STATUS";
+const SET_PROFILE_PICTURE = "modals/SET_PROFILE_PICTURE";
 
-
+// actions
 const setSearch = (state) => ({
     type: SET_SEARCH,
     payload: state,
@@ -16,17 +17,30 @@ const setStatus = (state) => ({
     type: SET_STATUS,
     payload: state,
 });
+const setProfilePicture = (state) => ({
+    type: SET_PROFILE_PICTURE,
+    payload: state,
+});
 
 
 
-
+// thunks
 export const toggleStatus = () => async (dispatch, getState) => {
     const state = getState();
     dispatch(setStatus(!state.modals.status));
 };
-export const toggleSearch = () => async (dispatch, getState) => {
+export const toggleProfilePicture = () => async (dispatch, getState) => {
     const state = getState();
-    dispatch(setSearch(!state.modals.search));
+    dispatch(setProfilePicture(!state.modals.profilepicture));
+};
+export const toggleSearch = (bool = undefined) => async (dispatch, getState) => {
+    const state = getState();
+    if (bool === undefined) {
+        dispatch(setSearch(!state.modals.search));
+    } else {
+        dispatch(setSearch(bool));
+    }
+
 };
 export const toggleProfile = () => async (dispatch, getState) => {
     const state = getState();
@@ -37,11 +51,33 @@ export const closeAll = () => async (dispatch) => {
     dispatch(setProfile(false));
 };
 
+export const sendSearch = (type, search) => async (dispatch) => {
+    const response = await fetch("/api/search/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            type,
+            search,
+        }),
+    });
+    if (response.ok) {
+        const data = await response.json();
+        if (data.errors) {
+            console.log(data.errors);
+            return;
+        }
+        return data;
+    }
+};
 
 
 
-const initialState = { search: false, profile: false, status: false };
 
+const initialState = { search: false, profile: false, status: false, profilepicture: false };
+
+// reducer
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         case SET_SEARCH:
@@ -50,6 +86,8 @@ export default function reducer(state = initialState, action) {
             return { ...state, profile: action.payload }
         case SET_STATUS:
             return { ...state, status: action.payload }
+        case SET_PROFILE_PICTURE:
+            return { ...state, profilepicture: action.payload }
 
         default:
             return state;

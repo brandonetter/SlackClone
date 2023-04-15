@@ -4,29 +4,31 @@ import { NavLink, Link, Route, useParams, useHistory } from 'react-router-dom';
 import { getChannel, loadChannel } from '../../store/channels';
 import './ChannelList.css'
 import { deleteChannel } from '../../store/channels';
-
+import { changeRoom } from '../../store/channel';
 
 const ChannelBrowser = () => {
   const dispatch = useDispatch()
   // const sessionUser = useSelector(state => state.session.user)
-
+  function changeRoomHandler(room) {
+    dispatch(changeRoom(room))
+  }
   const channelsobj = useSelector(state => state.channels)
   const channelsArr = Object.values(channelsobj)
 
-     const RoomtypeChannel = []
+  const RoomtypeChannel = []
 
 
-    channelsArr.map((channel) => {
-      if(channel.roomtype == "CHANNEL"){
+  channelsArr.map((channel) => {
+    if (channel.roomtype == "CHANNEL") {
 
-        //display channel
-       RoomtypeChannel.push(channel)
+      //display channel
+      RoomtypeChannel.push(channel)
 
-      }else {
+    } else {
 
-        //error message: must be channel to be displayed
-      }
-    })
+      //error message: must be channel to be displayed
+    }
+  })
 
 
   //  function ChannelFilter(arr, query){
@@ -41,28 +43,28 @@ const ChannelBrowser = () => {
   }
 
 
-    // useEffect(() => {
-    //     dispatch(getChannel())
-    // }, [dispatch])
+  // useEffect(() => {
+  //     dispatch(getChannel())
+  // }, [dispatch])
 
-    const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false);
 
-    return (
-        <div>
+  return (
+    <div>
       {channelsobj &&
         <main className='ChannelListContainer'>
-        <div className= 'eachChannel'>
-            {RoomtypeChannel.map((channel)=> (
+          <div className='eachChannel'>
+            {RoomtypeChannel.map((channel) => (
 
-              <Link className= 'channelLink' key={channel.id} to={`/chat/${channel.id}`}>
+              <Link className='channelLink' key={channel.id} to={`/chat/${channel.id}`} onClick={() => changeRoomHandler(channel)}>
                 # {channel.name}
 
                 <button className="channelLinkexpandBtn" onClick={() => setShow(!show)}>
                   {show ? '...' : '...'}
                 </button>
-                  {show && <hr />}
-                  {show &&
-                   <button className='deleteChannelbtn' id={channel.id} onClick={(e)=> deleteHandler(e.target.id)}>Leave</button>}
+                {show && <hr />}
+                {show &&
+                  <button className='deleteChannelbtn' id={channel.id} onClick={(e) => deleteHandler(e.target.id)}>Leave</button>}
 
                 {/* <button className='deleteChannelbtn' id={channel.id} onClick={(e)=> deleteHandler(e.target.id)}>delete</button> */}
 
@@ -75,8 +77,8 @@ const ChannelBrowser = () => {
         </main>
       }
 
-     </div>
-    )
+    </div>
+  )
 
 }
 
