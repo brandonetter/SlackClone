@@ -2,6 +2,7 @@
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
 const SET_USER_STATUS = "session/SET_USER_STATUS";
+const SET_USER_PROFILE_PICTURE = "session/SET_USER_PROFILE_PICTURE";
 
 const setUser = (user) => ({
 	type: SET_USER,
@@ -16,9 +17,14 @@ const setUserStatus = (status) => ({
 	type: SET_USER_STATUS,
 	payload: status,
 });
+const setUserProfilePicture = (profilePicture) => ({
+	type: SET_USER_PROFILE_PICTURE,
+	payload: profilePicture,
+});
 
 
-const initialState = { user: null, status: null };
+
+const initialState = { user: null, status: null, profilePicture: null };
 
 
 export const assignStatus = (status) => async (dispatch) => {
@@ -45,6 +51,31 @@ export const assignStatus = (status) => async (dispatch) => {
 	}
 };
 
+export const getUserProfileImage = (id) => async (dispatch) => {
+	const response = await fetch("/api/users/profileimage/" + id, {
+		headers: {
+			"Content-Type": "application/json",
+		},
+	});
+	if (response.ok) {
+		let data = await response.blob();
+
+		if (data.errors) {
+			return;
+		}
+		//data = URL.createObjectURL(data);
+		// convert to base64 image url
+		const reader = new FileReader();
+		reader.readAsDataURL(data);
+		reader.onloadend = function () {
+			const base64data = reader.result;
+			console.log(base64data);
+			dispatch(setUserProfilePicture(base64data));
+		};
+		// dispatch(setUserProfilePicture(data));
+		return data;
+	}
+};
 
 export const authenticate = () => async (dispatch) => {
 	const response = await fetch("/api/auth/", {
@@ -77,6 +108,8 @@ export const login = (email, password) => async (dispatch) => {
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(setUser(data));
+		console.log(data);
+		dispatch(getUserProfileImage(data.id));
 		return null;
 	} else if (response.status < 500) {
 		const data = await response.json();
@@ -137,6 +170,8 @@ export default function reducer(state = initialState, action) {
 			return { user: null };
 		case SET_USER_STATUS:
 			return { ...state, status: action.payload };
+		case SET_USER_PROFILE_PICTURE:
+			return { ...state, profilePicture: action.payload };
 
 		default:
 			return state;

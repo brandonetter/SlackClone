@@ -20,22 +20,29 @@ class Message(db.Model):
     def to_dict(self):
         # convert datetime to string
         date = self.date.strftime("%m/%d/%Y, %H:%M:%S")
-        
+
         # include the username
         user = User.query.get(self.userid)
-        username = user.username
-        firstname = user.firstname
-        lastname = user.lastname
-      
+        if user is not None:
+            username = user.username
+            firstname = user.firstname
+            lastname = user.lastname
+            profileIcon = User.query.get(self.userid).profileicon
+        else:
+            username = "UnknownUserErrorUnknownUser"
+            firstname = "Unknown"
+            lastname = "User"
+            profileIcon = ""
+
         # include the user profileIcon
-        self.profileIcon = User.query.get(self.userid).profileicon
+
 
         return {
             "id": self.id,
             "roomid": self.roomid,
             "userid": self.userid,
             "message": self.message,
-            "profileIcon": self.profileIcon,
+            "profileIcon": profileIcon,
             "username": username,
             "firstname": firstname,
             "lastname": lastname,

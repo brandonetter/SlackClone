@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session, redirect, url_for, Blueprint, jsonify, send_file
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
@@ -16,8 +16,10 @@ from flask_socketio import SocketIO, emit
 
 # set socketIO to async_mode
 
-
+#set app static folder to react build folder, and set static url path to root, and another static folder for images
 app = Flask(__name__, static_folder='../react-app/build', static_url_path='/')
+# add another static folder for images
+
 socketio = SocketIO(app,async_mode='eventlet',cors_allowed_origins="*")
 # Setup login manager
 login = LoginManager(app)
@@ -33,6 +35,7 @@ def load_user(id):
 app.cli.add_command(seed_commands)
 
 app.config.from_object(Config)
+
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(room_routes, url_prefix='/api/room')
@@ -47,6 +50,10 @@ Migrate(app, db,render_as_batch=True)
 # Application Security
 CORS(app)
 
+
+@app.route('/cdn/<filename>')
+def custom_static(filename):
+    print(filename)
 
 
 # Since we are deploying with Docker and Flask,
@@ -75,6 +82,7 @@ def inject_csrf_token(response):
     return response
 
 
+
 @app.route("/api/docs")
 def api_help():
     """
@@ -87,6 +95,7 @@ def api_help():
     return route_list
 
 
+
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def react_root(path):
@@ -95,9 +104,15 @@ def react_root(path):
     react builds in the production environment for favicon
     or index.html requests
     """
+    print("asdasdsd")
     if path == 'favicon.ico':
+        print("asdas")
         return app.send_from_directory('public', 'favicon.ico')
     return app.send_static_file('index.html')
+
+
+
+
 
 
 @app.errorhandler(404)

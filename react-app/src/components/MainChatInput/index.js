@@ -175,6 +175,11 @@ function MainChatInput(props) {
         if (!e.shiftKey) {
 
             const rawContentState = convertToRaw(editorState.getCurrentContent());
+
+            // check if content is empty or just spaces
+            if (rawContentState.blocks[0].text.trim().length === 0) {
+                return 'handled';
+            }
             const markup = draftToMarkdown(rawContentState);
             if (props.editMessageText) {
                 props.onSend(markup);
