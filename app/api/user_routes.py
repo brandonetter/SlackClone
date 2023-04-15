@@ -34,3 +34,14 @@ def status():
     db.session.add(user)
     db.session.commit()
     return {'status': 'Status updated'}
+
+@user_routes.route('/profileimage/upload',methods=['POST'])
+@login_required
+def upload():
+    #get the body of the request
+    image = request.get_json()
+    user = User.query.get(current_user.id)
+    user.profileimage = image['image']
+    db.session.add(user)
+    db.session.commit()
+    return {'image': 'Image updated'}

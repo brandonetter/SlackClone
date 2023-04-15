@@ -1,9 +1,20 @@
-import { toggleProfilePicture } from '../../../store/modals';
+import { toggleProfilePicture, handleFileUpload } from '../../../store/modals';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmarkCircle, faMessage } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 function ProfilePictureModal() {
+
+    const inputRef = useRef(null);
+    // prevent default dragover behavior
+    window.addEventListener("dragover", function (e) {
+        e.preventDefault();
+    }, false);
+    // prevent default drop behavior
+    window.addEventListener("drop", function (e) {
+        console.log('lol');
+        e.preventDefault();
+    }, false);
     const [dragActive, setDragActive] = useState(false);
     const handleDrag = (e) => {
         console.log(e);
@@ -16,6 +27,14 @@ function ProfilePictureModal() {
         }
     }
 
+    const handleDrop = async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setDragActive(false);
+        let files = e.dataTransfer.files;
+        console.log(files);
+        console.log(e.dataTransfer);
+    }
 
     const dispatch = useDispatch();
     return (
@@ -28,11 +47,12 @@ function ProfilePictureModal() {
                     <h2>Upload A Picture</h2>
                 </div>
                 <div className='status-modal-body'>
-                    <div className={'upload-modal-box ' + (dragActive ? 'drag-active' : '')} onDragEnter={handleDrag} onDragLeave={handleDrag}>
+                    <div className={'upload-modal-box ' + (dragActive ? 'drag-active' : '')} onDragEnter={handleDrag} onDragLeave={handleDrag} onDrop={handleDrop}>
 
                         <form id="picture-upload" onSubmit={(e) => e.preventDefault()}>
                             <input type="file" id="input-file-upload"
-                                multiple={true}
+                                multiple={false}
+                                ref={inputRef}
                                 accept="image/jpeg, image/jpg, image/png" />
 
                         </form><span>Drag Image Here</span>
