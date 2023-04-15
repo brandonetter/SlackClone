@@ -25,11 +25,11 @@ const ChannelBrowser = () => {
 
 
   // useEffect(() => {
-    //     dispatch(getChannel())
-    // }, [dispatch])
+  //     dispatch(getChannel())
+  // }, [dispatch])
   function changeRoomHandler(room) {
     dispatch(changeRoom(room))
-  } 
+  }
   const [show, setShow] = useState(false);
 
   return (
@@ -37,19 +37,19 @@ const ChannelBrowser = () => {
       {channelsobj &&
         <main className='ChannelListContainer'>
 
-        <div className= 'eachChannel'>
-            {RoomtypeChannel.map((channel)=> (
+          <div className='eachChannel'>
+            {channelsArr.map((channel) => (
 
-              <Link className= 'channelLink' key={channel.id} to={`/chat/${channel.id}`} onClick={() => changeRoomHandler(channel)}>
+              <Link className='channelLink' key={channel.id} to={`/chat/${channel.id}`} onClick={() => changeRoomHandler(channel)}>
                 # {channel.name}
 
 
                 <button className="channelLinkexpandBtn" onClick={() => setShow(!show)}>
                   {show ? '...' : '...'}
                 </button>
-                  {show && <hr />}
-                  {show &&
-                   <button className='deleteChannelbtn' id={channel.id} onClick={(e)=> deleteHandler(e.target.id)}>Leave</button>}
+                {show && <hr />}
+                {show &&
+                  <button className='deleteChannelbtn' id={channel.id} onClick={(e) => deleteHandler(e.target.id)}>Leave</button>}
 
                 {/* <button className='deleteChannelbtn' id={channel.id} onClick={(e)=> deleteHandler(e.target.id)}>delete</button> */}
 

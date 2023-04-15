@@ -5,7 +5,7 @@ import { faFaceSmile, faFaceSmileWink } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { closeAll, toggleStatus } from '../../../store/modals';
+import { closeAll, toggleStatus, toggleProfilePicture } from '../../../store/modals';
 import { logout } from "../../../store/session";
 
 function ProfileModal() {
@@ -32,6 +32,7 @@ function ProfileModal() {
 
     function logoutAndRedirect() {
         setRedirect(true);
+        setTimeout(() => dispatch(closeAll(), 10));
         dispatch(logout());
 
     }
@@ -59,6 +60,11 @@ function ProfileModal() {
         dispatch(toggleStatus());
 
     }
+    function openProfilePictureModal() {
+        dispatch(closeAll());
+        dispatch(toggleProfilePicture());
+
+    }
     return (
 
         <div className='profile-modal-container'>
@@ -79,6 +85,7 @@ function ProfileModal() {
                 <div className="profile-modal-smile">{smile}</div>
                 Update Your Status
             </div>
+            <div className='profile-modal-picture-button' onClick={openProfilePictureModal}>Change Profile Picture</div>
             <div className='profile-modal-logout-button' onClick={logoutAndRedirect}>Log Out</div>
         </div>
     )

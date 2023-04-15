@@ -1,0 +1,41 @@
+.ExpandDmsBtn{
+    padding: 7x;
+    width: 200px;
+    background-color: #261f12;
+    color: #828184;
+    border: none;
+    padding: 10px;
+}
+
+.ExpandDmsBtn:hover{
+    background-color: #252425;
+}
+
+.createDmsName{
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    margin: 5px;
+    padding: 5px;
+}
+
+.createDmsType{
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    margin: 5px;
+    padding: 5px;
+}
+
+.CreateDmsBtn{
+    padding: 7x;
+    width: 200px;
+    background-color: #261f12;
+    color: #828184;
+    border: none;
+    padding: 10px;
+}
+
+.CreateDmsBtn:hover{
+    background-color: #252425;
+}
