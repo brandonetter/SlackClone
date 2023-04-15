@@ -33,9 +33,9 @@ function App() {
 
           <Route path="/signup"></Route>
 
-          <Route path="/chat/:channelId/edit">
+          {/* <Route path="/chat/:channelId/edit">
             <EditChannelForm/>
-          </Route>
+          </Route> */}
 
           <Route path="/chat/:channelId">
             <MainWindow />

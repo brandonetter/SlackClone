@@ -5,7 +5,7 @@ import { faFaceSmile, faFaceSmileWink } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { closeAll, toggleStatus } from '../../../store/modals';
+import { closeAll, toggleStatus } from "../../../store/modals";
 import { logout } from "../../../store/session";
 
 function ProfileModal() {

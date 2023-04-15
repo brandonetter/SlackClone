@@ -1,0 +1,28 @@
+
+
+
+.ChannelmodalContainer{
+  position:absolute;
+  left:400px;
+  top: 1px;
+}
+
+
+.editchannelform{
+  position:absolute;
+  left:200px;
+  top: 30px;
+}
+
+
+.channeldetailclosebtn{
+  padding: 5px
+}
+
+.editChannelExpand{
+  position:absolute;
+  left:-135px;
+  top: 42px;
+  width: 120px;
+  padding: 5px
+}
