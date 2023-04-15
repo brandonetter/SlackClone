@@ -7,7 +7,8 @@ import { useSelector } from "react-redux";
 import MainChatInput from "../MainChatInput";
 import defaultIcon from "../../assets/defaultIcon.png";
 import "./MainChat.css";
-import ChannelDetail from "../ChannelDetail/ChannelDetail";
+
+
 
 import ChatMessage from "./component/ChatMessage";
 
@@ -168,41 +169,22 @@ function MainChat() {
     }
 
   }
-
-
-  const [IsHovering, setIsHovering] = useState(false)
-
-  const handleMouseOver = () => {
-    setIsHovering(true);
-  }
-
-  const handleMouseOut = () => {
-    setIsHovering(false)
-  }
-
+ 
 
   return (
     <div className="main-chat-container">
       {redirect}
       <div className="main-chat" onScroll={checkScroll}>
 
-        <div className="main-chat-header"
-        onMouseOver={handleMouseOut}
-        onMouseOut={handleMouseOut}>
+        <div className="main-chat-header">
+
 
           {currentChannel && <h1 className='chat-room-name'>{currentChannel.name}</h1>}
-
-
 
           <div className='main-chat-user-list'>
             <img className='main-chat-user-list-icon' src={defaultIcon} alt='user icon' />
             {currentUsers && currentUsers.length} Users
           </div>
-
-          {IsHovering && (
-            <div> <ChannelDetail/></div>
-          )}
-
 
         </div>
 
@@ -223,4 +205,6 @@ function MainChat() {
     </div >
   );
 }
+
+
 export default MainChat;

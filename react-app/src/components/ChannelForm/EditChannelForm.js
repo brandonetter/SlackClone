@@ -49,10 +49,11 @@ const EditChannelForm = () => {
 
     }
 
-    const editRedirect = (e) =>{
-        e.preventDefault();
-        history.push('/chat/${channelId}')
-    }
+    // const editRedirect = (e) =>{
+    //     e.preventDefault();
+    //     history.push('/chat/${channelId}')
+    // }
+
     return (
         <form className = "EditChannel" onSubmit={handleSubmit}>
 
@@ -70,7 +71,7 @@ const EditChannelForm = () => {
         onChange={updateChannelType}
         />
 
-    <button className= 'UpdateChannelBttn' type="submit" onClick={editRedirect}>Update Channel</button>
+    <button className= 'UpdateChannelBttn' type="submit">Update Channel</button>
 
     </form>
 

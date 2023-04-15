@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { getChannel } from '../../store/channels';
 import { useParams, useHistory } from 'react-router-dom';
 
+
 const ChannelDetail = () => {
 
 
@@ -21,13 +22,17 @@ const ChannelDetail = () => {
         dispatch(getChannel())
     },[dispatch])
 
-    const history = useHistory()
-    const redirectToEdit = () => {
-        history.push(`/chat/${channelId}/edit`)
-    }
+    // const history = useHistory()
+    // const redirectToEdit = () => {
+    //     history.push(`/chat/${channelId}/edit`)
+    // }
+
+
 
     return (
         <>
+
+
         <div className= 'channelDetails'>
 
          {(channelInfo) && (
@@ -42,7 +47,7 @@ const ChannelDetail = () => {
              </div>
          )}
 
-         <button className = "editChannelbtn" type="submit" onClick={redirectToEdit}> Edit Channel</button>
+         {/* <button className = "editChannelbtn" type="submit" onClick={redirectToEdit}> Edit Channel</button> */}
       </div>
         </>
     )

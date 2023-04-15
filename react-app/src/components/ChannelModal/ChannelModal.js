@@ -1,4 +1,3 @@
-
 import React from "react";
 import "./ChannelModal.css";
 import { useState } from 'react';
