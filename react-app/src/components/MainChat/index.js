@@ -195,7 +195,6 @@ function MainChat() {
             {currentUsers && currentUsers.length} Users
           </div>
 
-
         </div>
         <div className='main-chat-messages'>
           {loading && <span className='chat-loading-message'>{loadingMessage}</span>}

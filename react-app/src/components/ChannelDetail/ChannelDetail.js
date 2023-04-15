@@ -5,6 +5,7 @@ import { getChannel } from '../../store/channels';
 import { useParams } from 'react-router-dom';
 
 
+
 const ChannelDetail = () => {
 
 
@@ -21,6 +22,11 @@ const ChannelDetail = () => {
     useEffect(() => {
         dispatch(getChannel())
     },[dispatch])
+
+
+
+
+
 
     return (
         <>

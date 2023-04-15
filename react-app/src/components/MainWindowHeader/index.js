@@ -33,7 +33,6 @@ function MainWindowHeader() {
     </div>
   </>
 
-
     </div>
 }
 export default MainWindowHeader;
