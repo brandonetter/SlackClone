@@ -24,7 +24,6 @@ const EditChannelForm = () => {
 
        ChannelName = channels[parsedId]
        ChannelType = channels[parsedId]
-
     }
 
 

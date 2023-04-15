@@ -26,6 +26,9 @@ function RoomSidebar() {
     <div className="room-sidebar">
       <div className="room-sidebar-header">
         <h2>Current Channel:</h2>
+
+
+
         {/* {currentChannel && <h3>{currentChannel.name}</h3>} */}
 
         {(channels) &&
@@ -35,13 +38,13 @@ function RoomSidebar() {
         }
         <ChannelBrowser />
 
-
         <h2>Direct Messages:</h2>
         <div>
           <CreateDmsForm />
         </div>
 
         <DmsBrowser />
+
         <div className="App">
           <p>View Channel Details</p>
           <button
@@ -55,6 +58,8 @@ function RoomSidebar() {
 
           {modalOpen && <Modal setOpenModal={setModalOpen} />}
         </div>
+
+
       </div>
     </div>
   );

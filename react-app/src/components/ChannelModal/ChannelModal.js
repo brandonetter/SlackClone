@@ -40,7 +40,11 @@ function Modal({ setOpenModal }) {
          </button>
            {show && <hr />}
            {show &&
-            < EditChannelForm/>}
+
+           <div className="EditChannelForm">
+            < EditChannelForm/>
+            </div>
+            }
 
           </div>
 
