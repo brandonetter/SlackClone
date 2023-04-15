@@ -9,7 +9,6 @@ import defaultIcon from "../../assets/defaultIcon.png";
 import "./MainChat.css";
 
 
-
 import ChatMessage from "./component/ChatMessage";
 
 
@@ -18,7 +17,7 @@ function MainChat() {
   const currentChannel = useSelector((state) => state.channel.room);
   const currentUsers = useSelector((state) => state.channel.users);
   const sessionUser = useSelector((state) => state.session.user);
-
+  const [intervalId, setIntervalId] = useState(null);
   const [socket, setSocket] = useState(null);
   const [messages, setMessages] = useState([]);
   const [formattedMessages, setFormattedMessages] = useState([]);
@@ -35,6 +34,11 @@ function MainChat() {
     }
   }, []);
   useEffect(() => {
+    setMessages([]);
+    clearInterval(intervalId);
+
+  }, [currentChannel]);
+  useEffect(() => {
 
     if (!socket) return;
     socket.on("connect", () => {
@@ -44,7 +48,7 @@ function MainChat() {
       console.log("disconnected");
     });
     socket.on("message-incoming", (message) => {
-      socket.emit("get-room-messages", "latest");
+      socket.emit("get-room-messages", { channelId: currentChannel.id, message: "latest" });
     });
     socket.on("room-messages", (message) => {
       if (message.length === 0) {
@@ -70,10 +74,15 @@ function MainChat() {
     });
 
     if (socket && currentChannel) {
-      socket.emit("get-room-messages", "latest");
+      socket.emit("get-room-messages", { channelId: currentChannel.id, message: "latest" });
       dispatch(getUsersInRoom(currentChannel.id));
 
     }
+    return () => {
+      socket.off("message-incoming");
+      socket.off("room-messages");
+      socket.off("room-messages-append");
+    };
 
 
   }, [socket, currentChannel]);
@@ -85,11 +94,11 @@ function MainChat() {
 
   useEffect(() => {
     if (!socket) return;
-    setInterval(() => {
+    let id = setInterval(() => {
 
-      socket.emit("get-room-messages", "latest");
+      socket.emit("get-room-messages", { channelId: currentChannel.id, message: "latest" });
     }, 5000);
-
+    setIntervalId(id);
 
   }, [timeout]);
 
@@ -136,8 +145,8 @@ function MainChat() {
     if (element.scrollTop === 0) {
       console.log("top");
       // get the id of the first message in the chat
-      let firstMessageId = formattedMessages[1].id;
-      socket.emit("get-room-messages", firstMessageId);
+      let firstMessageId = formattedMessages?.[1]?.id;
+      socket.emit("get-room-messages", { channelId: currentChannel.id, message: firstMessageId });
       setLoading(true);
     }
   }
@@ -169,7 +178,7 @@ function MainChat() {
     }
 
   }
- 
+
 
   return (
     <div className="main-chat-container">
@@ -187,7 +196,6 @@ function MainChat() {
           </div>
 
         </div>
-
         <div className='main-chat-messages'>
           {loading && <span className='chat-loading-message'>{loadingMessage}</span>}
           {formattedMessages.map((message) => (

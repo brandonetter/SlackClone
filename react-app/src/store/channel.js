@@ -15,6 +15,9 @@ const setUsers = (users) => ({
 
 
 const initialState = { room: null, users: null };
+export const changeRoom = (room) => async (dispatch) => {
+  dispatch(setRoom(room))
+}
 
 export const joinDefaultRoom = () => async (dispatch) => {
   const response = await fetch("/api/room/init", {

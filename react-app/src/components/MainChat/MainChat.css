@@ -24,24 +24,11 @@
   background-color: #93939357;
 border-radius: 4px;
 }
-
 .chat-room-name{
   opacity: 0.5;
   font-size: 22px;
   margin-bottom: 22px;
 }
-
-/* .chat-room-name:hover + .ChannelDetailsHide{
-  opacity: 0.5;
-  font-size: 22px;
-  margin-bottom: 22px;
-  display: block;
-}
-
-.ChannelDetailsHide{
-  display:none
-} */
-
 
 .chat-message{
   display: flex;
