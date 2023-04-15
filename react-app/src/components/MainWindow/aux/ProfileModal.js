@@ -2,18 +2,21 @@ import { useSelector } from "react-redux";
 import defaultIcon from "../../../assets/defaultIcon.png";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceSmile, faFaceSmileWink } from '@fortawesome/free-solid-svg-icons'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { closeAll, toggleStatus, toggleProfilePicture } from '../../../store/modals';
-import { logout } from "../../../store/session";
+import { logout, getUserProfileImage } from "../../../store/session";
 
 function ProfileModal() {
     const dispatch = useDispatch();
     const [smile, setSmile] = useState(<FontAwesomeIcon icon={faFaceSmile} className='faceicon' />);
     const [redirect, setRedirect] = useState(false);
+    const [icon, setIcon] = useState(defaultIcon);
     const user = useSelector(state => state.session.user);
     let status = useSelector(state => state.session.status);
+    let profileIconImage = useSelector(state => state.session.profilePicture);
+
 
     // status shenanigans
     if (status == null) status = user.status;
@@ -28,7 +31,8 @@ function ProfileModal() {
     if (statusType === 'Offline') statusColor = ' status-gray';
 
 
-    const icon = user.profileicon ? user.profileicon : defaultIcon;
+
+    // const icon = user.profileicon ? user.profileicon : defaultIcon;
 
     function logoutAndRedirect() {
         setRedirect(true);
@@ -70,7 +74,7 @@ function ProfileModal() {
         <div className='profile-modal-container'>
             {redirect && <Redirect to='/' />}
             <div className='profile-modal-name'>
-                <img src={icon} alt="profile icon" className={convertToTint(user.firstname) + " main-window-header-user-icon"} />
+                <img src={profileIconImage} alt="profile icon" className={convertToTint(user.firstname) + " main-window-header-user-icon"} />
                 <div>
                     <div>{user.firstname} {user.lastname}</div>
                     <div className='profile-modal-status-display'><div className={'profile-modal-user-status' + statusColor}></div> {userStatus}</div>

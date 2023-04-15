@@ -26,7 +26,7 @@ def seed_channels():
     # get current date
     current_date = datetime.datetime.now()
     message = Message(
-        message="Hello World", userid=user.id, room=room,date=current_date)
+        message="Hello World", user=user, room=room,date=current_date)
     db.session.add(room)
     db.session.add(room_member)
     db.session.add(room_member2)

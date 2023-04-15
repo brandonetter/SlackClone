@@ -109,4 +109,6 @@ def users(id):
     """
     # return {'null'}
     room = Room.query.get(id)
+    if room is None:
+        return {'null'}
     return [user.to_dict() for user in room.member_list]

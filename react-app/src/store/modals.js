@@ -1,3 +1,4 @@
+import { getUserProfileImage } from "./session";
 // constants
 const SET_SEARCH = "modals/SET_SEARCH";
 const SET_PROFILE = "modals/SET_PROFILE";
@@ -41,6 +42,26 @@ export const toggleSearch = (bool = undefined) => async (dispatch, getState) => 
         dispatch(setSearch(bool));
     }
 
+};
+export const handleFileUpload = (file, id) => async (dispatch) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    const response = await fetch("/api/users/profileimage/upload/", {
+        method: "POST",
+        body: formData,
+    });
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        if (data.errors) {
+            console.log(data.errors);
+            return;
+        } setTimeout(() => {
+            dispatch(getUserProfileImage(id));
+        }, 1000);
+        return data;
+
+    }
 };
 export const toggleProfile = () => async (dispatch, getState) => {
     const state = getState();

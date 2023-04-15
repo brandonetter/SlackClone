@@ -4,9 +4,10 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { toggleProfile } from '../../../store/modals';
+import { getUserProfileImage } from '../../../store/session';
 function ProfileIcon({ user }) {
     let status = useSelector(state => state.session.status);
-
+    let profileIconImage = useSelector(state => state.session.profilePicture);
 
     // status shenanigans
     if (status == null) status = user.status;
@@ -21,8 +22,9 @@ function ProfileIcon({ user }) {
     if (statusType === 'Offline') statusColor = ' status-gray';
 
     const dispatch = useDispatch();
-    const icon = user.profileicon ? user.profileicon : defaultIcon;
     const [openModal, setOpenModal] = useState(false);
+    const [icon, setIcon] = useState(defaultIcon);
+
     function convertToTint(name) {
         if (icon !== defaultIcon) return;
         let firstLetter = name[0].toUpperCase();
@@ -44,7 +46,7 @@ function ProfileIcon({ user }) {
     }
     return <>
         <div className='main-window-header-user' onClick={() => dispatch(toggleProfile())}>
-            <img src={icon} alt="profile icon" className={convertToTint(user.firstname)} />
+            <img src={profileIconImage} alt="profile icon" className={convertToTint(user.firstname)} />
             <div className={'main-window-header-user-status' + statusColor}>
             </div>
             {openModal && <div className='main-window-header-user-modal'>
