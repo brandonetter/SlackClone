@@ -24,13 +24,8 @@ const ChannelBrowser = () => {
       //display channel
       RoomtypeChannel.push(channel)
 
-    } else {
-
-      //error message: must be channel to be displayed
     }
   })
-
-
 
   const deleteHandler = (id) => {
     dispatch(deleteChannel(parseInt(id)))

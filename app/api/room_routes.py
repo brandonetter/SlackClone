@@ -89,7 +89,7 @@ def UpdateChannel(id):
     db.session.add(updateChannel)
     db.session.commit()
 
-    return "successfully updated"
+    return updateChannel.to_dict()
 
 
 
