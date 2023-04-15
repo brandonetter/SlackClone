@@ -1,9 +1,9 @@
 from flask import Blueprint, jsonify,session, request
 from flask_login import login_required, current_user
 
-from app.models import User, Room, db, Room_Member
+from app.models import User, Room, db, Room_Member, Message
 from app.forms import ChannelForm
-
+from datetime import datetime
 
 
 room_routes = Blueprint('room', __name__)
@@ -64,6 +64,13 @@ def CreateChannel():
             room = channel,
             userid = current_user.id
         )
+        message = Message(
+            userid=current_user.id,
+            message=f"{current_user.username} created the channel",
+            room=channel,
+            date=datetime.now()
+        )
+        db.session.add(message)
         db.session.add(channel)
         db.session.add(channelMember)
         db.session.commit()
@@ -72,16 +79,19 @@ def CreateChannel():
     print(validation_errors_to_error_messages(form.errors))
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
-@room_routes.route('/all/<id>/edit', methods = ['PUT'])
-def UpdateChannel(id):
+@room_routes.route('/all/<id>', methods = ['PUT'])
+def UpdateChannel():
     formContent = request.get_json()
     updateChannel = Room.query.get(id)
 
-    updateChannel.name = formContent['name']
-    updateChannel.type = formContent['type']
+    updateChannel.name = formContent.name
+    updateChannel.type = formContent.type
     db.session.add(updateChannel)
     db.session.commit()
+
     return "successfully updated"
+
+
 
 @room_routes.route('/all/<id>', methods = ['DELETE'])
 def ChannelDelete(id):

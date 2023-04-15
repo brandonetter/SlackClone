@@ -9,27 +9,32 @@ import { Link, useParams, useHistory } from 'react-router-dom';
 const EditChannelForm = () => {
 
     const dispatch = useDispatch();
-    const {channelId} = useParams()
+    const {id} = useParams()
 
-    // console.log("ID", channelId)
-    const parsedId = parseInt(channelId)
-    const history = useHistory()
+    console.log("ID", id)
+    const parsedId = parseInt(id)
+
 
     const channels = useSelector(state => state.channels)
-    let ChannelName;
-    let ChannelType;
+    console.log("CHANNELS", channels)
 
 
     if (Object.keys(channels).length){
 
-       ChannelName = channels[parsedId]
-       ChannelType = channels[parsedId]
+        console.log("channelName", channels[1])
 
+        // const ChannelName = channels[parseInt(id)]
+
+
+
+
+        // const ChannelType = channels[parseInt(id)]
+
+
+        // const [name, setName] = useState(ChannelName)
+        // const [type, setType] = useState(ChannelType)
     }
 
-
-    const [name, setName] = useState(ChannelName.name)
-    const [type, setType] = useState(ChannelType.type)
     // const ChannelType = useSelector(state => state.channels[parseInt(id)].type)
 
 
@@ -40,34 +45,27 @@ const EditChannelForm = () => {
         e.preventDefault();
 
         const payload = {
-            channelId,
             name,
             type
         }
 
         dispatch(editChannel(payload))
-
     }
-
-    // const editRedirect = (e) =>{
-    //     e.preventDefault();
-    //     history.push('/chat/${channelId}')
-    // }
 
     return (
         <form className = "EditChannel" onSubmit={handleSubmit}>
 
         <input className='EditChannelName'
         type='text'
-        // placeholder='Channel Name'
-        value ={name}
+        placeholder='Channel Name'
+        // value ={name}
         onChange={updateChannelName}
         />
 
         <input className='EditChannelType'
         type='text'
-        // placeholder='Channel Type'
-        value ={type}
+        placeholder='Channel Type'
+        // value ={type}
         onChange={updateChannelType}
         />
 

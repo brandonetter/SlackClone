@@ -7,8 +7,6 @@ import ChannelBrowser from "../ChannelList/ChannelList";
 import CreateChannelForm from "../ChannelForm/CreateChannelForm";
 import EditChannelForm from "../ChannelForm/EditChannelForm";
 import { getChannel } from "../../store/channels";
-import DmsBrowser from "../DmsList/DmsList";
-import CreateDmsForm from "../DmsForm/CreateDmsForm";
 // import ChannelList "../ChannelList"
 
 function RoomSidebar() {
@@ -24,23 +22,14 @@ function RoomSidebar() {
     <div className="room-sidebar">
       <div className="room-sidebar-header">
         <h2>Current Channel:</h2>
-        {/* {currentChannel && <h3>{currentChannel.name}</h3>} */}
-
+        <ChannelBrowser/>
         { (channels) &&
         <div>
         <CreateChannelForm/>
         </div>
         }
-        <ChannelBrowser/>
 
-
-        <h2>Direct Messages:</h2>
-        <div>
-        <CreateDmsForm/>
-        </div>
-
-        <DmsBrowser/>
-
+        {currentChannel && <h3>{currentChannel.name}</h3>}
       </div>
     </div>
   );
