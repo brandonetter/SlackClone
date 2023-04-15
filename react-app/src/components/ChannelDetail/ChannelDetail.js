@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { getChannel } from '../../store/channels';
 import { useParams } from 'react-router-dom';
 
+
 const ChannelDetail = () => {
 
 
@@ -23,6 +24,8 @@ const ChannelDetail = () => {
 
     return (
         <>
+
+
         <div className= 'channelDetails'>
 
          {(channelInfo) && (
@@ -36,6 +39,7 @@ const ChannelDetail = () => {
               <br/>
              </div>
          )}
+
 
       </div>
         </>
