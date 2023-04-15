@@ -8,6 +8,7 @@ import MainChatInput from "../MainChatInput";
 import defaultIcon from "../../assets/defaultIcon.png";
 import "./MainChat.css";
 
+
 import ChatMessage from "./component/ChatMessage";
 
 
@@ -178,10 +179,12 @@ function MainChat() {
 
   }
 
+
   return (
     <div className="main-chat-container">
       {redirect}
       <div className="main-chat" onScroll={checkScroll}>
+
         {messages.length > 0 ? (
           <div className="main-chat-header">
             {currentChannel && <h1 className='chat-room-name'>{currentChannel.name}</h1>}
@@ -196,6 +199,7 @@ function MainChat() {
             <div className="main-chat-suspense-header-text"></div>
           </div>
         )}
+
         <div className='main-chat-messages'>
           {loading && <span className='chat-loading-message'>{loadingMessage}</span>}
           {formattedMessages.map((message) => (
@@ -275,4 +279,6 @@ function MainChat() {
     </div >
   );
 }
+
+
 export default MainChat;
