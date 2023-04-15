@@ -49,10 +49,6 @@ const EditChannelForm = () => {
 
     }
 
-    // const editRedirect = (e) =>{
-    //     e.preventDefault();
-    //     history.push('/chat/${channelId}')
-    // }
 
     return (
         <form className = "EditChannel" onSubmit={handleSubmit}>

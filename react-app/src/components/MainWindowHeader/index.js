@@ -7,6 +7,7 @@ import Modal from "../ChannelModal/ChannelModal";
 import React, { useEffect, useState } from "react";
 
 
+
 function MainWindowHeader() {
     const user = useSelector(state => state.session.user);
     const [modalOpen, setModalOpen] = useState(false);
@@ -31,6 +32,7 @@ function MainWindowHeader() {
       {modalOpen && <Modal setOpenModal={setModalOpen} />}
     </div>
   </>
+
 
     </div>
 }
