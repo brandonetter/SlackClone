@@ -2,16 +2,15 @@
 
 
 .ChannelmodalContainer{
-  position:absolute;
-  left:400px;
-  top: 1px;
+  /* position:absolute; */
+
 }
 
 
 .editchannelform{
-  position:absolute;
-  left:200px;
-  top: 30px;
+  position:relative;
+  left:150px;
+  top: 60px;
 }
 
 
@@ -25,4 +24,10 @@
   top: 42px;
   width: 120px;
   padding: 5px
+}
+
+.EditChannelForm{
+  position: relative;
+   top: 100px;
+   right: 150px;
 }

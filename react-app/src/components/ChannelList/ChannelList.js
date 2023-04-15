@@ -31,21 +31,15 @@ const ChannelBrowser = () => {
   })
 
 
-  //  function ChannelFilter(arr, query){
-  //   return arr.filter((el) => el.toLowerCase().includes(query.toLowerCase()));
-  //  }
-
-  // console.log("channel", RoomtypeChannel)
-
 
   const deleteHandler = (id) => {
     dispatch(deleteChannel(parseInt(id)))
   }
 
 
-  // useEffect(() => {
-  //     dispatch(getChannel())
-  // }, [dispatch])
+  useEffect(() => {
+      dispatch(getChannel())
+  }, [dispatch] )
 
   const [show, setShow] = useState(false);
 
