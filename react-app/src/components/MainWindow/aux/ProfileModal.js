@@ -41,6 +41,7 @@ function ProfileModal() {
 
     }
     function convertToTint(name) {
+        if (user.profileicon) return;
         if (icon !== defaultIcon) return;
         let firstLetter = name[0].toUpperCase();
         let tint = 'A';

@@ -56,7 +56,10 @@ function ChatMessage({ message, user, deleteMessage, editMessage, socket }) {
             </div>
         )
     }
-    function convertToTint(name) {
+    function convertToTint(message) {
+        let name = message.firstname;
+        console.log("convertToTint", message);
+        if (message.profileIcon) return;
         // if the first letter of the name is A-E, return tint-A
         // if the first letter of the name is F-J, return tint-B
         // if the first letter of the name is K-O, return tint-C
@@ -105,7 +108,7 @@ function ChatMessage({ message, user, deleteMessage, editMessage, socket }) {
 
         <div className="chat-message" onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>
             <div className="chat-message-icon">
-                {message.profileicon ? <img src={message.profileicon} alt="profile icon" /> : <img src={defaultIcon} alt="profile icon" className={convertToTint(message.firstname)} />}
+                {message.profileicon ? <img src={message.profileicon} alt="profile icon" /> : <img src={defaultIcon} alt="profile icon" className={convertToTint(message)} />}
             </div>
             <div className="chat-message-content">
                 <div className="chat-message-content-header">

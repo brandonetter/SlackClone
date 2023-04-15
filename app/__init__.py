@@ -51,6 +51,9 @@ Migrate(app, db,render_as_batch=True)
 CORS(app)
 
 
+@app.route('/cdn/<filename>')
+def custom_static(filename):
+    print(filename)
 
 
 # Since we are deploying with Docker and Flask,
@@ -101,8 +104,9 @@ def react_root(path):
     react builds in the production environment for favicon
     or index.html requests
     """
-    print(path)
+    print("asdasdsd")
     if path == 'favicon.ico':
+        print("asdas")
         return app.send_from_directory('public', 'favicon.ico')
     return app.send_static_file('index.html')
 

@@ -42,9 +42,11 @@ def profileimage(id):
     user = User.query.get(id)
 
     img_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'static/images')
+    print(user.profileicon)
     if user.profileicon == None:
         img_path = os.path.join(img_dir, 'defaultIcon.png')
-    img_path = os.path.join(img_dir, user.profileicon)
+    else:
+        img_path = os.path.join(img_dir, user.profileicon)
     return send_file(img_path, mimetype='image/png')
 
 @user_routes.route('/profileimage/upload/',methods=['POST'])

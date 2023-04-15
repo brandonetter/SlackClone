@@ -1,4 +1,4 @@
-import { getUserProfileImage } from "./session";
+import { getUserProfileImage, authenticate } from "./session";
 // constants
 const SET_SEARCH = "modals/SET_SEARCH";
 const SET_PROFILE = "modals/SET_PROFILE";
@@ -57,6 +57,7 @@ export const handleFileUpload = (file, id) => async (dispatch) => {
             console.log(data.errors);
             return;
         } setTimeout(() => {
+            dispatch(authenticate());
             dispatch(getUserProfileImage(id));
         }, 1000);
         return data;

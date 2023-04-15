@@ -7,6 +7,7 @@ import { toggleProfile } from '../../../store/modals';
 import { getUserProfileImage } from '../../../store/session';
 function ProfileIcon({ user }) {
     let status = useSelector(state => state.session.status);
+    let realUser = useSelector(state => state.session.user);
     let profileIconImage = useSelector(state => state.session.profilePicture);
 
     // status shenanigans
@@ -26,6 +27,8 @@ function ProfileIcon({ user }) {
     const [icon, setIcon] = useState(defaultIcon);
 
     function convertToTint(name) {
+        console.log(realUser.profileicon);
+        if (realUser.profileicon) return;
         if (icon !== defaultIcon) return;
         let firstLetter = name[0].toUpperCase();
         let tint = 'A';
