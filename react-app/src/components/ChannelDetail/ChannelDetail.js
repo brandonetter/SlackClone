@@ -38,11 +38,9 @@ const ChannelDetail = () => {
          {(channelInfo) && (
 
             <div>
-              ChannelName: {channelInfo.name}
+              Channel Name: {channelInfo.name}
               <br/>
-              CreatedBy: {channelInfo.createdby}
-              <br/>
-              RoomType: {channelInfo.roomtype}
+              Created By: {channelInfo.createdby}
               <br/>
              </div>
          )}

@@ -5,12 +5,10 @@ import { useSelector } from "react-redux";
 import "./RoomSidebar.css";
 import ChannelBrowser from "../ChannelList/ChannelList";
 import CreateChannelForm from "../ChannelForm/CreateChannelForm";
-import EditChannelForm from "../ChannelForm/EditChannelForm";
 import { getChannel } from "../../store/channels";
 import DmsBrowser from "../DmsList/DmsList";
 import CreateDmsForm from "../DmsForm/CreateDmsForm";
-import ChannelDetail from '../ChannelDetail/ChannelDetail';
-import Modal from "../ChannelModal/ChannelModal";
+// import Modal from "../ChannelModal/ChannelModal";
 // import ChannelList "../ChannelList"
 
 function RoomSidebar() {
@@ -20,7 +18,7 @@ function RoomSidebar() {
     dispatch(getChannel());
     if (!currentChannel) dispatch(joinDefaultRoom());
   }, []);
-  const [modalOpen, setModalOpen] = useState(false);
+  // const [modalOpen, setModalOpen] = useState(false);
   const channels = useSelector((state) => state.channels)
   return (
     <div className="room-sidebar">
@@ -45,20 +43,7 @@ function RoomSidebar() {
 
         <DmsBrowser />
 
-        <div className="App">
-          <p>View Channel Details</p>
-          <button
-            className="openModalBtn"
-            onClick={() => {
-              setModalOpen(true);
-            }}
-          >
-            Channel Details
-          </button>
-
-          {modalOpen && <Modal setOpenModal={setModalOpen} />}
-        </div>
-
+  
 
       </div>
     </div>

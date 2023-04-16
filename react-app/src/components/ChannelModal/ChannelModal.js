@@ -11,7 +11,7 @@ function Modal({ setOpenModal }) {
     <div className="ChannelmodalBackground">
       <div className="ChannelmodalContainer">
         <div className="titleCloseBtn">
-          <button
+          <button className="channelXbttn"
             onClick={() => {
               setOpenModal(false);
             }}
@@ -30,7 +30,7 @@ function Modal({ setOpenModal }) {
             }}
             className="channeldetailclosebtn"
           >
-            close
+            Close
           </button>
 
           <div className="editchannelform">
