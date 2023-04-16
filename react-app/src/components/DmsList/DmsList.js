@@ -2,47 +2,51 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Link, Route, useParams, useHistory } from 'react-router-dom';
 import { getDms, loadDms } from '../../store/dms';
+import { changeRoom } from '../../store/channel';
 import './DmsList.css'
 
 const DmsBrowser = () => {
-    const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
-    const dmsobj = useSelector(state => state.dms)
-    const dmsArr = Object.values(dmsobj)
+  function changeRoomHandler(room) {
+    dispatch(changeRoom(room))
+  }
+  const dmsobj = useSelector(state => state.dms)
+  const dmsArr = Object.values(dmsobj)
 
-    const RoomtypeDms = []
+  const RoomtypeDms = []
 
-    dmsArr.map((dms)=> {
-      if(dms.roomtype != "CHANNEL"){
-        RoomtypeDms.push(dms)
-      }
+  dmsArr.map((dms) => {
+    if (dms.roomtype != "CHANNEL") {
+      RoomtypeDms.push(dms)
+    }
 
-    })
+  })
 
 
-    useEffect(() => {
-        dispatch(getDms())
-    }, [dispatch])
+  useEffect(() => {
+    dispatch(getDms())
+  }, [dispatch])
 
-    const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false);
 
-    return (
-        <>
+  return (
+    <>
       {dmsobj &&
         <main className='DmsListContainer'>
-        <div className= 'eachDms'>
-            {RoomtypeDms.map((dms)=> (
+          <div className='eachDms'>
+            {RoomtypeDms.map((dms) => (
 
-              <Link className= 'dmsLink' key={dms.id} to={`/chat/${dms.id}`}>
+              <Link className='dmsLink' key={dms.id} to={`/chat/${dms.id}`} onClick={() => changeRoomHandler(dms)}>
                 {dms.name}
               </Link>
             ))}
 
-        </div>
-        </main>
+          </div>
+        </main >
       }
-     </>
-    )
+    </>
+  )
 
 }
 
