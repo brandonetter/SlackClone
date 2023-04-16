@@ -7,6 +7,8 @@ import { useSelector } from "react-redux";
 import MainChatInput from "../MainChatInput";
 import defaultIcon from "../../assets/defaultIcon.png";
 import "./MainChat.css";
+import Modal from "../ChannelModal/ChannelModal";
+
 
 import ChatMessage from "./component/ChatMessage";
 
@@ -178,13 +180,31 @@ function MainChat() {
 
   }
 
+  const [modalOpen, setModalOpen] = useState(false);
+
   return (
     <div className="main-chat-container">
       {redirect}
       <div className="main-chat" onScroll={checkScroll}>
         {messages.length > 0 ? (
           <div className="main-chat-header">
-            {currentChannel && <h1 className='chat-room-name'>{currentChannel.name}</h1>}
+            {currentChannel && <h1 className='chat-room-name'>{currentChannel.name} </h1>}
+
+
+            <div className="ChannelDetailModalContainer">
+          <button
+            className="openChannelModalBtn"
+            onClick={() => {
+              setModalOpen(true);
+            }}
+          >
+            Channel Details
+          </button>
+
+          {modalOpen && <Modal setOpenModal={setModalOpen} />}
+          </div>
+
+
             <div className='main-chat-user-list'>
               <img className='main-chat-user-list-icon' src={defaultIcon} alt='user icon' />
               {currentUsers && currentUsers.length} Users

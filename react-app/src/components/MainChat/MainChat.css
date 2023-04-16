@@ -352,3 +352,11 @@ code{
   background-color: #d1d2d315;
   border-radius: 5px;
 }
+
+.openChannelModalBtn{
+  background-color: #261f12;
+  color: #828184;
+  border: none;
+  margin: 5px;
+  
+}

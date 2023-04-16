@@ -2,32 +2,93 @@
 
 
 .ChannelmodalContainer{
-  /* position:absolute; */
+  position:absolute;
+  background-color: #0e0e0e;
+  border-radius: 25px;
+  padding: 20px;
+  opacity: 0.9;
 
 }
 
 
 .editchannelform{
-  position:relative;
+  /* position:relative;
   left:150px;
-  top: 60px;
+  top: 60px; */
 }
 
 
 .channeldetailclosebtn{
-  padding: 5px
+  /* padding: 5px */
 }
 
 .editChannelExpand{
-  position:absolute;
-  left:-135px;
-  top: 42px;
-  width: 120px;
-  padding: 5px
+  padding: 7x;
+  width: 100px;
+  background-color: #261f12;
+  color: #828184;
+  border: none;
+  padding: 10px;
+  margin: 7px;
 }
 
-.EditChannelForm{
-  position: relative;
-   top: 100px;
-   right: 150px;
+.editChannelExpand:hover{
+  background-color: #252425;
+}
+
+.EditChannelName{
+  height: 30px;
+    border-radius: 5px;
+    border: none;
+    margin: 5px;
+    padding: 5px;
+}
+
+.EditChannelType{
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+  margin: 5px;
+  padding: 5px;
+}
+
+.UpdateChannelBttn{
+  padding: 7x;
+  width: 100px;
+  background-color: #261f12;
+  color: #828184;
+  border: none;
+  padding: 10px;
+  margin: 7px;
+}
+
+.UpdateChannelBttn:hover{
+  background-color: #252425;
+}
+
+.channeldetailclosebtn{
+  padding: 7x;
+  width: 100px;
+  background-color: #261f12;
+  color: #828184;
+  border: none;
+  padding: 10px;
+  margin: 7px;
+}
+
+.channeldetailclosebtn:hover{
+  background-color: #252425;
+}
+
+.channelXbttn{
+  padding: 15x;
+  width: 15px;
+  background-color: #261f12;
+  color: #828184;
+  border: none;
+  margin: 7px;
+}
+
+.channelXbttn:hover{
+  background-color: #252425;
 }
