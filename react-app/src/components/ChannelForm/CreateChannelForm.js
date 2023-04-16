@@ -27,13 +27,8 @@ const CreateChannelForm = () => {
 
     };
 
-
-
     const data = await dispatch(createChannel(payload))
-
     if(data) setErrors(data.errors)
-    
-
 }
 const [show, setShow] = useState(false);
 
@@ -61,23 +56,12 @@ return (
         onChange={createName}
         />
 
-        {/* <input className='createChannelType'
-        type='text'
-        placeholder='Channel Type'
-        value ={3}
-        onChange={createType}
-        /> */}
     <button className= 'CreateChannelBttn' type="submit">Create New Channel</button>
 
     </form>
-
-
     }
-
     </div>
     </>
-)
-
-}
+)}
 
 export default CreateChannelForm

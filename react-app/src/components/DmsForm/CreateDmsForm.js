@@ -29,15 +29,14 @@ const CreateDmsForm = () => {
     const data = await dispatch(createDms(payload))
     if(data) setErrors(data.error)
 
-
-
 }
+
+
 
 const [show, setShow] = useState(false);
 
 return (
 <>
-
 <div>
     <button className="ExpandDmsBtn" onClick={() => setShow(!show)}>
     {show ? 'Direct Messages' : 'Direct Messages'}
@@ -48,12 +47,9 @@ return (
     <form className = "createDms" onSubmit={handleSubmit}>
 
    <div className='CreateDmError'>
-   {error}
-
-        {/* {error && error.map((error,i)=>{
+        {error && error.map((error,i)=>{
             return <div key={i}>{error}</div>
-        })} */}
-
+        })}
      </div>
 
         <input className='createDmsName'
@@ -66,15 +62,10 @@ return (
     <button className= 'CreateDmsBtn' type="submit">Open a direct Message</button>
 
     </form>
-
 }
-
 </div>
+ </>
 
-    </>
-
-)
-
-}
+)}
 
 export default CreateDmsForm

@@ -8,6 +8,7 @@ import MainChatInput from "../MainChatInput";
 import defaultIcon from "../../assets/defaultIcon.png";
 import "./MainChat.css";
 import Modal from "../ChannelModal/ChannelModal";
+import DmsModal from "../DmsModal/DmsModal";
 
 
 import ChatMessage from "./component/ChatMessage";
@@ -203,6 +204,19 @@ function MainChat() {
 
           {modalOpen && <Modal setOpenModal={setModalOpen} />}
           </div>
+
+          {/* <div className="DmsDetailModalContainer">
+          <button
+            className="openDmsModalBtn"
+            onClick={() => {
+              setModalOpen(true);
+            }}
+          >
+            Chat Details
+          </button>
+
+          {modalOpen && <Modal setOpenModal={setModalOpen} />}
+          </div> */}
 
 
             <div className='main-chat-user-list'>
