@@ -90,17 +90,6 @@ def UpdateChannel(id):
     db.session.commit()
     return updateChannel.to_dict()
 
-@room_routes.route('/all/<id>', methods = ['PUT'])
-def UpdateDms(id):
-    formContent = request.get_json()
-    updateDms = Room.query.get(id)
-
-    updateDms.name = formContent["name"]
-    updateDms.type = formContent["type"]
-    db.session.add(updateDms)
-    db.session.commit()
-    return updateDms.to_dict()
-
 @room_routes.route('/all/<id>', methods = ['DELETE'])
 def ChannelDelete(id):
     channel = Room.query.get(id)
@@ -108,12 +97,6 @@ def ChannelDelete(id):
     db.session.commit()
     return channel.to_dict()
 
-@room_routes.route('/all/<id>', methods = ['DELETE'])
-def DmsDelete(id):
-    dms = Room.query.get(id)
-    db.session.delete(dms)
-    db.session.commit()
-    return dms.to_dict()
 
 @room_routes.route('/<id>/users')
 @login_required
