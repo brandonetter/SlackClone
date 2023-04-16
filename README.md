@@ -69,8 +69,11 @@ A challenge I had faced in the past with applications has been keeping multiple 
 This allowed me for the first time to not worry about z-index or layers or breaking the design with whatever window I wanted to show. It also gave me a central place of logic to close all open windows.
  The initial state and the toggle functions of the modal slice can be seen here:
  ![image](https://user-images.githubusercontent.com/4108484/232328323-93a3bf88-4ab9-4855-a07e-64210e017a46.png)
+ 
  Along with a simple way to handle when to draw them shown here. This is just added after the rest of the MainWindow component to ensure it is always on top:
  ![image](https://user-images.githubusercontent.com/4108484/232328431-67bfb438-015e-49c8-b0f3-0115ed710608.png)
- I'm very happy with this solution and it allowed me to have many windows and states managed quickly and easily.
+ 
+ I'm very happy with this solution and it allowed me to have many windows and states managed quickly and easily, as seen here:
  
  [window-example.webm](https://user-images.githubusercontent.com/4108484/232329025-267a24f8-0677-4fec-80a6-3950cb6f646a.webm)
+ 
