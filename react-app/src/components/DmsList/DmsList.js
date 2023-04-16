@@ -7,6 +7,8 @@ import './DmsList.css'
 const DmsBrowser = () => {
     const dispatch = useDispatch()
 
+    const sessionUser = useSelector((state) => state.session.user);
+
     const dmsobj = useSelector(state => state.dms)
     const dmsArr = Object.values(dmsobj)
 
@@ -29,7 +31,7 @@ const DmsBrowser = () => {
 
     const [show, setShow] = useState(false);
 
-    return (
+    return sessionUser.id ? (
         <>
       {dmsobj &&
         <main className='DmsListContainer'>
@@ -54,7 +56,8 @@ const DmsBrowser = () => {
         </main>
       }
      </>
-    )
+    ):
+    null;
 
 }
 

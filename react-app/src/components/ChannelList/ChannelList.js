@@ -8,7 +8,7 @@ import { changeRoom } from '../../store/channel';
 
 const ChannelBrowser = () => {
   const dispatch = useDispatch()
-  // const sessionUser = useSelector(state => state.session.user)
+  const sessionUser = useSelector((state) => state.session.user);
   function changeRoomHandler(room) {
     dispatch(changeRoom(room))
   }
@@ -17,6 +17,7 @@ const ChannelBrowser = () => {
   // const [modalOpen, setModalOpen] = useState(false);
 
   const RoomtypeChannel = []
+
 
 
   channelsArr.map((channel) => {
@@ -36,7 +37,7 @@ const ChannelBrowser = () => {
 
   const [show, setShow] = useState(false);
 
-  return (
+  return sessionUser.id ? (
     <div>
       {channelsobj &&
         <main className='ChannelListContainer'>
@@ -66,7 +67,8 @@ const ChannelBrowser = () => {
       }
 
     </div>
-  )
+  ):
+  null;
 
 }
 

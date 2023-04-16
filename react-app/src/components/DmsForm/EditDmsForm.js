@@ -24,7 +24,7 @@ const EditDmsForm = () => {
  const [type, setType] = useState(DmsType.type)
  const updateDmsName = (e) => setName(e.target.value)
  const updateDmsType = (e) => setType(e.target.value)
-
+ const sessionUser = useSelector((state) => state.session.user);
 
  const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,7 +39,7 @@ const EditDmsForm = () => {
 
 }
 
-return (
+return sessionUser.is ? (
     <form className = "Editdms" onSubmit={handleSubmit}>
 
     <input className='EditdmsName'
@@ -52,9 +52,8 @@ return (
 
 </form>
 
-)
-
-
+):
+null;
 
 }
 

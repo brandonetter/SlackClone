@@ -10,6 +10,7 @@ const EditChannelForm = () => {
 
     const dispatch = useDispatch();
     const {channelId} = useParams()
+    const sessionUser = useSelector((state) => state.session.user);
 
     const parsedId = parseInt(channelId)
 
@@ -41,7 +42,7 @@ const EditChannelForm = () => {
 
     }
 
-    return (
+    return sessionUser.id ?(
         <form className = "EditChannel" onSubmit={handleSubmit}>
 
         <input className='EditChannelName'
@@ -55,7 +56,8 @@ const EditChannelForm = () => {
 
     </form>
 
-    )
+    ):
+    null;
 }
 
 export default EditChannelForm
