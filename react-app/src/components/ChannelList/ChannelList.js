@@ -1,9 +1,8 @@
 import { useState, useEffect, React } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Link, Route, useParams, useHistory } from 'react-router-dom';
-import { getChannel } from '../../store/channels';
+import { getChannel,deleteChannel} from '../../store/channels';
 import './ChannelList.css'
-import { deleteChannel } from '../../store/channels';
 import { changeRoom } from '../../store/channel';
 // import Modal from "../ChannelModal/ChannelModal";
 
@@ -47,10 +46,6 @@ const ChannelBrowser = () => {
               <Link className='channelLink' key={channel.id} to={`/chat/${channel.id}`} onClick={() => changeRoomHandler(channel)}>
                 # {channel.name}
 
-
-
-
-
                 <button className="channelLinkexpandBtn" onClick={() => setShow(!show)}>
                   {show ? '...' : '...'}
                 </button>
@@ -58,23 +53,6 @@ const ChannelBrowser = () => {
                 {show &&
                   <button className='deleteChannelbtn' id={channel.id} onClick={(e) => deleteHandler(e.target.id)}>Leave</button>
                   }
-
-
-              {/* <div className="ChannelDetailModalContainer">
-          <button
-            className="openModalBtn"
-            onClick={() => {
-              setModalOpen(true);
-            }}
-          >
-            Details
-          </button>
-
-          {modalOpen && <Modal setOpenModal={setModalOpen} />}
-          </div> */}
-
-
-
 
               </Link>
 

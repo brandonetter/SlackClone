@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Link, Route, useParams, useHistory } from 'react-router-dom';
-import { getDms, loadDms } from '../../store/dms';
+import { getDms, deleteDms } from '../../store/dms';
 import './DmsList.css'
 
 const DmsBrowser = () => {
@@ -19,6 +19,9 @@ const DmsBrowser = () => {
 
     })
 
+    const deleteHandler = (id) => {
+      dispatch(deleteDms(parseInt(id)))
+    }
 
     useEffect(() => {
         dispatch(getDms())
@@ -35,6 +38,15 @@ const DmsBrowser = () => {
 
               <Link className= 'dmsLink' key={dms.id} to={`/chat/${dms.id}`}>
                 {dms.name}
+
+                <button className="dmsLinkexpandBtn" onClick={() => setShow(!show)}>
+                  {show ? '...' : '...'}
+                </button>
+                {show && <hr />}
+                {show &&
+                  <button className='deletedmsbtn' id={dms.id} onClick={(e) => deleteHandler(e.target.id)}>Delete</button>
+                  }
+
               </Link>
             ))}
 

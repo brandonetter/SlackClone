@@ -11,6 +11,10 @@
     background-color: #252425;
 }
 
+.createDms{
+    top: 100px;
+}
+
 .createDmsName{
     height: 30px;
     border-radius: 5px;
@@ -38,4 +42,11 @@
 
 .CreateDmsBtn:hover{
     background-color: #252425;
+}
+
+
+.CreateDmError{
+    color: rgb(180, 73, 73);
+    padding: 20px;
+
 }

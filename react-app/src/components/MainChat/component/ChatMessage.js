@@ -58,7 +58,7 @@ function ChatMessage({ message, user, deleteMessage, editMessage, socket }) {
     }
     function convertToTint(message) {
         let name = message.firstname;
-        console.log("convertToTint", message);
+        // console.log("convertToTint", message);
         if (message.profileIcon) return;
         // if the first letter of the name is A-E, return tint-A
         // if the first letter of the name is F-J, return tint-B

@@ -144,7 +144,7 @@ function MainChat() {
     // check if the user is at the top of the chat
     let element = e.target;
     if (element.scrollTop === 0) {
-      console.log("top");
+      // console.log("top");
       // get the id of the first message in the chat
       let firstMessageId = formattedMessages?.[1]?.id;
       socket.emit("get-room-messages", { channelId: currentChannel.id, message: firstMessageId });

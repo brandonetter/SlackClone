@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { createDms } from '../../store/dms';
 
 
+
 const CreateDmsForm = () => {
 
     const dispatch = useDispatch();
@@ -13,8 +14,8 @@ const CreateDmsForm = () => {
     const [type, setType] = useState('')
 
     const createName = (e) => setName(e.target.value)
-    const createType = (e) => setType(e.target.value)
 
+    const [error, setErrors] =useState([])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -25,7 +26,10 @@ const CreateDmsForm = () => {
 
     };
 
-    dispatch(createDms(payload))
+    const data = await dispatch(createDms(payload))
+    if(data) setErrors(data.error)
+
+
 
 }
 
@@ -43,18 +47,20 @@ return (
 
     <form className = "createDms" onSubmit={handleSubmit}>
 
+   <div className='CreateDmError'>
+   {error}
+
+        {/* {error && error.map((error,i)=>{
+            return <div key={i}>{error}</div>
+        })} */}
+
+     </div>
+
         <input className='createDmsName'
         type='text'
         placeholder='Dms Name'
         value ={name}
         onChange={createName}
-        />
-
-        <input className='createDmsType'
-        type='text'
-        placeholder='Dms Type'
-        value ={type}
-        onChange={createType}
         />
 
     <button className= 'CreateDmsBtn' type="submit">Open a direct Message</button>

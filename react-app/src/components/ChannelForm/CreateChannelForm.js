@@ -32,6 +32,7 @@ const CreateChannelForm = () => {
     const data = await dispatch(createChannel(payload))
 
     if(data) setErrors(data.errors)
+    
 
 }
 const [show, setShow] = useState(false);
@@ -47,7 +48,7 @@ return (
 
     <form className = "createChannel" onSubmit={handleSubmit}>
 
-     <div>
+     <div className='CreateChannelError'>
         {error && error.map((error,i)=>{
             return <div key={i}>{error}</div>
         })}
