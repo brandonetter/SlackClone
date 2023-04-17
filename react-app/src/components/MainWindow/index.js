@@ -42,6 +42,10 @@ function MainWindow() {
             <ProfilePictureModal />
           </div>
         }
+        {modals.groupDM &&
+          <div className="main-window-modal-status">
+            <ProfilePictureModal />
+          </div>}
       </div>
     </>
   );
