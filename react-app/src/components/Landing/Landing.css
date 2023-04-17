@@ -119,3 +119,16 @@
     align-items: center;
 }
 
+.social-footer{
+    position: absolute;
+    bottom: 0;
+    height:60px;
+    width:100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding:10px 10px;
+
+}

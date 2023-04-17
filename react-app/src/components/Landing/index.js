@@ -22,17 +22,36 @@ function Landing() {
         if (!user)
             return (
                 <>
-                <div className='landingpage'>
-                <h1 className='welcomeback'>Welcome Back</h1>
+                    <div className='landingpage'>
+                        <h1 className='welcomeback'>Welcome Back</h1>
 
-                    <h1 className='landingfirsth'>One Platform For Your Team and Your Work</h1>
-                    <h2 className='landingsecondh'>All the features work together so you can too.</h2>
+                        <h1 className='landingfirsth'>One Platform For Your Team and Your Work</h1>
+                        <h2 className='landingsecondh'>All the features work together so you can too.</h2>
 
-                    <h1 className='landingthirdh'>Discover a new way of working</h1>
-                    <h2 className='landingfourthh'>Bring the right people and information together in channels. Share ideas, make decisions and move work forward with a common purpose and place.</h2>
+                        <h1 className='landingthirdh'>Discover a new way of working</h1>
+                        <h2 className='landingfourthh'>Bring the right people and information together in channels. Share ideas, make decisions and move work forward with a common purpose and place.</h2>
 
-                    <h1 className='landingfifthh'>Login to Discover</h1>
+                        <h1 className='landingfifthh'>Login to Discover</h1>
 
+                    </div>
+                    <div className='social-footer'>
+                        <div>
+                            <div className='social-item'>
+                                <a href='https://github.com/brandonetter' target='_blank'>
+                                    <img src='https://shields.io/badge/GitHub-Brandon%20Etter-400d40?logo=github&style=plastic' alt='github' />
+                                </a>
+                            </div>
+                            <div className='social-item'>
+                                <a href='https://github.com/ymao21' target='_blank' >
+                                    <img src='https://shields.io/badge/GitHub-Yining%20Mao-400d40?logo=github&style=plastic' alt='github' />
+                                </a>
+                            </div>
+                        </div>
+                        <div>
+                            <a href='https://github.com/brandonetter/SlackClone' target='_blank'>
+                                <img src='https://shields.io/badge/GitHub-Sluck%20Repository-400d40?logo=github&style=for-the-badge' alt='github' />
+                            </a>
+                        </div>
                     </div>
                 </>
             );
