@@ -8,6 +8,7 @@ import MainChatInput from "../MainChatInput";
 import defaultIcon from "../../assets/defaultIcon.png";
 import "./MainChat.css";
 import Modal from "../ChannelModal/ChannelModal";
+import DmsModal from "../DmsModal/DmsModal";
 
 
 import ChatMessage from "./component/ChatMessage";
@@ -138,7 +139,7 @@ function MainChat() {
     // check if the user is at the top of the chat
     let element = e.target;
     if (element.scrollTop === 0) {
-      console.log("top");
+      // console.log("top");
       // get the id of the first message in the chat
       let firstMessageId = formattedMessages?.[1]?.id;
       socket.emit("get-room-messages", { channelId: currentChannel.id, message: firstMessageId });
@@ -197,6 +198,19 @@ function MainChat() {
 
               {modalOpen && <Modal setOpenModal={setModalOpen} />}
             </div>
+
+          {/* <div className="DmsDetailModalContainer">
+          <button
+            className="openDmsModalBtn"
+            onClick={() => {
+              setModalOpen(true);
+            }}
+          >
+            Chat Details
+          </button>
+
+          {modalOpen && <Modal setOpenModal={setModalOpen} />}
+          </div> */}
 
 
             <div className='main-chat-user-list'>
