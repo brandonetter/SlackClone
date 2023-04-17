@@ -462,6 +462,8 @@
   padding-bottom: 20px;
   width: 50vw;
   height: fit-content;
+  max-height: 45vh;
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
 
@@ -472,6 +474,16 @@
   pointer-events: none;
   filter:drop-shadow(0 0 10px rgba(0, 0, 0, 0.8));
   pointer-events: auto;
+}
+.search-modal-results::-webkit-scrollbar{
+  width: 10px;
+}
+.search-modal-results::-webkit-scrollbar-track{
+  background: #1A1D21;
+}
+.search-modal-results::-webkit-scrollbar-thumb{
+  background: #d1d2d330;
+  border-radius: 10px;
 }
 .search-modal-result{
   display: flex;
