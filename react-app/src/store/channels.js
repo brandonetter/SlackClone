@@ -43,7 +43,7 @@ export const createChannel = ({ name, type }) => async (dispatch) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       name,
-      type: 3,
+      type,
       createdby: "demo@aa.io"
     })
   })
