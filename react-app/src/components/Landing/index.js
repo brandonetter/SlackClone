@@ -31,7 +31,6 @@ function Landing() {
                         <h1 className='landingthirdh'>Discover a new way of working</h1>
                         <h2 className='landingfourthh'>Bring the right people and information together in channels. Share ideas, make decisions and move work forward with a common purpose and place.</h2>
 
-                        <h1 className='landingfifthh'>Login to Discover</h1>
 
                     </div>
                     <div className='social-footer'>
