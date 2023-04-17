@@ -10,7 +10,6 @@ import ProfilePictureModal from "./aux/ProfilePictureModal";
 import { useSelector } from "react-redux";
 function MainWindow() {
   const modals = useSelector((state) => state.modals);
-  console.log(modals);
   return (
     <>
       <div className="main-window-container">

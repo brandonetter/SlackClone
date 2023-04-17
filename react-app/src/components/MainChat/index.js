@@ -43,12 +43,6 @@ function MainChat() {
   useEffect(() => {
 
     if (!socket) return;
-    socket.on("connect", () => {
-      console.log("connected");
-    });
-    socket.on("disconnect", () => {
-      console.log("disconnected");
-    });
     socket.on("message-incoming", (message) => {
       socket.emit("get-room-messages", { channelId: currentChannel.id, message: "latest" });
     });
@@ -193,19 +187,19 @@ function MainChat() {
 
 
             <div className="ChannelDetailModalContainer">
-          <button
-            className="openChannelModalBtn"
-            onClick={() => {
-              setModalOpen(true);
-            }}
-          >
-            View Details
-          </button>
+              <button
+                className="openChannelModalBtn"
+                onClick={() => {
+                  setModalOpen(true);
+                }}
+              >
+                View Details
+              </button>
 
-          {modalOpen && <Modal setOpenModal={setModalOpen} />}
-          </div>
+              {modalOpen && <Modal setOpenModal={setModalOpen} />}
+            </div>
 
-          {/* <div className="DmsDetailModalContainer">
+            {/* <div className="DmsDetailModalContainer">
           <button
             className="openDmsModalBtn"
             onClick={() => {
@@ -232,8 +226,8 @@ function MainChat() {
         )}
         <div className='main-chat-messages'>
           {loading && <span className='chat-loading-message'>{loadingMessage}</span>}
-          {formattedMessages.map((message) => (
-            <ChatMessage message={message} socket={socket} editMessage={tryEditMessage} deleteMessage={tryDeleteMessage} user={sessionUser} key={message.id} />
+          {formattedMessages.map((message, idx) => (
+            <ChatMessage message={message} socket={socket} editMessage={tryEditMessage} deleteMessage={tryDeleteMessage} user={sessionUser} key={idx} />
           ))}
 
         </div>

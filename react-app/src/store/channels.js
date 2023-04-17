@@ -28,32 +28,32 @@ export const removeChannel = (channelId) => {
 
 export const getChannel = () => async (dispatch) => {
   const response = await fetch('/api/room/all')
-//   console.log(response)
+  //   console.log(response)
 
-  if(response.ok) {
+  if (response.ok) {
     const channels = await response.json()
     // console.log("getChannel", channels)
     return dispatch(loadChannel(channels))
   }
 }
 
-export const createChannel = ({name, type}) => async (dispatch) => {
-  const response = await fetch('/api/room/all',{
+export const createChannel = ({ name, type }) => async (dispatch) => {
+  const response = await fetch('/api/room/all', {
     method: "POST",
-    headers: { "Content-Type": "application/json"},
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-        name,
-        type: 3,
-        createdby: "demo@aa.io"
-      })
+      name,
+      type: 3,
+      createdby: "demo@aa.io"
+    })
   })
 
-  if(response.ok) {
+  if (response.ok) {
     const channel = await response.json();
     // console.log(channel)
     dispatch(addChannel(channel));
     return channel
-  }else{
+  } else {
     const res = await response.json()
     return response.errors = res
   }
@@ -63,10 +63,9 @@ export const createChannel = ({name, type}) => async (dispatch) => {
 export const editChannel = (payload) => async (dispatch) => {
 
 
-    // console.log("payload", payload.channelId)
   const response = await fetch(`/api/room/all/${payload.channelId}`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json"},
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload)
   })
 
@@ -82,29 +81,29 @@ export const deleteChannel = (id) => async (dispatch) => {
     method: "DELETE"
   })
 
-  if(response.ok) {
+  if (response.ok) {
     dispatch(removeChannel(id))
   }
 }
 
-const channelsReducer = (state= initialState, action) => {
-  let newState = {...state};
-  switch(action.type) {
+const channelsReducer = (state = initialState, action) => {
+  let newState = { ...state };
+  switch (action.type) {
     case LOAD_CHANNELS:
-    //   console.log("ACTION.CHANNELS" , action.channels)
-      action.channels.forEach((channel)=>{
+      //   console.log("ACTION.CHANNELS" , action.channels)
+      action.channels.forEach((channel) => {
         newState[channel.id] = channel
       })
       return newState
 
     case ADD_CHANNEL:
       // console.log("ACTION.CHANNEL" , action.channel)
-      newState = {...state}
+      newState = { ...state }
       newState[action.channel.id] = action.channel
       return newState
 
     case REMOVE_CHANNEL:
-      newState = {...state}
+      newState = { ...state }
       delete newState[action.channelId];
       return newState
 

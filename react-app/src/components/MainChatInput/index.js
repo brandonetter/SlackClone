@@ -254,32 +254,20 @@ function MainChatInput(props) {
         )
     }
     function confirmMention(person) {
-        // console.log("confirmMention" + id);
-        // const { offset } = mention
-        // const text = getText(editorState, offset, getCaretPosition(editorState))
-        // const contentState = Modifier.replaceText(
-        //     editorState.getCurrentContent(),
-        //     new SelectionState({
-        //         anchorKey: editorState.getSelection().getAnchorKey(),
-        //         anchorOffset: offset,
-        //         focusKey: editorState.getSelection().getFocusKey(),
-        //         focusOffset: getCaretPosition(editorState),
-        //     }),
-        //     `@${id} `
-        // )
-        // setEditorState(EditorState.push(editorState, contentState, 'insert-characters'))
-        // setMention({ state: undefined })
-        // focusEditor()
+        // the current state of the editor
         const contentState = editorState.getCurrentContent()
+        // create a new entity with the type mention and the person data
         const contentStateWithEntity = contentState.createEntity(
             'MENTION',
             'IMMUTABLE',
             person
         )
+        // get the key of the new entity
         const entityKey = contentStateWithEntity.getLastCreatedEntityKey()
         const block = getCurrentBlock(editorState)
         const blockKey = block.getKey()
         const mentionText = '@' + person.firstname
+        // create a new content state with the entity added
         const contentStateWithReplacedText = Modifier.replaceText(
             contentStateWithEntity,
             new SelectionState({
@@ -294,6 +282,7 @@ function MainChatInput(props) {
             null,
             entityKey
         )
+        // create a new editor state with the new content state
         const newEditorState = EditorState.set(editorState, {
             currentContent: contentStateWithReplacedText,
             selection: new SelectionState({
@@ -305,7 +294,7 @@ function MainChatInput(props) {
                 hasFocus: true
             })
         })
-
+        // set the new editor state
         setEditorState(newEditorState)
         setMention({ state: undefined })
         setTimeout(() => sendTextToEditor(' ', newEditorState), 50);

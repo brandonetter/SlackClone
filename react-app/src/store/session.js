@@ -43,7 +43,6 @@ export const assignStatus = (status) => async (dispatch) => {
 		if (data.errors) {
 			return;
 		}
-		console.log(data);
 		if (data.status === "Status updated") {
 			dispatch(setUserStatus(status));
 		}
@@ -69,7 +68,6 @@ export const getUserProfileImage = (id) => async (dispatch) => {
 		reader.readAsDataURL(data);
 		reader.onloadend = function () {
 			const base64data = reader.result;
-			console.log(base64data);
 			dispatch(setUserProfilePicture(base64data));
 		};
 		// dispatch(setUserProfilePicture(data));
@@ -108,7 +106,6 @@ export const login = (email, password) => async (dispatch) => {
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(setUser(data));
-		console.log(data);
 		dispatch(getUserProfileImage(data.id));
 		return null;
 	} else if (response.status < 500) {

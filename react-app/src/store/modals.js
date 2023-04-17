@@ -61,9 +61,7 @@ export const handleFileUpload = (file, id) => async (dispatch) => {
     });
     if (response.ok) {
         const data = await response.json();
-        console.log(data);
         if (data.errors) {
-            console.log(data.errors);
             return;
         } setTimeout(() => {
             dispatch(authenticate());
@@ -96,7 +94,6 @@ export const sendSearch = (type, search) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         if (data.errors) {
-            console.log(data.errors);
             return;
         }
         return data;
