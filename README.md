@@ -80,5 +80,8 @@ This allowed me for the first time to not worry about z-index or layers or break
 
  [window-example.webm](https://user-images.githubusercontent.com/4108484/232329025-267a24f8-0677-4fec-80a6-3950cb6f646a.webm)
 
-### Crud Features**
+### Crud Features
 The Slack-Clone project includes full CRUD features (which includes Create, Read, Update, Delete) for both the channels and the direct message portion of the page
+
+## Yining Mao
+Coming into this project, I had some experience with React but no applicational experiences with flask or python. I was excited to take on this project as a challenge due to very little experience working with the technologies. I struggled initially with understanding how to approach the different features as multiple communication branch used the same table named Room. I learned how to transfer my knowledge with an expressJs backend into a flask/python backend and was forced to learn new skills to develop the different components of the project. 
