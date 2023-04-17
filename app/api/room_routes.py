@@ -65,7 +65,7 @@ def CreateChannel():
             userid = current_user.id
         )
         message = Message(
-            userid=current_user.id,
+            userid=1,
             message=f"{current_user.username} created the channel",
             room=channel,
             date=datetime.now()

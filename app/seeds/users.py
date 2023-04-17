@@ -6,16 +6,25 @@ from sqlalchemy.sql import text
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     current_date = datetime.datetime.now()
+    adminMessage =  User(
+        firstname="Server", lastname="Message", username='Admin', email='email' , password='password')
     demo = User(
         firstname="Demouser", lastname="Demolton", username='Demo', email='demo@aa.io', password='password')
     marnie = User(
         firstname="Marnie", lastname="Mcnameface",username='marnie', email='marnie@aa.io', password='password')
     bobbie = User(
         firstname="Bobbie", lastname="Fischer",username='bobbie', email='bobbie@aa.io', password='password')
+    tony = User(
+        firstname="Tony", lastname="Stark",username='tony',email='tonystark', password='password')
+    george = User(
+        firstname="George", lastname="Washington",username='george', email='george', password='password')
 
+    db.session.add(adminMessage)
     db.session.add(demo)
     db.session.add(marnie)
     db.session.add(bobbie)
+    db.session.add(tony)
+    db.session.add(george)
     db.session.commit()
 
 

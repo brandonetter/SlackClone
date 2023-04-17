@@ -27,7 +27,6 @@ function ProfileIcon({ user }) {
     const [icon, setIcon] = useState(defaultIcon);
 
     function convertToTint(name) {
-        console.log(realUser.profileicon);
         if (realUser.profileicon) return;
         if (icon !== defaultIcon) return;
         let firstLetter = name[0].toUpperCase();

@@ -13,12 +13,10 @@ function ProfilePictureModal() {
     }, false);
     // prevent default drop behavior
     window.addEventListener("drop", function (e) {
-        console.log('lol');
         e.preventDefault();
     }, false);
     const [dragActive, setDragActive] = useState(false);
     const handleDrag = (e) => {
-        console.log(e);
         e.preventDefault();
         e.stopPropagation();
         if (e.type === 'dragover' || e.type === 'dragenter') {
@@ -34,7 +32,6 @@ function ProfilePictureModal() {
         setDragActive(false);
         let files = e.dataTransfer.files;
         let res = await dispatch(handleFileUpload(files[0], user.id));
-        console.log(res);
 
     }
 

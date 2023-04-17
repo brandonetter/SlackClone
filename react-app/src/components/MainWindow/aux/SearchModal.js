@@ -4,12 +4,13 @@ import { useState, useEffect } from 'react';
 import defaultIcon from "../../../assets/defaultIcon.png";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmarkSquare, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faXmarkSquare, faSearch, faMessage } from '@fortawesome/free-solid-svg-icons'
 function SearchModal() {
     const dispatch = useDispatch();
     const [preText, setPreText] = useState('I\'m looking for ...');
     const [searchValue, setSearchValue] = useState('');
     const [searchResults, setSearchResults] = useState([]);
+    const [resultType, setResultType] = useState('users');
     const setNewSearchValue = (e) => {
         let newSearchValue = e.target.value;
 
@@ -30,7 +31,7 @@ function SearchModal() {
         return statusColor;
     }
     const generateIcon = (user) => {
-        const icon = user.profileicon ? user.profileicon : defaultIcon;
+        const icon = defaultIcon;
         const statusColor = getStatusColor(user);
         function convertToTint(name) {
             if (icon !== defaultIcon) return;
@@ -59,10 +60,22 @@ function SearchModal() {
         )
     }
     const getMove = () => {
-        if (preText == 'people:') return ' move-right-10';
-        if (preText == 'messages:') return ' move-right-35';
+        if (preText == 'people:') {
+
+            return ' move-right-10';
+
+        }
+        if (preText == 'messages:') {
+
+            return ' move-right-35';
+
+        }
         return '';
     }
+    useEffect(() => {
+        setSearchValue('');
+        setSearchResults([]);
+    }, [preText]);
 
     useEffect(() => {
         if (searchValue == '') {
@@ -73,9 +86,13 @@ function SearchModal() {
         if (preText == 'messages:') searchType = 'messages';
         async function getSearchResults() {
             const data = await dispatch(sendSearch(searchType, searchValue));
-            if (data) {
-                console.log(data);
+            if (data?.users) {
+                setResultType('users');
                 setSearchResults(data.users);
+            }
+            if (data?.messages) {
+                setResultType('messages');
+                setSearchResults(data.messages);
             }
         }
         getSearchResults();
@@ -110,21 +127,49 @@ function SearchModal() {
 
 
             </div>
-            {searchResults.length > 0 && searchValue !== '' &&
+            {searchResults.length > 0 && searchValue !== '' && resultType == 'users' &&
                 <div className="search-modal-results">
-                    {searchResults.map((result) => {
+                    {searchResults.map((result, idx) => {
                         return (
-                            <div className="search-modal-result">
-                                <div className="search-modal-result-image">
-                                    <img src={result.profile_image} />
-                                </div>
-                                <div className="search-modal-result-info">
+                            <div key={idx} className="search-modal-result">
+
+                                <div className="search-modal-result-info ">
                                     {generateIcon(result)}
                                     <div className="search-modal-result-info-text">
-                                        <span>{result.username}</span>
-                                        <span>{result.firstname} {result.lastname}</span>
+
+                                        <span>{result.firstname} {result.lastname} </span>
+                                        <span className='search-dim'>{result.username} </span>
                                     </div>
                                 </div>
+                                <div className="search-modal-result-buttons">
+                                    <div className="search-modal-result-button">
+                                        <FontAwesomeIcon icon={faMessage} />
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    }
+                    )}
+
+                </div>
+            }
+            {searchResults.length > 0 && searchValue !== '' && resultType == 'messages' &&
+                <div className="search-modal-results">
+                    {searchResults.map((result, idx) => {
+                        return (
+                            <div key={idx}>
+                                <div className="search-modal-result result-small">
+
+                                    <div className="search-modal-result-info result-small">
+                                        {generateIcon(result)}
+                                        <div className="search-modal-result-info-text">
+                                            <span>{result.firstname} {result.lastname}</span> :
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <span className='search-modal-message'>{result.message}</span>
                             </div>
                         )
                     }
