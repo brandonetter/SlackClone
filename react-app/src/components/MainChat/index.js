@@ -193,13 +193,13 @@ function MainChat() {
                   setModalOpen(true);
                 }}
               >
-                Channel Details
+                View Details
               </button>
 
               {modalOpen && <Modal setOpenModal={setModalOpen} />}
             </div>
 
-          {/* <div className="DmsDetailModalContainer">
+            {/* <div className="DmsDetailModalContainer">
           <button
             className="openDmsModalBtn"
             onClick={() => {
