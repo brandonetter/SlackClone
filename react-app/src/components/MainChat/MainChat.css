@@ -364,3 +364,6 @@ code{
   opacity: 0.25;
   font-weight: 600;
 }
+.deleted{
+  opacity: 0.2;
+}

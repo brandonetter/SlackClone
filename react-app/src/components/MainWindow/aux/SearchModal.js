@@ -1,4 +1,7 @@
-import { toggleSearch, sendSearch } from '../../../store/modals';
+import { toggleSearch, sendSearch, createDMs } from '../../../store/modals';
+import { getDms } from '../../../store/dms';
+import { getChannel } from '../../../store/channels';
+import { changeRoom } from '../../../store/channel';
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import defaultIcon from "../../../assets/defaultIcon.png";
@@ -15,6 +18,14 @@ function SearchModal() {
         let newSearchValue = e.target.value;
 
         setSearchValue(newSearchValue);
+    }
+    const createDM = async (user) => {
+        let room = await dispatch(createDMs(user));
+        if (room.id) {
+            dispatch(changeRoom(room));
+            dispatch(toggleSearch());
+        }
+        dispatch(getChannel());
     }
     const getStatusColor = (user) => {
         let status = user.status;
@@ -143,7 +154,7 @@ function SearchModal() {
                                 </div>
                                 <div className="search-modal-result-buttons">
                                     <div className="search-modal-result-button">
-                                        <FontAwesomeIcon icon={faMessage} />
+                                        <FontAwesomeIcon icon={faMessage} onClick={() => createDM(result.id)} />
                                     </div>
                                 </div>
                             </div>

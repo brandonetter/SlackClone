@@ -1,9 +1,15 @@
 import defaultIcon from "../../../assets/defaultIcon.png";
 import { marked } from "marked";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import MainChatInput from "../../MainChatInput";
+import { createDMs } from "../../../store/modals";
+import { loadDms } from "../../../store/dms";
+import { getChannel } from "../../../store/channels";
+import { getDms } from "../../../store/dms";
+import { changeRoom } from "../../../store/channel";
+import { useDispatch, useSelector } from "react-redux";
 // marked.setOptions({
 //     breaks: true,
 //     gfm: true,
@@ -11,10 +17,12 @@ import MainChatInput from "../../MainChatInput";
 
 
 function ChatMessage({ message, user, deleteMessage, editMessage, socket }) {
+    const dispatch = useDispatch();
     const [isHovering, setIsHovering] = useState(false);
     const [dropDown, setDropDown] = useState(false);
     const [edit, setEdit] = useState(false);
     const [editMessageText, setEditMessageText] = useState("");
+    const divRef = useRef(null);
     function getTimeFromDate(date) {
         let time = new Date(date);
         let hours = time.getHours();
@@ -108,6 +116,13 @@ function ChatMessage({ message, user, deleteMessage, editMessage, socket }) {
         editMessage(message.id, content);
         setEdit(false);
     }
+    async function createDM(userid) {
+        let room = await dispatch(createDMs(userid));
+        if (room.id) {
+            dispatch(changeRoom(room));
+        }
+        dispatch(getChannel());
+    }
     if (message.userid === 1) {
         return (
             <div className="chat-message chat-message-bot">
@@ -119,7 +134,7 @@ function ChatMessage({ message, user, deleteMessage, editMessage, socket }) {
     }
     return (
 
-        <div className="chat-message" onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => {
+        <div ref={divRef} className={message.deleted ? "chat-message deleted" : "chat-message"} onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => {
             setIsHovering(false)
             if (dropDown) {
                 setDropDown(false);
@@ -135,13 +150,17 @@ function ChatMessage({ message, user, deleteMessage, editMessage, socket }) {
                 <div className="chat-message-content-header">
                     <h4>{message.firstname} {message.lastname} <span className='chat-message-date'>{getTimeFromDate(message.date)}</span></h4>
 
-                    {showDelete() && <div className="chat-message-edit-delete">
+                    {showDelete() && !message.deleted && <div className="chat-message-edit-delete">
                         <div className="chat-message-edit-dropdown-button" onClick={showDropDown}>
                             <FontAwesomeIcon icon={faEllipsis} />
                         </div>
                         {dropDown && <div className="chat-message-edit-dropdown">
                             <div className="chat-message-edit-dropdown-item" onClick={() => trySetEdit(message.message)}>Edit</div>
-                            <div className="chat-message-edit-dropdown-item" onClick={() => deleteMessage(message.id)}>Delete</div>
+                            <div className="chat-message-edit-dropdown-item" onClick={() => {
+                                setDropDown(false);
+                                divRef.current.classList.add('deleted');
+                                deleteMessage(message.id)
+                            }}>Delete</div>
                         </div>}
                     </div>}
                     {/* ADDED THE DM BUTTON HERE */}
@@ -151,7 +170,7 @@ function ChatMessage({ message, user, deleteMessage, editMessage, socket }) {
                                 <FontAwesomeIcon icon={faEllipsis} />
                             </div>
                             {dropDown && <div className="chat-message-edit-dropdown">
-                                <div className="chat-message-edit-dropdown-item" >DM</div>
+                                <div className="chat-message-edit-dropdown-item" onClick={() => createDM(message.userid)}>DM</div>
                             </div>}
                         </div>}
 

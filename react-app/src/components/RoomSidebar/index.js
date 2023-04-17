@@ -8,6 +8,7 @@ import CreateChannelForm from "../ChannelForm/CreateChannelForm";
 import { getChannel } from "../../store/channels";
 import DmsBrowser from "../DmsList/DmsList";
 import CreateDmsForm from "../DmsForm/CreateDmsForm";
+import GroupDM from "../GroupDM";
 // import Modal from "../ChannelModal/ChannelModal";
 // import ChannelList "../ChannelList"
 
@@ -51,7 +52,7 @@ function RoomSidebar() {
         </div> */}
 
         <DmsBrowser />
-
+        <GroupDM />
 
 
       </div>

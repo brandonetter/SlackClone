@@ -4,7 +4,7 @@ const SET_SEARCH = "modals/SET_SEARCH";
 const SET_PROFILE = "modals/SET_PROFILE";
 const SET_STATUS = "modals/SET_STATUS";
 const SET_PROFILE_PICTURE = "modals/SET_PROFILE_PICTURE";
-
+const SET_GROUP_DM = "modals/SET_GROUP_DM";
 // actions
 const setSearch = (state) => ({
     type: SET_SEARCH,
@@ -20,6 +20,10 @@ const setStatus = (state) => ({
 });
 const setProfilePicture = (state) => ({
     type: SET_PROFILE_PICTURE,
+    payload: state,
+});
+const setGroupDM = (state) => ({
+    type: SET_GROUP_DM,
     payload: state,
 });
 
@@ -43,9 +47,44 @@ export const toggleSearch = (bool = undefined) => async (dispatch, getState) => 
     }
 
 };
+export const toggleGroupDM = () => async (dispatch, getState) => {
+    const state = getState();
+    dispatch(setGroupDM(!state.modals.groupdm));
+};
+export const getAllGroups = () => async (dispatch) => {
+    const response = await fetch("/api/room/group/all", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
 
-//initial state
-const initialState = { search: false, profile: false, status: false, profilepicture: false };
+    });
+    if (response.ok) {
+        const data = await response.json();
+        if (data.errors) {
+            return;
+        }
+        return data;
+    }
+};
+
+
+export const createGroupDM = (users) => async (dispatch) => {
+    const response = await fetch("/api/room/group/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            users,
+        }),
+    });
+    if (response.ok) {
+        const data = await response.json();
+
+        return data;
+    }
+};
 
 export const handleFileUpload = (file, id) => async (dispatch) => {
     const formData = new FormData();
@@ -66,6 +105,25 @@ export const handleFileUpload = (file, id) => async (dispatch) => {
 
     }
 };
+export const createDMs = (user) => async (dispatch) => {
+    const response = await fetch("/api/room/dm/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            user,
+        }),
+    });
+    if (response.ok) {
+        const data = await response.json();
+        if (data.errors) {
+            return;
+        }
+        return data;
+    }
+};
+
 export const toggleProfile = () => async (dispatch, getState) => {
     const state = getState();
     dispatch(setProfile(!state.modals.profile));
@@ -98,6 +156,7 @@ export const sendSearch = (type, search) => async (dispatch) => {
 
 
 
+const initialState = { search: false, profile: false, status: false, profilepicture: false, groupdm: false };
 
 // reducer
 export default function reducer(state = initialState, action) {
@@ -110,7 +169,8 @@ export default function reducer(state = initialState, action) {
             return { ...state, status: action.payload }
         case SET_PROFILE_PICTURE:
             return { ...state, profilepicture: action.payload }
-
+        case SET_GROUP_DM:
+            return { ...state, groupdm: action.payload }
         default:
             return state;
     }
