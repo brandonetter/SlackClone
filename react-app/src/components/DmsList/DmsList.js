@@ -3,6 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Link, Route, useParams, useHistory } from 'react-router-dom';
 
 import { getDms, loadDms, deleteDms } from '../../store/dms';
+
+import { getChannel, deleteChannel } from '../../store/channels';
+
 import { changeRoom } from '../../store/channel';
 import './DmsList.css'
 
@@ -12,7 +15,9 @@ const DmsBrowser = () => {
 
   const sessionUser = useSelector((state) => state.session.user);
 
-  const dmsobj = useSelector(state => state.dms)
+
+  const dmsobj = useSelector(state => state.channels)
+
   const dmsArr = Object.values(dmsobj)
 
   function changeRoomHandler(room) {
@@ -34,7 +39,7 @@ const DmsBrowser = () => {
   }
 
   useEffect(() => {
-    dispatch(getDms())
+    dispatch(getChannel())
   }, [dispatch])
 
   const [show, setShow] = useState(false);
