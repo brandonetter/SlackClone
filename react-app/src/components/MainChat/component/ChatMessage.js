@@ -38,13 +38,13 @@ function ChatMessage({ message, user, deleteMessage, editMessage, socket }) {
     }
     if (message.message) {
         // strip single spaces bettween letters and an asterisk
-        message.message = message.message.replace(/(\w) \*(.*?)/g, '$1*$2');
+        message.message = message.message.replace(/(\w) \*(.*?)/g, '$1 *$2');
         message.message = message.message.replace(/__(.*?)__/gm, '<u>$1</u>');
         //remove (undefined) from the message
         message.message = message.message.replace(/\(undefined\)/g, '');
 
         // conver @mentions to bold
-        message.message = message.message.replace(/\[@(\w+)\]/g, ' <b class="chat-mention-in-chat">@$1</b> ');
+        message.message = message.message.replace(/ @(\w+)/g, ' <b class="chat-mention-in-chat">@$1</b> ');
         message.message = marked(message.message);
     }
     if (message.isDate) {
@@ -58,7 +58,6 @@ function ChatMessage({ message, user, deleteMessage, editMessage, socket }) {
     }
     function convertToTint(message) {
         let name = message.firstname;
-        console.log("convertToTint", message);
         if (message.profileIcon) return;
         // if the first letter of the name is A-E, return tint-A
         // if the first letter of the name is F-J, return tint-B
@@ -90,6 +89,12 @@ function ChatMessage({ message, user, deleteMessage, editMessage, socket }) {
         }
         return false;
     }
+    function showDM() {
+        if (message.userid !== user.id && isHovering) {
+            return true;
+        }
+        return false;
+    }
     function showDropDown() {
         setDropDown(!dropDown);
     }
@@ -99,14 +104,30 @@ function ChatMessage({ message, user, deleteMessage, editMessage, socket }) {
         setDropDown(false);
     }
     function sendEditedMessage(content) {
-        console.log("sendEditedMessage", content, message.id);
         //editMessage(message.id, editMessageText);
         editMessage(message.id, content);
         setEdit(false);
     }
+    if (message.userid === 1) {
+        return (
+            <div className="chat-message chat-message-bot">
+                <div className="chat-message-content">
+                    <p dangerouslySetInnerHTML={{ __html: message.message }}></p>
+                </div>
+            </div>
+        )
+    }
     return (
 
-        <div className="chat-message" onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>
+        <div className="chat-message" onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => {
+            setIsHovering(false)
+            if (dropDown) {
+                setDropDown(false);
+            }
+            if (edit) {
+                setEdit(false);
+            }
+        }}>
             <div className="chat-message-icon">
                 {message.profileicon ? <img src={message.profileicon} alt="profile icon" /> : <img src={defaultIcon} alt="profile icon" className={convertToTint(message)} />}
             </div>
@@ -123,6 +144,18 @@ function ChatMessage({ message, user, deleteMessage, editMessage, socket }) {
                             <div className="chat-message-edit-dropdown-item" onClick={() => deleteMessage(message.id)}>Delete</div>
                         </div>}
                     </div>}
+                    {/* ADDED THE DM BUTTON HERE */}
+                    {showDM() &&
+                        <div className="chat-message-edit-delete">
+                            <div className="chat-message-edit-dropdown-button" onClick={showDropDown}>
+                                <FontAwesomeIcon icon={faEllipsis} />
+                            </div>
+                            {dropDown && <div className="chat-message-edit-dropdown">
+                                <div className="chat-message-edit-dropdown-item" >DM</div>
+                            </div>}
+                        </div>}
+
+
                 </div>
 
                 {edit ? <MainChatInput socket={socket} editMessageText={editMessageText} onSend={sendEditedMessage} /> :

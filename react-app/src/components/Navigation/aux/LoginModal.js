@@ -54,6 +54,28 @@ function LoginModal({ type, closeSelf }) {
             ]);
         }
     };
+    const cleanErrors = (error) => {
+        let error_type = error.split(':')[0].trim();
+        let error_message = error.split(':')[1];
+        switch (error_type) {
+            case 'username':
+                return <><span className='error-token'>Username</span> {error_message}</>;
+            case 'email':
+                return <><span className='error-token'>Email </span>{error_message}</>;
+            case 'password':
+                return <><span className='error-token'>Password </span>{error_message}</>;
+            case 'confirmPassword':
+                return <><span className='error-token'>Confirm Password </span>{error_message}</>;
+            case 'firstName':
+                return <><span className='error-token'>First Name </span>{error_message}</>;
+            case 'lastName':
+                return <><span className='error-token'>Last Name </span>{error_message}</>;
+            default:
+                return error;
+
+
+        }
+    };
     const demoLogin = async (e) => {
         e.preventDefault();
         const data = await dispatch(login('demo@aa.io', 'password'));
@@ -79,6 +101,12 @@ function LoginModal({ type, closeSelf }) {
                     <div className='login-modal-input-container'>
                         <button className='login-modal-button' onClick={handleSubmit}>Log in</button>
                     </div>
+                    <div className='login-modal-errors'>
+                        {errors.map((error, ind) => (
+                            <div key={ind}>{cleanErrors(error)}</div>
+                        ))}
+                    </div>
+
                 </div>
             case 'Register':
                 return <div className='login-modal-content'>
@@ -90,24 +118,33 @@ function LoginModal({ type, closeSelf }) {
                         <span>Username</span>
                         <input type="text" placeholder="Username" className='login-modal-input' value={username} onChange={(e) => setUsername(e.target.value)} />
                     </div>
-                    <div className='login-modal-input-container'>
-                        <span>First Name</span>
-                        <input type="text" placeholder="FirstName" className='login-modal-input' value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+                    <div className='login-modal-input-container-wide'>
+                        <div className='login-modal-input-container'>
+                            <span>First Name</span>
+                            <input type="text" placeholder="FirstName" className='login-modal-input' value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+                        </div>
+                        <div className='login-modal-input-container'>
+                            <span>Last Name</span>
+                            <input type="text" placeholder="LastName" className='login-modal-input' value={lastName} onChange={(e) => setLastName(e.target.value)} />
+                        </div>
                     </div>
-                    <div className='login-modal-input-container'>
-                        <span>Last Name</span>
-                        <input type="text" placeholder="LastName" className='login-modal-input' value={lastName} onChange={(e) => setLastName(e.target.value)} />
-                    </div>
-                    <div className='login-modal-input-container'>
-                        <span>Password</span>
-                        <input type="password" placeholder="Password" className='login-modal-input' value={password} onChange={(e) => setPassword(e.target.value)} />
-                    </div>
-                    <div className='login-modal-input-container'>
-                        <span>Confirm Password</span>
-                        <input type="password" placeholder="Confirm Password" className='login-modal-input' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                    <div className='login-modal-input-container-wide'>
+                        <div className='login-modal-input-container'>
+                            <span>Password</span>
+                            <input type="password" placeholder="Password" className='login-modal-input' value={password} onChange={(e) => setPassword(e.target.value)} />
+                        </div>
+                        <div className='login-modal-input-container'>
+                            <span>Confirm Password</span>
+                            <input type="password" placeholder="Confirm Password" className='login-modal-input' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                        </div>
                     </div>
                     <div className='login-modal-input-container'>
                         <button className='login-modal-button' onClick={handleSubmitRegister}>Sign up</button>
+                    </div>
+                    <div className='login-modal-errors'>
+                        {errors.map((error, ind) => (
+                            <div key={ind}>{cleanErrors(error)}</div>
+                        ))}
                     </div>
                 </div>
             default:

@@ -28,7 +28,7 @@ def search():
         print(users)
         return {'users': [user.to_dict() for user in users]}
     elif(type == 'messages'):
-        messages = Message.query.filter(Message.content.ilike(f'%{search}%')).all()
+        messages = Message.query.filter(Message.message.ilike(f'%{search}%')).all()
         return {'messages': [message.to_dict() for message in messages]}
     return {'errors': 'No results found'}
 

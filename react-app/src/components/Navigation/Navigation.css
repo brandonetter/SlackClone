@@ -233,6 +233,15 @@
   width: 80%;
   height: fit-content;
 }
+.login-modal-input-container-wide{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  gap: 20px;
+  height: fit-content;
+}
 .login-modal-input-container > span{
   display: flex;
   flex-direction: row;
@@ -294,4 +303,24 @@
   font-family: "Roboto", sans-serif;
   cursor: pointer;
   user-select: none;
+}
+.error-token{
+  border-radius: 10px;
+  background-color: #ff0000db;
+  color: #fff;
+  border:2px solid #fff;
+  padding: 5px;
+  font-size: 1.5rem;
+  font-family: "Roboto", sans-serif;
+  user-select: none;
+}
+.login-modal-errors{
+  display: flex;
+  flex-direction: column;
+  margin-left:100px;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  height: fit-content;
+  gap: 10px;
 }

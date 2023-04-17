@@ -358,5 +358,9 @@ code{
   color: #828184;
   border: none;
   margin: 5px;
-  
+
+}
+.chat-message-bot{
+  opacity: 0.25;
+  font-weight: 600;
 }
