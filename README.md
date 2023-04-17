@@ -80,5 +80,5 @@ This allowed me for the first time to not worry about z-index or layers or break
 
  [window-example.webm](https://user-images.githubusercontent.com/4108484/232329025-267a24f8-0677-4fec-80a6-3950cb6f646a.webm)
 
-- **Crud Features**
+### Crud Features**
 The Slack-Clone project includes full CRUD features (which includes Create, Read, Update, Delete) for both the channels and the direct message portion of the page
