@@ -90,7 +90,7 @@ function ProfileModal() {
                 <div className="profile-modal-smile">{smile}</div>
                 Update Your Status
             </div>
-            <div className='profile-modal-picture-button' onClick={openProfilePictureModal}>Change Profile Picture</div>
+            {/* <div className='profile-modal-picture-button' onClick={openProfilePictureModal}>Change Profile Picture</div> */}
             <div className='profile-modal-logout-button' onClick={logoutAndRedirect}>Log Out</div>
         </div>
     )
