@@ -6,6 +6,7 @@ import "./MainWindow.css";
 import ProfileModal from "./aux/ProfileModal";
 import StatusModal from "./aux/StatusModal";
 import SearchModal from "./aux/SearchModal";
+import GroupDM from "./aux/GroupDM";
 import ProfilePictureModal from "./aux/ProfilePictureModal";
 import { useSelector } from "react-redux";
 function MainWindow() {
@@ -41,9 +42,9 @@ function MainWindow() {
             <ProfilePictureModal />
           </div>
         }
-        {modals.groupDM &&
+        {modals.groupdm &&
           <div className="main-window-modal-status">
-            <ProfilePictureModal />
+            <GroupDM />
           </div>}
       </div>
     </>

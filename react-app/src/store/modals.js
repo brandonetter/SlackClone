@@ -51,6 +51,40 @@ export const toggleGroupDM = () => async (dispatch, getState) => {
     const state = getState();
     dispatch(setGroupDM(!state.modals.groupdm));
 };
+export const getAllGroups = () => async (dispatch) => {
+    const response = await fetch("/api/room/group/all", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+
+    });
+    if (response.ok) {
+        const data = await response.json();
+        if (data.errors) {
+            return;
+        }
+        return data;
+    }
+};
+
+
+export const createGroupDM = (users) => async (dispatch) => {
+    const response = await fetch("/api/room/group/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            users,
+        }),
+    });
+    if (response.ok) {
+        const data = await response.json();
+
+        return data;
+    }
+};
 
 export const handleFileUpload = (file, id) => async (dispatch) => {
     const formData = new FormData();
@@ -71,6 +105,25 @@ export const handleFileUpload = (file, id) => async (dispatch) => {
 
     }
 };
+export const createDMs = (user) => async (dispatch) => {
+    const response = await fetch("/api/room/dm/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            user,
+        }),
+    });
+    if (response.ok) {
+        const data = await response.json();
+        if (data.errors) {
+            return;
+        }
+        return data;
+    }
+};
+
 export const toggleProfile = () => async (dispatch, getState) => {
     const state = getState();
     dispatch(setProfile(!state.modals.profile));

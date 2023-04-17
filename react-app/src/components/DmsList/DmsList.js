@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Link, Route, useParams, useHistory } from 'react-router-dom';
 
-import { getDms, loadDms,deleteDms } from '../../store/dms';
+import { getDms, loadDms, deleteDms } from '../../store/dms';
 import { changeRoom } from '../../store/channel';
 import './DmsList.css'
 
@@ -10,10 +10,10 @@ const DmsBrowser = () => {
   const dispatch = useDispatch()
 
 
-    const sessionUser = useSelector((state) => state.session.user);
+  const sessionUser = useSelector((state) => state.session.user);
 
-    const dmsobj = useSelector(state => state.dms)
-    const dmsArr = Object.values(dmsobj)
+  const dmsobj = useSelector(state => state.dms)
+  const dmsArr = Object.values(dmsobj)
 
   function changeRoomHandler(room) {
     dispatch(changeRoom(room))
@@ -23,15 +23,15 @@ const DmsBrowser = () => {
   const RoomtypeDms = []
 
   dmsArr.map((dms) => {
-    if (dms.roomtype != "CHANNEL") {
+    if (dms.roomtype == "DM") {
       RoomtypeDms.push(dms)
     }
 
   })
 
-    const deleteHandler = (id) => {
-      dispatch(deleteDms(parseInt(id)))
-    }
+  const deleteHandler = (id) => {
+    dispatch(deleteDms(parseInt(id)))
+  }
 
   useEffect(() => {
     dispatch(getDms())
@@ -40,8 +40,8 @@ const DmsBrowser = () => {
   const [show, setShow] = useState(false);
 
 
-    return sessionUser.id ? (
-        <>
+  return sessionUser.id ? (
+    <>
 
       {dmsobj &&
         <main className='DmsListContainer'>
@@ -57,7 +57,7 @@ const DmsBrowser = () => {
                 {show && <hr />}
                 {show &&
                   <button className='deletedmsbtn' id={dms.id} onClick={(e) => deleteHandler(e.target.id)}>Delete</button>
-                  }
+                }
 
               </Link>
             ))}
@@ -66,8 +66,8 @@ const DmsBrowser = () => {
         </main >
       }
 
-     </>
-    ):
+    </>
+  ) :
     null;
 
 

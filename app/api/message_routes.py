@@ -19,6 +19,7 @@ def delete(id):
         # set the contents of the message to "deleted" so that it is not
         # displayed in the chat
         message.message = "*message deleted*"
+        message.deleted = True
         #update the message in the database
         db.session.add(message)
         db.session.commit()

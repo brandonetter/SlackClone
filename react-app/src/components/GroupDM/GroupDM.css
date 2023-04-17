@@ -35,8 +35,26 @@
     opacity: 0.25;
     width:15px;
     height:15px;
+    pointer-events: auto;
 }
 .group-DM-plus:hover{
     cursor: pointer;
     opacity: 1;
+}
+.group-DM-list-item{
+    margin-top:10px;
+    margin-left:5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap:5px;
+    width: fit-content;
+    padding:1px;
+    border-radius: 5px;
+}
+.group-DM-list-item:hover{
+    cursor: pointer;
+    background-color: #1A1D21;
+    color: #D1D2D3;
 }
