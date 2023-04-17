@@ -121,7 +121,7 @@ function GroupDM() {
                 <FontAwesomeIcon icon={faXmarkCircle} style={{ width: '20px', height: '20px' }} onClick={() => dispatch(toggleGroupDM())} />
             </div>
             <div className='group-DM-modal-header'>
-                <h1>Select Users To Add To Group</h1>
+                <h1>Select Users:</h1>
             </div>
             <div className='group-DM-modal-search-bar'>
                 <input type='text' placeholder='Search' value={searchValue} onChange={(e) => setSearchValue(e.target.value)} className='search-modal-search-bar-input border-bottom' />

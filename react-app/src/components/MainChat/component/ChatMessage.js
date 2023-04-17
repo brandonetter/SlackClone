@@ -52,6 +52,7 @@ function ChatMessage({ message, user, deleteMessage, editMessage, socket }) {
         message.message = message.message.replace(/\(undefined\)/g, '');
 
         // conver @mentions to bold
+        message.message = message.message.replace(/\[@(\w+)\]/g, ' <b class="chat-mention-in-chat">@$1</b> ');
         message.message = message.message.replace(/ @(\w+)/g, ' <b class="chat-mention-in-chat">@$1</b> ');
         message.message = marked(message.message);
     }
