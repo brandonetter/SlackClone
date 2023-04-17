@@ -27,7 +27,8 @@ const CreateDmsForm = () => {
     };
 
     const data = await dispatch(createDms(payload))
-    if(data) setErrors(data.error)
+    if(data) setErrors(data.errors)
+    console.log("DMS DATA", data)
 
 }
 

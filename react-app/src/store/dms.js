@@ -99,7 +99,7 @@ export const loadDms = (dms) => {
 
       case REMOVE_DMS:
         newState = {...state}
-        delete newState[action.channelId];
+        delete newState[action.dmsId];
         return newState
 
       default:

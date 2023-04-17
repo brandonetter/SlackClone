@@ -30,6 +30,8 @@ const CreateChannelForm = () => {
 
     const data = await dispatch(createChannel(payload))
     if(data) setErrors(data.errors)
+
+    console.log("CHANNELS DATA", data)
 }
 const [show, setShow] = useState(false);
 
