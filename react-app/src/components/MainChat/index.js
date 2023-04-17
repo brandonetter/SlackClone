@@ -199,7 +199,7 @@ function MainChat() {
               setModalOpen(true);
             }}
           >
-            Channel Details
+            View Details
           </button>
 
           {modalOpen && <Modal setOpenModal={setModalOpen} />}
