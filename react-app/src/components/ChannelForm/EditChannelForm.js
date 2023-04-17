@@ -52,7 +52,7 @@ const EditChannelForm = () => {
         />
 
 
-    <button className= 'UpdateChannelBttn' type="submit">Update Channel</button>
+    <button className= 'UpdateChannelBttn' type="submit">Update</button>
 
     </form>
 
