@@ -6,6 +6,7 @@ import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import MainChatInput from "../../MainChatInput";
 import { createDMs } from "../../../store/modals";
 import { loadDms } from "../../../store/dms";
+import { getChannel } from "../../../store/channels";
 import { getDms } from "../../../store/dms";
 import { changeRoom } from "../../../store/channel";
 import { useDispatch, useSelector } from "react-redux";
@@ -120,7 +121,7 @@ function ChatMessage({ message, user, deleteMessage, editMessage, socket }) {
         if (room.id) {
             dispatch(changeRoom(room));
         }
-        dispatch(getDms());
+        dispatch(getChannel());
     }
     if (message.userid === 1) {
         return (

@@ -1,5 +1,6 @@
 import { toggleSearch, sendSearch, createDMs } from '../../../store/modals';
 import { getDms } from '../../../store/dms';
+import { getChannel } from '../../../store/channels';
 import { changeRoom } from '../../../store/channel';
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
@@ -24,7 +25,7 @@ function SearchModal() {
             dispatch(changeRoom(room));
             dispatch(toggleSearch());
         }
-        dispatch(getDms());
+        dispatch(getChannel());
     }
     const getStatusColor = (user) => {
         let status = user.status;
