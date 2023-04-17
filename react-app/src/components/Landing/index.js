@@ -21,9 +21,19 @@ function Landing() {
             );
         if (!user)
             return (
-                <><h1>Landing</h1>
-                    <div>Show off app here. Landing Page</div>
-                    <div>asdas</div>
+                <>
+                <div className='landingpage'>
+                <h1 className='welcomeback'>Welcome Back</h1>
+
+                    <h1 className='landingfirsth'>One Platform For Your Team and Your Work</h1>
+                    <h2 className='landingsecondh'>All the features work together so you can too.</h2>
+
+                    <h1 className='landingthirdh'>Discover a new way of working</h1>
+                    <h2 className='landingfourthh'>Bring the right people and information together in channels. Share ideas, make decisions and move work forward with a common purpose and place.</h2>
+
+                    <h1 className='landingfifthh'>Login to Discover</h1>
+
+                    </div>
                 </>
             );
     }

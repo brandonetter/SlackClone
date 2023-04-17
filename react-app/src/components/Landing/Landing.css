@@ -70,3 +70,52 @@
     font-weight: 400;
     color: #2e2e2e;
 }
+
+.landingpage{
+    display: grid;
+    place-items:  center;
+}
+
+.welcomeback{
+    margin: 50px;
+    background-color: #400d40;
+    color: white;
+    width: 270px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.landingfirsth{
+    font-family: fantasy;
+    margin: 10px
+}
+
+.landingsecondh{
+   font-family: monospace;
+   margin: 10px
+}
+
+.landingthirdh{
+    font-family: fantasy;
+    margin: 10px
+}
+
+.landingfourthh{
+    font-family: monospace;
+    margin: 10px;
+    width: 800px;
+}
+
+.landingfifthh{
+    margin: 50px;
+    background-color: #400d40;
+    color: white;
+    width: 300px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
