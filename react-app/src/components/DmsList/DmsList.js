@@ -1,18 +1,24 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Link, Route, useParams, useHistory } from 'react-router-dom';
-import { getDms, loadDms } from '../../store/dms';
+
+import { getDms, loadDms,deleteDms } from '../../store/dms';
 import { changeRoom } from '../../store/channel';
 import './DmsList.css'
 
 const DmsBrowser = () => {
   const dispatch = useDispatch()
 
+
+    const sessionUser = useSelector((state) => state.session.user);
+
+    const dmsobj = useSelector(state => state.dms)
+    const dmsArr = Object.values(dmsobj)
+
   function changeRoomHandler(room) {
     dispatch(changeRoom(room))
   }
-  const dmsobj = useSelector(state => state.dms)
-  const dmsArr = Object.values(dmsobj)
+
 
   const RoomtypeDms = []
 
@@ -23,6 +29,9 @@ const DmsBrowser = () => {
 
   })
 
+    const deleteHandler = (id) => {
+      dispatch(deleteDms(parseInt(id)))
+    }
 
   useEffect(() => {
     dispatch(getDms())
@@ -30,8 +39,10 @@ const DmsBrowser = () => {
 
   const [show, setShow] = useState(false);
 
-  return (
-    <>
+
+    return sessionUser.id ? (
+        <>
+
       {dmsobj &&
         <main className='DmsListContainer'>
           <div className='eachDms'>
@@ -39,14 +50,26 @@ const DmsBrowser = () => {
 
               <Link className='dmsLink' key={dms.id} to={`/chat/${dms.id}`} onClick={() => changeRoomHandler(dms)}>
                 {dms.name}
+
+                <button className="dmsLinkexpandBtn" onClick={() => setShow(!show)}>
+                  {show ? '...' : '...'}
+                </button>
+                {show && <hr />}
+                {show &&
+                  <button className='deletedmsbtn' id={dms.id} onClick={(e) => deleteHandler(e.target.id)}>Delete</button>
+                  }
+
               </Link>
             ))}
 
           </div>
         </main >
       }
-    </>
-  )
+
+     </>
+    ):
+    null;
+
 
 }
 

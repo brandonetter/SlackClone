@@ -20,6 +20,8 @@ function RoomSidebar() {
   }, []);
   // const [modalOpen, setModalOpen] = useState(false);
   const channels = useSelector((state) => state.channels)
+
+  const dms = useSelector((state) => state.dms)
   return (
     <div className="room-sidebar">
       <div className="room-sidebar-header">
@@ -37,13 +39,20 @@ function RoomSidebar() {
         <ChannelBrowser />
 
         <h2>Direct Messages:</h2>
-        <div>
+
+
+        {(dms) &&
+          <div>
+            <CreateDmsForm />
+          </div>
+        }
+        {/* <div>
           <CreateDmsForm />
-        </div>
+        </div> */}
 
         <DmsBrowser />
 
-  
+
 
       </div>
     </div>

@@ -1,13 +1,14 @@
 import './CreateChannelForm.css'
 
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { createChannel } from '../../store/channels';
 
 
 const CreateChannelForm = () => {
 
     const dispatch = useDispatch();
+    const sessionUser = useSelector((state) => state.session.user);
 
     const [name, setName] = useState('')
     const [type, setType] = useState('')
@@ -27,16 +28,14 @@ const CreateChannelForm = () => {
 
     };
 
-
-
     const data = await dispatch(createChannel(payload))
-
     if(data) setErrors(data.errors)
 
+    console.log("CHANNELS DATA", data)
 }
 const [show, setShow] = useState(false);
 
-return (
+return sessionUser.id ? (
 <>
     <div>
     <button className="ExpandChannelsBtn" onClick={() => setShow(!show)}>
@@ -47,7 +46,7 @@ return (
 
     <form className = "createChannel" onSubmit={handleSubmit}>
 
-     <div>
+     <div className='CreateChannelError'>
         {error && error.map((error,i)=>{
             return <div key={i}>{error}</div>
         })}
@@ -60,23 +59,14 @@ return (
         onChange={createName}
         />
 
-        {/* <input className='createChannelType'
-        type='text'
-        placeholder='Channel Type'
-        value ={3}
-        onChange={createType}
-        /> */}
     <button className= 'CreateChannelBttn' type="submit">Create New Channel</button>
 
     </form>
-
-
     }
-
     </div>
     </>
-)
-
+):
+null;
 }
 
 export default CreateChannelForm

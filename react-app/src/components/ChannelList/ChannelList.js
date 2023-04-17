@@ -1,15 +1,14 @@
 import { useState, useEffect, React } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Link, Route, useParams, useHistory } from 'react-router-dom';
-import { getChannel } from '../../store/channels';
+import { getChannel,deleteChannel} from '../../store/channels';
 import './ChannelList.css'
-import { deleteChannel } from '../../store/channels';
 import { changeRoom } from '../../store/channel';
 // import Modal from "../ChannelModal/ChannelModal";
 
 const ChannelBrowser = () => {
   const dispatch = useDispatch()
-  // const sessionUser = useSelector(state => state.session.user)
+  const sessionUser = useSelector((state) => state.session.user);
   function changeRoomHandler(room) {
     dispatch(changeRoom(room))
   }
@@ -18,6 +17,7 @@ const ChannelBrowser = () => {
   // const [modalOpen, setModalOpen] = useState(false);
 
   const RoomtypeChannel = []
+
 
 
   channelsArr.map((channel) => {
@@ -37,7 +37,7 @@ const ChannelBrowser = () => {
 
   const [show, setShow] = useState(false);
 
-  return (
+  return sessionUser.id ? (
     <div>
       {channelsobj &&
         <main className='ChannelListContainer'>
@@ -47,10 +47,6 @@ const ChannelBrowser = () => {
               <Link className='channelLink' key={channel.id} to={`/chat/${channel.id}`} onClick={() => changeRoomHandler(channel)}>
                 # {channel.name}
 
-
-
-
-
                 <button className="channelLinkexpandBtn" onClick={() => setShow(!show)}>
                   {show ? '...' : '...'}
                 </button>
@@ -58,23 +54,6 @@ const ChannelBrowser = () => {
                 {show &&
                   <button className='deleteChannelbtn' id={channel.id} onClick={(e) => deleteHandler(e.target.id)}>Leave</button>
                   }
-
-
-              {/* <div className="ChannelDetailModalContainer">
-          <button
-            className="openModalBtn"
-            onClick={() => {
-              setModalOpen(true);
-            }}
-          >
-            Details
-          </button>
-
-          {modalOpen && <Modal setOpenModal={setModalOpen} />}
-          </div> */}
-
-
-
 
               </Link>
 
@@ -88,7 +67,8 @@ const ChannelBrowser = () => {
       }
 
     </div>
-  )
+  ):
+  null;
 
 }
 

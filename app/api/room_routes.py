@@ -88,18 +88,15 @@ def UpdateChannel(id):
     updateChannel.type = formContent["type"]
     db.session.add(updateChannel)
     db.session.commit()
-
     return updateChannel.to_dict()
-
-
 
 @room_routes.route('/all/<id>', methods = ['DELETE'])
 def ChannelDelete(id):
-    print("HEY")
     channel = Room.query.get(id)
     db.session.delete(channel)
     db.session.commit()
-    return 'Successfully Deleted', 201
+    return channel.to_dict()
+
 
 @room_routes.route('/<id>/users')
 @login_required

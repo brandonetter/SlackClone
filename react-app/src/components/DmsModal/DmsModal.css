@@ -1,0 +1,70 @@
+.DmsModalContainer{
+    position:absolute;
+    background-color: #0e0e0e;
+    border-radius: 25px;
+    padding: 20px;
+    opacity: 0.9;
+}
+
+.editDmsExpand{
+    padding: 7x;
+    width: 100px;
+    background-color: #261f12;
+    color: #828184;
+    border: none;
+    padding: 10px;
+    margin: 7px;
+}
+
+.editDmsExpand:hover{
+    background-color: #252425;
+}
+
+.EditDmsName{
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    margin: 5px;
+    padding: 5px;
+}
+
+.UpdateDmsBttn{
+    padding: 7x;
+    width: 100px;
+    background-color: #261f12;
+    color: #828184;
+    border: none;
+    padding: 10px;
+    margin: 7px;
+}
+
+.UpdateDmsBttn:hover{
+    background-color: #252425;
+}
+
+.Dmsdetailclosebtn{
+    padding: 7x;
+    width: 100px;
+    background-color: #261f12;
+    color: #828184;
+    border: none;
+    padding: 10px;
+    margin: 7px;
+}
+
+.Dmsdetailclosebtn{
+    background-color: #252425;
+}
+
+.DmsXbttn{
+    padding: 15x;
+    width: 15px;
+    background-color: #261f12;
+    color: #828184;
+    border: none;
+    margin: 7px;
+}
+
+.DmsXbttn:hover{
+    background-color: #252425;
+}

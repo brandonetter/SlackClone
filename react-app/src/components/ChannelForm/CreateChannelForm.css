@@ -43,3 +43,8 @@
     margin: 5px;
     padding: 5px;
 }
+
+.CreateChannelError{
+    color: rgb(180, 73, 73);
+    padding: 5px;
+}
