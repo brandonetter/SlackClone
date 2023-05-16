@@ -14,7 +14,6 @@ Sluck is a Python and React project meant to emulate core functionality of the p
 
 ---
 
-[![render](https://img.shields.io/badge/Live%20Site-green?style=for-the-badge)](https://slackclone-m2ga.onrender.com/)
 
  The application is hosted on Render.com and can be accessed by clicking the `Live Site` Badge above
 
