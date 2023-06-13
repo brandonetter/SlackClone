@@ -81,3 +81,6 @@ This allowed me for the first time to not worry about z-index or layers or break
 
 ### Crud Features**
 The Slack-Clone project includes full CRUD features (which includes Create, Read, Update, Delete) for both the channels and the direct message portion of the page
+![image](https://github.com/brandonetter/SlackClone/assets/4108484/2d7a3da0-048d-41ce-8cec-a4f1e3d5b4f0)
+![image](https://github.com/brandonetter/SlackClone/assets/4108484/c293491f-6e85-43f8-9f7b-9291db803d93)
+![image](https://github.com/brandonetter/SlackClone/assets/4108484/7cd0ca0e-ced4-4af6-bce1-f9897bb2b45c)
